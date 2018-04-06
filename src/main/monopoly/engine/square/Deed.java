@@ -33,7 +33,7 @@ public class Deed extends Square{
 			if(owner.equals(player)) {
 				return;
 			}
-			player.payRent(calculateRent());
+			player.transfer(owner, calculateRent());
 		}
 	}
 	
@@ -42,6 +42,10 @@ public class Deed extends Square{
 			return rent[5];
 		}
 		return rent[numHouses];
+	}
+	
+	public Color getColor() {
+		return color;
 	}
 	
 	public Player getOwner() {
