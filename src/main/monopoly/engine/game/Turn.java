@@ -21,11 +21,11 @@ public class Turn {
 	
 	public void rollDice() {
 		//roll dice and move player 
-		
+		getDice();
+		board.movePiece(player, (diceValue[0] + diceValue[1]));
 	}
 	
 	private void getDice() {
-		//show graphic
 		Random r = new Random();
 		diceValue[0] = r.nextInt(6); diceValue[1] = r.nextInt(6);
 	}
@@ -42,11 +42,17 @@ public class Turn {
 	
 	public void endTurn() {
 		//set next player as current player
-	
+		player = monopoly.getNextPlayer(player);
 	}
 	
 	public boolean canRoll() {
 		//return true if dice are doubles or if dice are null
-		return true;
+		if(player.isJailed()) {
+			return false;
+		}
+		if(diceValue == null || (diceValue[0] == diceValue[1])) {
+			return true;
+		}
+		return false;
 	}
 }

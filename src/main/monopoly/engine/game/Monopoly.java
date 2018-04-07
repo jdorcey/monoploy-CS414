@@ -30,6 +30,15 @@ public class Monopoly implements Observer {
 
 	}
 	
+	public static void sendToJail(Player player) {
+		// pretty sure this shouldn't be static
+		
+	}
+	
+	public Player getNextPlayer(Player player) {
+		return players.get((players.indexOf(player) + 1) % players.size());
+	}
+
 	private void determineOrder() {
 		//do we need this?
 	}
