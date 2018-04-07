@@ -81,6 +81,8 @@ public class Board {
 	public void movePiece(Player current, int diceRoll) {
 		//move player's token around the board
 		currentLocations.replace(current, (currentLocations.get(current) + diceRoll) % board.length);
+		board[currentLocations.get(current)].performAction(current);
+		if(current.isJailed()) { currentLocations.replace(current, 10); }
 	}
 	
 }

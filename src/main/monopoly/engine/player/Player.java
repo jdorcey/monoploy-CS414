@@ -9,17 +9,20 @@ public class Player {
 	private enum TokenName{DOG, BATTLESHIP, CAR, HAT, IRON, THIMBLE, WHEELBARROW, MONEY_BAG, SHOE, COWBOY};
 	private Assets assets;
 	private TokenName token; 
+	private boolean isJailed;
 	
 	public Player(TokenName name) {
 		assets = new Assets(this);
 		token = name;
+		isJailed = false;
 	}
-
-	// Jenn need input on how you're going to interact with this
-	public void takeTurn() {
-		// roll dice
-		// buy/sell houses/hotel
-		// need input from the GUI
+	
+	public boolean isJailed() {
+		return isJailed;
+	}
+	
+	public void setJailed(boolean isJailed) {
+		this.isJailed = isJailed;
 	}
 	
 	// need to call trade on both players. only one player with money
@@ -35,8 +38,6 @@ public class Player {
 	public TokenName getToken() {
 		return token;
 	}
-	
-	
 	
 	public void transfer(Player other, int amount) {
 		deduct(amount);

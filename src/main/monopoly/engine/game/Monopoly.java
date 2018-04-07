@@ -12,17 +12,12 @@ public class Monopoly implements Observer {
 	private static Monopoly INSTANCE;
 	Board board;
 	ArrayList<Player> players;
-	//used to calculate rent on utilities
-	int currentRoll;
-	//used to check if same player rolls multiple doubles
-	Player currentPlayer;
+	
 	//we need a timer
 	
 	protected Monopoly() { 
 		players = new ArrayList<>();
 		board = new Board();
-		currentRoll = -1;
-		currentPlayer = null;
 	}
 
     public static Monopoly getInstance() {
@@ -33,11 +28,6 @@ public class Monopoly implements Observer {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-	}
-	
-	public static void sendToJail(Player player) {
-		// pretty sure this shouldn't be static
-		
 	}
 	
 	private void determineOrder() {
