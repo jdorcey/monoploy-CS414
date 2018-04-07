@@ -1,18 +1,20 @@
 package monopoly.engine.square;
 
-import java.util.LinkedList;
+import java.awt.List;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import monopoly.engine.player.Player;
 
 public class Color {
 	
 	public enum Type {PURPLE, RAILROAD, LIGHT_BLUE, PINK, ORANGE, RED, YELLOW, UTILITY, GREEN, BLUE};
-	private LinkedList<Deed> deeds;
+	private ArrayList<Deed> deeds;
 	private Type type;
 	private Integer houseCost;
 	
 	public Color(Type type, Integer houseCost) {
-		deeds = new LinkedList<>();
+		deeds = new ArrayList<>();
 		this.type = type;
 		this.houseCost = houseCost;
 	}
@@ -21,8 +23,8 @@ public class Color {
 		return this.type;
 	}
 	
-	public void addDeed(Deed newDeed) {
-		deeds.add(newDeed);
+	public void addDeeds(Collection<Deed> deeds) {
+		this.deeds.addAll(deeds);
 	}
 	
 	public boolean isMonopoly() {

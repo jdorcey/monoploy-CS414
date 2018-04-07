@@ -1,30 +1,57 @@
 package monopoly.engine.player;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Observable;
+import java.util.Observer;
 
 import monopoly.engine.square.Deed;
 
-public class Assets {
+public class Assets extends Observable {
 	private int money;
 	private LinkedList<Deed> deeds;
-	
-	public Assets() {
+	private Player owner;
+	private ArrayList<Object> observers = new ArrayList<>();
+
+	//need to add observers
+
+	public Assets(Player owner) {
 		money = 0;
 		deeds = new LinkedList<>();
+		this.owner = owner;
 	}
-	
+
+	public void addObserver(Observer o) {
+		observers.add(o);
+	}
+
+	@Override
+	public void notifyObservers() {
+		// loop through and notify each observer
+		Iterator<Object> i = observers.iterator();
+		while(i.hasNext()) {
+			Observer o = (Observer) i.next();
+			o.update(this, owner);
+		}
+	}
+
 	public int getMoney() {
 		return money;
 	}
 	
+	public LinkedList<Deed> getDeeds() {
+		return deeds;
+	}
+
 	public void addDeed(Deed deed) {
 		deeds.add(deed);
 	}
-	
+
 	public void removeDeed(Deed deed) {
 		deeds.remove(deed);
 	}
-	
+
 	public void deduct(int amount) {
 		money -= amount;
 		if (money < 0) {
@@ -34,7 +61,7 @@ public class Assets {
 				if(!current.isMortgaged())
 					bankrupt = false;
 			if(bankrupt) {
-				//game over
+				notifyObservers();
 			}
 			//GUI feedback
 		}
