@@ -37,7 +37,7 @@ public class Color {
 		}
 		return true;
 	}
-	public int numRailroadsOwned(Deed deed) {
+	public int numRailroadsorUtilitiesOwned(Deed deed) {
 		Player owner = deed.getOwner();
 		int count = 0;
 		for (Deed current: deeds) {

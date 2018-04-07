@@ -32,6 +32,12 @@ public class Player {
 		}
 	}
 	
+	public TokenName getToken() {
+		return token;
+	}
+	
+	
+	
 	public void transfer(Player other, int amount) {
 		deduct(amount);
 		other.deposit(amount);

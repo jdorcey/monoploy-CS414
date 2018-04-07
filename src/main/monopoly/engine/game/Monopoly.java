@@ -8,20 +8,27 @@ import java.util.Random;
 import monopoly.engine.player.Player;
 
 public class Monopoly implements Observer { 
+	
+	private static Monopoly INSTANCE;
 	Board board;
 	ArrayList<Player> players;
 	//used to calculate rent on utilities
 	int currentRoll;
 	//used to check if same player rolls multiple doubles
-	Player currentTurn;
+	Player currentPlayer;
 	//we need a timer
 	
-	public Monopoly () { //Singleton Instance?
-		board = new Board();
+	protected Monopoly() { 
 		players = new ArrayList<>();
+		board = new Board();
 		currentRoll = -1;
-		currentTurn = null;
+		currentPlayer = null;
 	}
+
+    public static Monopoly getInstance() {
+        if (INSTANCE != null) return INSTANCE;
+        else return new Monopoly();
+    }
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -41,16 +48,16 @@ public class Monopoly implements Observer {
 	}
 	
 	private void determineOrder() {
-		//determine order
-		for(Player p : players) {
-			p.getAssets().addObserver(this);
-		}
+		//do we need this?
 	}
 	
 	private void setUpGame() {
 		//prompt user to input number of players and choose tokens
 		Banker.initializePlayers(players);
-		determineOrder();
+		for(Player p : players) { 
+			board.getCurrentLocations().put(p, 0);
+			p.getAssets().addObserver(this); 
+		}
 	}
 	
 	private boolean gameOver() {

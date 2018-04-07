@@ -42,11 +42,14 @@ public class Deed extends Square{
 	}
 	
 	private int calculateRent() {
-		if(this.color.getType() == Color.Type.RAILROAD) { return rent[color.numRailroadsOwned(this)]; }
+		if(this.color.getType() == Color.Type.RAILROAD) { return rent[color.numRailroadsorUtilitiesOwned(this)]; }
 		if(this.color.getType() == Color.Type.UTILITY) {
-			//determine numUtilitiesOwned
-			//if 1, multiply dice roll by rent[0]
-			//if 2, multiply dice roll by rent[1]
+			int numOwned = color.numRailroadsorUtilitiesOwned(this);
+			switch(numOwned) {
+			//replace -1 with current dice roll
+			case 1: 	return rent[0] * -1;
+			case 2:		return rent[1] * -1; 
+			}
 		}
 		if (hasHotel) { return rent[5]; }
 		if(numHouses == 0 && color.isMonopoly()) { return rent[0] * 2; }
