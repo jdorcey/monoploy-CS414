@@ -17,7 +17,7 @@ public class Deed extends Square{
 	private Player owner;
 	private int numHouses;
 	private boolean hasHotel;
-	
+
 	public Deed(DeedName name, int purchasePrice, int[] rent, Color color) {
 		this.name = name;
 		this.purchasePrice = purchasePrice;
@@ -63,6 +63,10 @@ public class Deed extends Square{
 
 	public void setOwner(Player owner) {
 		this.owner = owner;
+	}
+	
+	public boolean isMortgaged() {
+		return false;
 	}
 
 	@Override

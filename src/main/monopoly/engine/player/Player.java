@@ -1,31 +1,58 @@
 package monopoly.engine.player;
 
+import java.util.LinkedList;
+
+import monopoly.engine.square.Deed;
+
 public class Player {
 	private Assets asset;
+	private Token token; 
 	
-	public Player() {
-		
+	
+	public Player(Token.Name name) {
+		asset = new Assets();
+		token = new Token(name);
 	}
 
+	// Jenn need input on how youre going to interact with this
 	public void takeTurn() {
 		// roll dice
 		// buy/sell houses/hotel
 		// need input from the GUI
 	}
 	
+	// need to call trade on both players. only one player with money
+	// if deeds not transferred use null
+	public void Trade(Player other, int money, LinkedList<Deed> deeds) { 
+		transfer(other, money);
+		for (Deed deed: deeds) {
+			removeDeed(deed);
+			other.addDeed(deed);
+		}
+	}
+	
 	public void transfer(Player other, int amount) {
-		// deduct the amount of money from this account
-		// deposit amount to other player's account
-		
+		deduct(amount);
+		other.deposit(amount);
 	}
 	
 	public void deduct(int amount) {
-		//remove amount from player's account
-		
+		asset.deduct(amount);
 	}
 	
 	public void deposit(int amount) {
-		//add amount to player's account
-		
+		asset.deposit(amount);
+	}
+	
+	public void addDeed(Deed deed) {
+		asset.addDeed(deed);
+	}
+	
+	public void removeDeed(Deed deed) {
+		asset.removeDeed(deed);
+	}
+	
+	public int getMoney() {
+		return asset.getMoney();
 	}
 }

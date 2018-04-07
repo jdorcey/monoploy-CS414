@@ -14,20 +14,24 @@ public class Banker {
 		//TODO Prompt User for buy or auction
 	}
 	public static void go(Player player) {
-		// add $200 dollars to player assets for passing go
-		
+		player.deposit(200);
 	}
 	public static void luxuryTax(Player player) {
-		// deduct $100 from the player account
-		
+		player.deduct(100);
 	}
 	public static void incomeTax(Player player) {
 		// deduct $200 or 10% from the player account
-		
+		int money = player.getMoney();
+		if (money/10 < 200) {
+			player.deduct(money/10);
+		}else {
+			player.deduct(200);
+		}
 	}
 	public static void initializePlayers(ArrayList<Player> players) {
-		// add the initial amount of money into each player's account
-		
+		for(Player player : players) {
+			player.deposit(1500); //players start with 1500
+		}
 	}
 
 }
