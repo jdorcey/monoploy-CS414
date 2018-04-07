@@ -13,14 +13,14 @@ public class NonDeed extends Square {
 	
 	public void performAction(Player player) {
 		switch(this.type) {
-		case GO: 				    Banker.go(player);				break;
-        case JUST_VISITING_JAIL: 	                                break; //do nothing
-		case GO_TO_JAIL: 		    //Monopoly.sendToJail(player); 	break;
-        case FREE_PARKING: 			                                break; //do nothing
-		case COMMUNITY_CHEST: 									    break;
-		case CHANCE: 											    break;
-		case INCOME_TAX: 		    Banker.incomeTax(player); 		break;
-		case LUXURY_TAX:		    Banker.luxuryTax(player);		break;
+		case GO: 					Banker.go(player);			break;
+        case JUST_VISITING_JAIL:    					 		break; //do nothing
+		case GO_TO_JAIL: 	  		player.setJailed(true); 	break;
+        case FREE_PARKING: 			                            break; //do nothing
+		case COMMUNITY_CHEST: 									break;
+		case CHANCE: 											break;
+		case INCOME_TAX: 		   	Banker.incomeTax(player); 	break;
+		case LUXURY_TAX:		   	Banker.luxuryTax(player);	break;
 		}
 	}
 

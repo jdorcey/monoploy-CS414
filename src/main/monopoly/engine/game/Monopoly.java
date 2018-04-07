@@ -4,6 +4,8 @@ import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
+import java.util.TreeMap;
 import java.util.Timer;
 
 import monopoly.engine.player.Player;
@@ -15,8 +17,8 @@ public class Monopoly implements Observer {
 	private ArrayList<Player> players;
 	private Player winner;
 	private Clock clock;
-	private long time; private long gameLength;
-	//we need a timer
+	private long time; 
+  private long gameLength;
 	
 	protected Monopoly() { 
 		players = new ArrayList<>();
@@ -25,7 +27,7 @@ public class Monopoly implements Observer {
 		time = clock.millis();
 		gameLength = 60; //one minute
 	}
-
+	
     public static Monopoly getInstance() {
         if (INSTANCE != null) return INSTANCE;
         else return new Monopoly();
@@ -33,7 +35,6 @@ public class Monopoly implements Observer {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
 	}
 	
 	public Player getNextPlayer(Player player) {
@@ -41,12 +42,26 @@ public class Monopoly implements Observer {
 	}
 
 	private void determineOrder() {
-		//do we need this?
+		TreeMap<Integer, Player> order = new TreeMap<>();
+		Random r = new Random();
+		for(Player p : players) {
+			Integer roll = r.nextInt(6) + r.nextInt(6);
+			while(order.containsKey(roll)) {
+				Player otherPlayer = order.get(roll);
+				order.remove(roll);
+				order.put(r.nextInt(6) + r.nextInt(6), otherPlayer);
+				roll = r.nextInt(6) + r.nextInt(6);
+			}
+			order.put(roll, p);
+		}
+		players.clear();
+		players.addAll(order.values());
 	}
 	
 	private void setUpGame() {
 		//prompt user to input number of players and choose tokens
 		Banker.initializePlayers(players);
+		determineOrder();
 		for(Player p : players) { 
 			board.getCurrentLocations().put(p, 0);
 			p.getAssets().addObserver(this); 

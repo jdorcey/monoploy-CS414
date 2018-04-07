@@ -49,6 +49,14 @@ public class Assets extends Observable {
 	public void removeDeed(Deed deed) {
 		deeds.remove(deed);
 	}
+	
+	public int getNetWorth() {
+		int mortgageValues = 0;
+		for(Deed deed : deeds) {
+			mortgageValues += deed.getMortgageValue();
+		}
+		return money + mortgageValues;
+	}
 
 	public void deduct(int amount) {
 		money -= amount;

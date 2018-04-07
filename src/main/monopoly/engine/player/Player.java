@@ -25,6 +25,10 @@ public class Player {
 		this.isJailed = isJailed;
 	}
 	
+	public int getNetWorth() {
+		return assets.getNetWorth();
+	}
+	
 	// need to call trade on both players. only one player with money
 	// if deeds not transferred use null
 	public void trade(Player other, int money, LinkedList<Deed> deeds) { 
