@@ -8,13 +8,12 @@ public class Player {
 	private Assets asset;
 	private Token token; 
 	
-	
 	public Player(Token.Name name) {
-		asset = new Assets();
+		asset = new Assets(this);
 		token = new Token(name);
 	}
 
-	// Jenn need input on how youre going to interact with this
+	// Jenn need input on how you're going to interact with this
 	public void takeTurn() {
 		// roll dice
 		// buy/sell houses/hotel
@@ -23,7 +22,7 @@ public class Player {
 	
 	// need to call trade on both players. only one player with money
 	// if deeds not transferred use null
-	public void Trade(Player other, int money, LinkedList<Deed> deeds) { 
+	public void trade(Player other, int money, LinkedList<Deed> deeds) { 
 		transfer(other, money);
 		for (Deed deed: deeds) {
 			removeDeed(deed);
