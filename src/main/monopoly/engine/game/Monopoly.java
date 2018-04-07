@@ -35,13 +35,6 @@ public class Monopoly implements Observer {
 
 	}
 	
-	public int rollDice() {
-		//show graphic
-		Random r = new Random();
-		int one = r.nextInt(6); int two = r.nextInt(6);
-		return one + two;
-	}
-	
 	public static void sendToJail(Player player) {
 		// pretty sure this shouldn't be static
 		
