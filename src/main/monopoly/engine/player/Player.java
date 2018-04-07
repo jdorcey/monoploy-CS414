@@ -5,12 +5,14 @@ import java.util.LinkedList;
 import monopoly.engine.square.Deed;
 
 public class Player {
-	private Assets assets;
-	private Token token; 
 	
-	public Player(Token.Name name) {
+	private enum TokenName{DOG, BATTLESHIP, CAR, HAT, IRON, THIMBLE, WHEELBARROW, MONEY_BAG, SHOE, COWBOY};
+	private Assets assets;
+	private TokenName token; 
+	
+	public Player(TokenName name) {
 		assets = new Assets(this);
-		token = new Token(name);
+		token = name;
 	}
 
 	// Jenn need input on how you're going to interact with this
