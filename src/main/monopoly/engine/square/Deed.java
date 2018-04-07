@@ -73,7 +73,7 @@ public class Deed extends Square{
 	public String getName() {
 		switch(this.name) {
 		case ATLANTIC_AVENUE:		return "Atlantic Avenue";
-		case B_AND_O_RAILROAD:		return "B & O Railroad";
+		case B_AND_O_RAILROAD:		return "B. & O. Railroad";
 		case BALTIC_AVENUE:			return "Baltic Avenue";
 		case BOARDWALK:				return "Boardwalk";
 		case CONNECTICUT_AVENUE:	return "Connecticut Avenue";
