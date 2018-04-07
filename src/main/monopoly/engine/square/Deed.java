@@ -9,22 +9,26 @@ public class Deed extends Square{
 		PENNSYLVANIA_AVENUE, PENNSYLVANIA_RAILROAD, READING_RAILROAD, SHORT_LINE, STCHARLES_PLACE, STJAMES_PLACE, STATES_AVENUE, TENNESSEE_AVENUE, 
 		VENTNOR_AVENUE, VERMONT_AVENUE, VIRGINIA_AVENUE, WATER_WORKS};
 	
+	private DeedName name;
+	private int purchasePrice;
+	private int mortgageValue;
 	private int[] rent;
 	private Color color;
 	private Player owner;
-	private DeedName name;
 	private int numHouses;
 	private boolean hasHotel;
 	
-	public Deed(DeedName name, int[] rent, Color color) {
+	public Deed(DeedName name, int purchasePrice, int[] rent, Color color) {
 		this.name = name;
+		this.purchasePrice = purchasePrice;
+		this.mortgageValue = purchasePrice / 2;
 		this.rent = rent;
 		this.color = color;
-		owner = null;
-		numHouses = 0;
-		hasHotel = false;
+		this.owner = null;
+		this.numHouses = 0;
+		this.hasHotel = false;
 	}
-
+	
 	@Override
 	public void performAction(Player player) {
 		if (owner == null) {
@@ -38,9 +42,14 @@ public class Deed extends Square{
 	}
 	
 	private int calculateRent() {
-		if (hasHotel) {
-			return rent[5];
+		if(this.color.getType() == Color.Type.RAILROAD) { return rent[color.numRailroadsOwned(this)]; }
+		if(this.color.getType() == Color.Type.UTILITY) {
+			//determine numUtilitiesOwned
+			//if 1, multiply dice roll by rent[0]
+			//if 2, multiply dice roll by rent[1]
 		}
+		if (hasHotel) { return rent[5]; }
+		if(numHouses == 0 && color.isMonopoly()) { return rent[0] * 2; }
 		return rent[numHouses];
 	}
 	
@@ -54,7 +63,36 @@ public class Deed extends Square{
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
+		switch(this.name) {
+		case ATLANTIC_AVENUE:		return "Atlantic Avenue";
+		case B_AND_O_RAILROAD:		return "B & O Railroad";
+		case BALTIC_AVENUE:			return "Baltic Avenue";
+		case BOARDWALK:				return "Boardwalk";
+		case CONNECTICUT_AVENUE:	return "Connecticut Avenue";
+		case ELECTRIC_COMPANY:		return "Electric Company";
+		case ILLINOIS_AVENUE:		return "Illinois Avenue";
+		case INDIANA_AVENUE:		return "Indiana Avenue";
+		case KENTUCKY_AVENUE:		return "Kentucky Avenue";
+		case MARVIN_GARDENS:		return "Marvin Gardens";
+		case MEDITERRANEAN_AVENUE:	return "Mediterranean Avenue";
+		case NEW_YORK_AVENUE:		return "New York Avenue";
+		case NORTH_CAROLINA_AVENUE:	return "North Carolina Avenue";
+		case ORIENTAL_AVENUE:		return "Oriental Avenue";
+		case PACIFIC_AVENUE:		return "Pacific Avenue";
+		case PARK_PLACE:			return "Park Place";
+		case PENNSYLVANIA_AVENUE:	return "Pennsylvania Avenue";
+		case PENNSYLVANIA_RAILROAD:	return "Pennsylvania Railroad";
+		case READING_RAILROAD:		return "Reading Railroad";
+		case SHORT_LINE: 			return "Short Line";
+		case STCHARLES_PLACE:		return "St. Charles Place";
+		case STJAMES_PLACE:			return "St. James Place";
+		case STATES_AVENUE:			return "States Avenue";
+		case TENNESSEE_AVENUE:		return "Tennessee Avenue";
+		case VENTNOR_AVENUE:		return "Ventnor Avenue";
+		case VERMONT_AVENUE:		return "Vermont Avenue";
+		case VIRGINIA_AVENUE:		return "Virginia Avenue";
+		case WATER_WORKS:			return "Water Works";
+		}
 		return null;
 	}
 }

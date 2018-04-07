@@ -5,13 +5,20 @@ import java.util.LinkedList;
 import monopoly.engine.player.Player;
 
 public class Color {
-	public enum Type {PURPLE, RAILROAD, LIGHT_BLUE, PINK, ORANGE, RED, YELLOW, UTILITY, GREEN, BLUE};
 	
+	public enum Type {PURPLE, RAILROAD, LIGHT_BLUE, PINK, ORANGE, RED, YELLOW, UTILITY, GREEN, BLUE};
 	private LinkedList<Deed> deeds;
 	private Type type;
-	public Color(Type type) {
+	private Integer houseCost;
+	
+	public Color(Type type, Integer houseCost) {
 		deeds = new LinkedList<>();
 		this.type = type;
+		this.houseCost = houseCost;
+	}
+	
+	public Type getType() {
+		return this.type;
 	}
 	
 	public void addDeed(Deed newDeed) {
@@ -27,5 +34,14 @@ public class Color {
 				return false;
 		}
 		return true;
+	}
+	public int numRailroadsOwned(Deed deed) {
+		Player owner = deed.getOwner();
+		int count = 0;
+		for (Deed current: deeds) {
+			if(current.getOwner().equals(owner))
+				count++;
+		}
+		return count - 1;
 	}
 }
