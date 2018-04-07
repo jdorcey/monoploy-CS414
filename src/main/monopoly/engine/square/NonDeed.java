@@ -1,5 +1,7 @@
 package monopoly.engine.square;
 
+import monopoly.engine.game.Banker;
+import monopoly.engine.game.Monopoly;
 import monopoly.engine.player.Player;
 
 public class NonDeed extends Square {
@@ -11,14 +13,14 @@ public class NonDeed extends Square {
 	
 	public void performAction(Player player) {
 		switch(this.type) {
-		case GO: 					break; //Banker.go(player);
-		case JUST_VISITING_JAIL: 	break; //do nothing
-		case GO_TO_JAIL: 			break; //player.setJailedState(true);
-		case FREE_PARKING: 			break; //do nothing
-		case COMMUNITY_CHEST: 		break;
-		case CHANCE: 				break;
-		case INCOME_TAX: 			break; //Banker.incomeTax(player);
-		case LUXURY_TAX:			break; //Banker.luxuryTax(player);
+		case GO: 				    Banker.go(player);				break;
+        case JUST_VISITING_JAIL: 	                                break; //do nothing
+		case GO_TO_JAIL: 		    Monopoly.sendToJail(player); 	break;
+        case FREE_PARKING: 			                                break; //do nothing
+		case COMMUNITY_CHEST: 									    break;
+		case CHANCE: 											    break;
+		case INCOME_TAX: 		    Banker.incomeTax(player); 		break;
+		case LUXURY_TAX:		    Banker.luxuryTax(player);		break;
 		}
 	}
 

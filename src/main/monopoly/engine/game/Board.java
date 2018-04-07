@@ -2,6 +2,7 @@ package monopoly.engine.game;
 
 import monopoly.engine.player.Player;
 import monopoly.engine.square.*;
+import java.util.Random;
 
 public class Board {
 	
@@ -40,4 +41,15 @@ public class Board {
 		//need to add deeds to Colors' deedlists
 	}
 
+	
+	public void movePiece(Player player) {
+		//move player's token around the board
+	}
+	
+	public int rollDice() {
+		//show graphic
+		Random r = new Random();
+		int one = r.nextInt(6); int two = r.nextInt(6);
+		return one + two;
+	}
 }
