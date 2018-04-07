@@ -1,23 +1,29 @@
 package monopoly.engine.game;
 
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Random;
+import java.util.Timer;
 
 import monopoly.engine.player.Player;
 
 public class Monopoly implements Observer { 
 	
 	private static Monopoly INSTANCE;
-	Board board;
-	ArrayList<Player> players;
-	
+	private Board board;
+	private ArrayList<Player> players;
+	private Player winner;
+	private Clock clock;
+	private long time; private long gameLength;
 	//we need a timer
 	
 	protected Monopoly() { 
 		players = new ArrayList<>();
 		board = new Board();
+		clock = Clock.systemDefaultZone();
+		time = clock.millis();
+		gameLength = 60; //one minute
 	}
 
     public static Monopoly getInstance() {
@@ -28,11 +34,6 @@ public class Monopoly implements Observer {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-	}
-	
-	public static void sendToJail(Player player) {
-		// pretty sure this shouldn't be static
-		
 	}
 	
 	public Player getNextPlayer(Player player) {
@@ -52,8 +53,23 @@ public class Monopoly implements Observer {
 		}
 	}
 	
+	private Player winner() {
+		int highest = 0;
+		for (Player player: players) {
+			if(player.getNetWorth() > highest)
+				winner = player;
+		}
+		return winner;
+	}
+	
 	private boolean gameOver() {
 		//check if timer is out of time? or players.size() == 1 then return true;
+		if (players.size() == 1) {
+			return true;
+		}
+		if (clock.millis() - time >= gameLength * 1000) { //has the game exceeded its play time
+			return true;
+		}
 		return false;
 	}
 	
@@ -62,5 +78,6 @@ public class Monopoly implements Observer {
 		switch(o.getClass().getName()) {
 			case "Assets": 		players.remove(arg);	break;
 		}
+		gameOver();
 	}
 }
