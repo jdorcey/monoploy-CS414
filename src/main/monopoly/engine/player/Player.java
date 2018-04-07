@@ -5,11 +5,11 @@ import java.util.LinkedList;
 import monopoly.engine.square.Deed;
 
 public class Player {
-	private Assets asset;
+	private Assets assets;
 	private Token token; 
 	
 	public Player(Token.Name name) {
-		asset = new Assets(this);
+		assets = new Assets(this);
 		token = new Token(name);
 	}
 
@@ -36,22 +36,30 @@ public class Player {
 	}
 	
 	public void deduct(int amount) {
-		asset.deduct(amount);
+		assets.deduct(amount);
 	}
 	
 	public void deposit(int amount) {
-		asset.deposit(amount);
+		assets.deposit(amount);
 	}
 	
 	public void addDeed(Deed deed) {
-		asset.addDeed(deed);
+		assets.addDeed(deed);
 	}
 	
 	public void removeDeed(Deed deed) {
-		asset.removeDeed(deed);
+		assets.removeDeed(deed);
+	}
+	
+	public Assets getAssets() {
+		return assets;
+	}
+	
+	public LinkedList<Deed> getDeeds() {
+		return assets.getDeeds();
 	}
 	
 	public int getMoney() {
-		return asset.getMoney();
+		return assets.getMoney();
 	}
 }

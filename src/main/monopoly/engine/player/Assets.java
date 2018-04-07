@@ -39,6 +39,10 @@ public class Assets extends Observable {
 	public int getMoney() {
 		return money;
 	}
+	
+	public LinkedList<Deed> getDeeds() {
+		return deeds;
+	}
 
 	public void addDeed(Deed deed) {
 		deeds.add(deed);

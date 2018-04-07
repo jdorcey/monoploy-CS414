@@ -41,7 +41,10 @@ public class Monopoly implements Observer {
 	}
 	
 	private void determineOrder() {
-		
+		//determine order
+		for(Player p : players) {
+			p.getAssets().addObserver(this);
+		}
 	}
 	
 	private void setUpGame() {
