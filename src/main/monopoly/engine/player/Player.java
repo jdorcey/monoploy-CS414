@@ -75,8 +75,4 @@ public class Player {
 	public int getMoney() {
 		return assets.getMoney();
 	}
-	
-	public int getNetWorth() {
-		return 0;
-	}
 }
