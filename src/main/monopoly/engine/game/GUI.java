@@ -4,8 +4,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -16,238 +21,173 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import monopoly.engine.player.Player;
 
 public class GUI {
 	private JFrame frame;
 	
-	private JLayeredPane freePark;
-	private JLayeredPane justVisit;
-	private JLayeredPane goJail;
-	private JLayeredPane pGo;
-	private JLayeredPane nyAve;
-	private JLayeredPane tennAve;
-	private JLayeredPane commChestL;
-	private JLayeredPane stJamesPl;
-	private JLayeredPane pennRR;
-	private JLayeredPane virginiaAve;
-	private JLayeredPane statesAve;
-	private JLayeredPane electricComp;
-	private JLayeredPane stCharlesPl;
-	private JLayeredPane kentuckyAve;
-	private JLayeredPane chanceU;
-	private JLayeredPane indianaAve;
-	private JLayeredPane illinoisAve;
-	private JLayeredPane boRR;
-	private JLayeredPane atlanticAve;
-	private JLayeredPane ventnorAve;
-	private JLayeredPane waterWorks;
-	private JLayeredPane marvinGards;
-	private JLayeredPane pacificAve;
-	private JLayeredPane northCarolinaAve;
-	private JLayeredPane comChestR;
-	private JLayeredPane pennAve;
-	private JLayeredPane shortLRR;
-	private JLayeredPane chanceR;
-	private JLayeredPane parkPl;
-	private JLayeredPane luxTax;
-	private JLayeredPane bdwalk;
-	private JLayeredPane connAve;
-	private JLayeredPane vermontAve;
-	private JLayeredPane chanceBot;
-	private JLayeredPane orientalAve;
-	private JLayeredPane readingRR;
-	private JLayeredPane inTax;
-	private JLayeredPane balticAve;
-	private JLayeredPane comChestBot;
-	private JLayeredPane medAve;
-	private JLayeredPane player1;
-	private JLayeredPane player2;
-	private JLayeredPane player3;
-	private JLayeredPane player4;
+	private JLayeredPane freePark = new JLayeredPane();
+	private JLayeredPane justVisit = new JLayeredPane();
+	private JLayeredPane goJail = new JLayeredPane();
+	private JLayeredPane pGo = new JLayeredPane();
+	private JLayeredPane nyAve = new JLayeredPane();
+	private JLayeredPane tennAve = new JLayeredPane();
+	private JLayeredPane commChestL = new JLayeredPane();
+	private JLayeredPane stJamesPl = new JLayeredPane();
+	private JLayeredPane pennRR = new JLayeredPane();
+	private JLayeredPane virginiaAve = new JLayeredPane();
+	private JLayeredPane statesAve = new JLayeredPane();
+	private JLayeredPane electricComp = new JLayeredPane();
+	private JLayeredPane stCharlesPl = new JLayeredPane();
+	private JLayeredPane kentuckyAve = new JLayeredPane();
+	private JLayeredPane chanceU = new JLayeredPane();
+	private JLayeredPane indianaAve = new JLayeredPane();
+	private JLayeredPane illinoisAve = new JLayeredPane();
+	private JLayeredPane boRR = new JLayeredPane();
+	private JLayeredPane atlanticAve = new JLayeredPane();
+	private JLayeredPane ventnorAve = new JLayeredPane();
+	private JLayeredPane waterWorks = new JLayeredPane();
+	private JLayeredPane marvinGards = new JLayeredPane();
+	private JLayeredPane pacificAve = new JLayeredPane();
+	private JLayeredPane northCarolinaAve = new JLayeredPane();
+	private JLayeredPane commChestR = new JLayeredPane();
+	private JLayeredPane pennAve = new JLayeredPane();
+	private JLayeredPane shortLRR = new JLayeredPane();
+	private JLayeredPane chanceR = new JLayeredPane();
+	private JLayeredPane parkPl = new JLayeredPane();
+	private JLayeredPane luxTax = new JLayeredPane();
+	private JLayeredPane bdwalk = new JLayeredPane();
+	private JLayeredPane connAve = new JLayeredPane();
+	private JLayeredPane vermontAve = new JLayeredPane();
+	private JLayeredPane chanceBot = new JLayeredPane();
+	private JLayeredPane orientalAve = new JLayeredPane();
+	private JLayeredPane readingRR = new JLayeredPane();
+	private JLayeredPane inTax = new JLayeredPane();
+	private JLayeredPane balticAve = new JLayeredPane();
+	private JLayeredPane commChestB = new JLayeredPane();
+	private JLayeredPane medAve = new JLayeredPane();
+	private JLayeredPane p1 = new JLayeredPane();
+	private JLayeredPane p2 = new JLayeredPane();
+	private JLayeredPane p3 = new JLayeredPane();
+	private JLayeredPane p4 = new JLayeredPane();
+	
+	private JLabel passGo = new JLabel();
+	private JLabel connAvenue = new JLabel();
+	private JLabel vermontAvenue = new JLabel();
+	private JLabel chanceBottom = new JLabel();
+	private JLabel orientalAvenue = new JLabel();
+	private JLabel readingRailroad = new JLabel();
+	private JLabel incomeTax = new JLabel();
+	private JLabel balticAvenue = new JLabel();
+	private JLabel commChestBottom = new JLabel();
+	private JLabel mediterraneanAvenue = new JLabel();
+	private JLabel justVisiting = new JLabel();
+	private JLabel nyAvenue = new JLabel();
+	private JLabel tennAvenue = new JLabel();
+	private JLabel commChestLeft = new JLabel();
+	private JLabel stJamesPlace = new JLabel();
+	private JLabel pennRailroad = new JLabel();
+	private JLabel virginiaAvenue = new JLabel();
+	private JLabel statesAvenue = new JLabel();
+	private JLabel electricCompanyUtil = new JLabel();
+	private JLabel stCharlesPlace = new JLabel();
+	private JLabel freeParking = new JLabel();
+	private JLabel kentuckyAvenue = new JLabel();
+	private JLabel chanceUp = new JLabel();
+	private JLabel indianaAvenue = new JLabel();
+	private JLabel illinoisAvenue = new JLabel();
+	private JLabel boRailroad = new JLabel();
+	private JLabel atlanticAvenue = new JLabel();
+	private JLabel ventnorAvenue = new JLabel();
+	private JLabel waterWorksUtil = new JLabel();
+	private JLabel marvinGardens = new JLabel();
+	private JLabel gotoJail = new JLabel();
+	private JLabel pacificAvenue = new JLabel();
+	private JLabel northCarolinaAvenue = new JLabel();
+	private JLabel commChestRight = new JLabel();
+	private JLabel pennAvenue = new JLabel();
+	private JLabel shortLineRailroad = new JLabel();
+	private JLabel chanceRi = new JLabel();
+	private JLabel parkPlace = new JLabel();
+	private JLabel luxuryTax = new JLabel();
+	private JLabel boardwalk = new JLabel();
+	
+	private JButton communityChestButton = new JButton();
+	private JButton chanceButton = new JButton();
+	private JButton rollDiceButton = new JButton("Roll Dice");
+	private JButton buyButton = new JButton("Buy Properties");
+	private JButton sellButton = new JButton("Sell Properties");
+	private JButton tradeButton = new JButton("Trade");
+	private JButton auctionButton = new JButton("Auction");
+	private JButton fileBankruptcyButton = new JButton("File Bankruptcy");
+	private JButton addPlayer1 = new JButton("Add Player");
+	private JButton addPlayer2 = new JButton("Add Player");
+	private JButton addPlayer3 = new JButton("Add Player");
+	private JButton addPlayer4 = new JButton("Add Player");
+	private JButton player1Token = new JButton();
+	private JButton player2Token = new JButton();
+	private JButton player3Token = new JButton();
+	private JButton player4Token = new JButton();
 
-	private int frameHeight;
-	
-	private JButton communityChest;
-	private JButton chanceButton;
-	private JButton rollDiceButton;
-	private JButton buyButton;
-	private JButton sellButton;
-	private JButton tradeButton;
-	private JButton auctionButton;
-	private JButton fileBankruptcyButton;
-	
-	private JLabel passGo;
-	private JLabel connAvenue;
-	private JLabel vermontAvenue;
-	private JLabel chanceBottom;
-	private JLabel orientalAvenue;
-	private JLabel readingRailroad;
-	private JLabel incomeTax;
-	private JLabel balticAvenue;
-	private JLabel comChestBottom;
-	private JLabel mediterraneanAvenue;
-	private JLabel justVisiting;
-	private JLabel nyAvenue;
-	private JLabel tennAvenue;
-	private JLabel commChestLe;
-	private JLabel stJamesPlace;
-	private JLabel pennRailroad;
-	private JLabel virginiaAvenue;
-	private JLabel statesAvenue;
-	private JLabel electricCompanyUtil;
-	private JLabel stCharlesPlace;
-	private JLabel freeParking;
-	private JLabel kentuckyAvenue;
-	private JLabel chanceUp;
-	private JLabel indianaAvenue;
-	private JLabel illinoisAvenue;
-	private JLabel boRailroad;
-	private JLabel atlanticAvenue;
-	private JLabel ventnorAvenue;
-	private JLabel waterWorksUtil;
-	private JLabel marvinGardens;
-	private JLabel gotoJail;
-	private JLabel pacificAvenue;
-	private JLabel northCarolinaAvenue;
-	private JLabel comChestRight;
-	private JLabel pennAvenue;
-	private JLabel shortLineRailroad;
-	private JLabel chanceRi;
-	private JLabel parkPlace;
-	private JLabel luxuryTax;
-	private JLabel boardwalk;
-	
+	private ArrayList<JLayeredPane> playersPanels;
 	private ArrayList<JLayeredPane> boardPanels;
 	private int frameWidth;
+	private int frameHeight;
 
 	/**
-	 * Create main frame.
+	 * GUI constructor to create the main frame
 	 */
 	public GUI() {
-		boardPanels = new ArrayList<JLayeredPane>();		
+		boardPanels = new ArrayList<JLayeredPane>();	
+		playersPanels = new ArrayList<JLayeredPane>();
+
 		initialize();
 	}
-
+	
 	/**
-	 * Initialize game frame.
+	 * Set board squares
 	 */
-	private void initialize() {
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		FlowLayout flow = new FlowLayout();
-		flow.setHgap(0);
-		flow.setVgap(0);
-		frame = new JFrame("T13 Monopoly Game CS414");
-		frame.setLayout(flow);
-		frame.getContentPane().setBackground(new Color(212, 252, 228));
-		//frame.setForeground(new Color(200, 191, 231));
-		//frame.setBackground(new Color(255, 174, 201));
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		frame.setSize(screenSize);
-		frame.setResizable(false);
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frameHeight = frame.getHeight() - 40;
-		frameWidth = frame.getWidth();
-		
-		//left side of board
-		nyAve = new JLayeredPane();
+	private void setSquare(JLabel square, String imgJPG) {
+		try {
+			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/" + imgJPG + ".jpg"));
+			square.setIcon(new ImageIcon(img));
+		} catch (IOException ex) {
+			System.out.println("ERROR: Unable to set " + square + "image.");
+		}
+	}
+	
+	/**
+	 * Set Buttons on Board
+	 */
+	private void setButton(JButton button, String imgJPG) {
+		try {
+			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/" + imgJPG + ".jpg"));
+			button.setIcon(new ImageIcon(img));
+		} catch (IOException ex) {
+			System.out.println("ERROR: Unable to set " + button + "image.");
+		}
+		button.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		button.setBorderPainted(false);
+		button.setContentAreaFilled(false);
+	}
+	
+	private void setLeftSquares() {
 		nyAve.setBounds(10, (int) (frameHeight / 11.5), (int) (frameHeight / .451), (int) (frameHeight / 13));
-		tennAve = new JLayeredPane();
 		tennAve.setBounds(0, (int) (frameHeight / 6.7), (int) (frameHeight / .4491), (int) (frameHeight / 13));
-		commChestL = new JLayeredPane();
 		commChestL.setBounds(0, (int) (frameHeight / 4.72), (int) (frameHeight / .4491), (int) (frameHeight / 13));
-		stJamesPl = new JLayeredPane();
 		stJamesPl.setBounds(0, (int) (frameHeight / 3.65), (int) (frameHeight / .4491), (int) (frameHeight / 13));
-		pennRR = new JLayeredPane();
 		pennRR.setBounds(0, (int) (frameHeight / 3), (int) (frameHeight / .4491), (int) (frameHeight / 13));
-		virginiaAve = new JLayeredPane();
 		virginiaAve.setBounds(0, (int) (frameHeight / 2.52), (int) (frameHeight / .4491), (int) (frameHeight / 13));
-		statesAve = new JLayeredPane();
 		statesAve.setBounds(0, (int) (frameHeight / 2.17435), (int) (frameHeight / .4491), (int) (frameHeight / 13));
-		electricComp = new JLayeredPane();
 		electricComp.setBounds(0, (int) (frameHeight / 1.911), (int) (frameHeight / .4491), (int) (frameHeight / 13));
-		stCharlesPl = new JLayeredPane();
 		stCharlesPl.setBounds(0, (int) (frameHeight / 1.705), (int) (frameHeight / .4491), (int) (frameHeight / 9));
-		justVisit = new JLayeredPane();
 		justVisit.setBounds(0, (int) (frameHeight / 1.54), (int) (frameHeight / .4491), (int) (frameHeight / 6.5));
-		
-		//upper side of board
-		freePark = new JLayeredPane();
-		freePark.setBounds(5, 3, (int) (frameHeight / .45), (int) (frameHeight / 6.5));
-		kentuckyAve = new JLayeredPane();
-		kentuckyAve.setBounds((int) (frameHeight / 6.5), 0, (int) (frameHeight / .484), (int) (frameHeight / 6.5));
-		chanceU = new JLayeredPane();
-		chanceU.setBounds((int) (frameHeight / 6.5 * 1.5), 0, (int) (frameHeight / .492), (int) (frameHeight / 6.5));
-		indianaAve = new JLayeredPane();
-		indianaAve.setBounds((int) (frameHeight / 6.5 * 2), 0, (int) (frameHeight / .5), (int) (frameHeight / 6.5));
-		illinoisAve = new JLayeredPane();
-		illinoisAve.setBounds((int) (frameHeight / 6.5 * 2.5), 0, (int) (frameHeight / .508), (int) (frameHeight / 6.5));
-		boRR = new JLayeredPane();
-		boRR.setBounds((int) (frameHeight / 6.5 * 3), 0, (int) (frameHeight / .516), (int) (frameHeight / 6.5));
-		atlanticAve = new JLayeredPane();
-		atlanticAve.setBounds((int) (frameHeight / 6.5 * 3.5), 0, (int) (frameHeight / .524), (int) (frameHeight / 6.5));
-		ventnorAve = new JLayeredPane();
-		ventnorAve.setBounds((int) (frameHeight / 6.5 * 4), 0, (int) (frameHeight / .532), (int) (frameHeight / 6.5));
-		waterWorks = new JLayeredPane();
-		waterWorks.setBounds((int) (frameHeight / 6.5 * 4.5), 0, (int) (frameHeight / .54), (int) (frameHeight / 6.5));
-		marvinGards = new JLayeredPane();
-		marvinGards.setBounds((int) (frameHeight / 6.5 * 5), 0, (int) (frameHeight /.548), (int) (frameHeight / 6.5));
-		
-		//right side of board
-		goJail = new JLayeredPane();
-		goJail.setBounds((int) (frameHeight / 6.5 * 10.9), 0, (int) (frameHeight / 6.5), (int) (frameHeight / 6.5));
-		pacificAve = new JLayeredPane();
-		pacificAve.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 11.8), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
-		northCarolinaAve = new JLayeredPane();
-		northCarolinaAve.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 6.745), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
-		comChestR = new JLayeredPane();
-		comChestR.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 4.745), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
-		pennAve = new JLayeredPane();
-		pennAve.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 3.65), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
-		shortLRR = new JLayeredPane();
-		shortLRR.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 2.98), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
-		chanceR = new JLayeredPane();
-		chanceR.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 2.51), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
-		parkPl = new JLayeredPane();
-		parkPl.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 2.17), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
-		luxTax = new JLayeredPane();
-		luxTax.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 1.91), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
-		bdwalk = new JLayeredPane();
-		bdwalk.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 1.71), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
-		
-		//bottom side of board
-		connAve = new JLayeredPane();
-		connAve.setBounds((int) (frameHeight / .86999), (int) (frameHeight / 1.544), (int) (frameHeight / 13), (int) (frameHeight / 6.5));
-		vermontAve = new JLayeredPane();
-		vermontAve.setBounds((int) (frameHeight / .8249), (int) (frameHeight / 1.544), (int) (frameHeight / 13), (int) (frameHeight / 6.5));
-		chanceBot = new JLayeredPane();
-		chanceBot.setBounds((int) (frameHeight / .7835), (int) (frameHeight / 1.544), (int) (frameHeight / 13), (int) (frameHeight / 6.5));
-		orientalAve = new JLayeredPane();
-		orientalAve.setBounds((int) (frameHeight / .746), (int) (frameHeight / 1.544), (int) (frameHeight / 13), (int) (frameHeight / 6.5));
-		readingRR = new JLayeredPane();
-		readingRR.setBounds((int) (frameHeight / .715), (int) (frameHeight / 1.544), (int) (frameHeight / 13), (int) (frameHeight / 6.5));
-		inTax = new JLayeredPane();
-		inTax.setBounds((int) (frameHeight / .685), (int) (frameHeight / 1.544), (int) (frameHeight / 13), (int) (frameHeight / 6.5));
-		balticAve = new JLayeredPane();
-		balticAve.setBounds((int) (frameHeight / .664), (int) (frameHeight / 1.544), (int) (frameHeight / 10), (int) (frameHeight / 4.5));
-		comChestBot = new JLayeredPane();
-		comChestBot.setBounds((int) (frameHeight / .6334), (int) (frameHeight / 1.544), (int) (frameHeight / 13), (int) (frameHeight / 6.5));
-		medAve = new JLayeredPane();
-		medAve.setBounds((int) (frameHeight / .6134), (int) (frameHeight / 1.544), (int) (frameHeight / 10), (int) (frameHeight / 4.5));
-		pGo = new JLayeredPane();
-		pGo.setBounds((int) (frameHeight / .596), (int) (frameHeight / 1.54), (int) (frameHeight / 6.5), (int) (frameHeight / 6.5));
-
-		boardPanels.add(pGo);
-		boardPanels.add(medAve);
-		boardPanels.add(comChestBot);
-		boardPanels.add(balticAve);
-		boardPanels.add(inTax);
-		boardPanels.add(readingRR);
-		boardPanels.add(orientalAve);
-		boardPanels.add(chanceBot);
-		boardPanels.add(vermontAve);
-		boardPanels.add(connAve);
+				
 		boardPanels.add(justVisit);
 		boardPanels.add(stCharlesPl);
 		boardPanels.add(electricComp);
@@ -258,6 +198,45 @@ public class GUI {
 		boardPanels.add(commChestL);
 		boardPanels.add(tennAve);
 		boardPanels.add(nyAve);
+				
+		setSquare(nyAvenue, "newYorkAvenue");
+		setSquare(tennAvenue, "tennesseeAvenue");
+		setSquare(commChestLeft, "communityChestL");
+		setSquare(stJamesPlace, "stJamesPlace");
+		setSquare(pennRailroad, "pennRailroad");
+		setSquare(virginiaAvenue, "virginiaAvenue");
+		setSquare(statesAvenue, "statesAvenue");
+		setSquare(electricCompanyUtil, "electricCompanyUtil");
+		setSquare(stCharlesPlace, "stCharlesPlace");
+		setSquare(justVisiting, "justVisiting");
+		
+		nyAve.add(nyAvenue);
+		tennAve.add(tennAvenue);
+		commChestL.add(commChestLeft);
+		stJamesPl.add(stJamesPlace);
+		pennRR.add(pennRailroad);
+		virginiaAve.add(virginiaAvenue);
+		statesAve.add(statesAvenue);
+		electricComp.add(electricCompanyUtil);
+		stCharlesPl.add(stCharlesPlace);
+		justVisit.add(justVisiting);
+		
+		
+		
+	}
+	
+	private void setUpperSquares() {
+		freePark.setBounds(5, 3, (int) (frameHeight / .45), (int) (frameHeight / 6.5));
+		kentuckyAve.setBounds((int) (frameHeight / 6.5), 0, (int) (frameHeight / .484), (int) (frameHeight / 6.5));
+		chanceU.setBounds((int) (frameHeight / 6.5 * 1.5), 0, (int) (frameHeight / .492), (int) (frameHeight / 6.5));
+		indianaAve.setBounds((int) (frameHeight / 6.5 * 2), 0, (int) (frameHeight / .5), (int) (frameHeight / 6.5));
+		illinoisAve.setBounds((int) (frameHeight / 6.5 * 2.5), 0, (int) (frameHeight / .508), (int) (frameHeight / 6.5));
+		boRR.setBounds((int) (frameHeight / 6.5 * 3), 0, (int) (frameHeight / .516), (int) (frameHeight / 6.5));
+		atlanticAve.setBounds((int) (frameHeight / 6.5 * 3.5), 0, (int) (frameHeight / .524), (int) (frameHeight / 6.5));
+		ventnorAve.setBounds((int) (frameHeight / 6.5 * 4), 0, (int) (frameHeight / .532), (int) (frameHeight / 6.5));
+		waterWorks.setBounds((int) (frameHeight / 6.5 * 4.5), 0, (int) (frameHeight / .54), (int) (frameHeight / 6.5));
+		marvinGards.setBounds((int) (frameHeight / 6.5 * 5), 0, (int) (frameHeight /.548), (int) (frameHeight / 6.5));
+		
 		boardPanels.add(freePark);
 		boardPanels.add(kentuckyAve);
 		boardPanels.add(chanceU);
@@ -268,280 +247,17 @@ public class GUI {
 		boardPanels.add(ventnorAve);
 		boardPanels.add(waterWorks);
 		boardPanels.add(marvinGards);
-		boardPanels.add(goJail);
-		boardPanels.add(pacificAve);
-		boardPanels.add(northCarolinaAve);
-		boardPanels.add(comChestR);
-		boardPanels.add(pennAve);
-		boardPanels.add(shortLRR);
-		boardPanels.add(chanceR);
-		boardPanels.add(parkPl);
-		boardPanels.add(luxTax);
-		boardPanels.add(bdwalk);
-
-		passGo = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/passGo.jpg"));
-			passGo.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
 		
-		justVisiting = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/justVisiting.jpg"));
-			justVisiting.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		connAvenue = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/connecticutAvenue.jpg"));
-			connAvenue.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		vermontAvenue = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/vermontAvenue.jpg"));
-			vermontAvenue.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		chanceBottom = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/chanceBot.jpg"));
-			chanceBottom.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		orientalAvenue = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/orientalAvenue.jpg"));
-			orientalAvenue.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		readingRailroad = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/readingRailroad.jpg"));
-			readingRailroad.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		incomeTax = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/incomeTax.jpg"));
-			incomeTax.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		balticAvenue = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/balticAvenue.jpg"));
-			balticAvenue.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		comChestBottom = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/communityChestBot.jpg"));
-			comChestBottom.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		mediterraneanAvenue = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/mediterraneanAvenue.jpg"));
-			mediterraneanAvenue.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-
-		connAve.setLayout(flow);
-		vermontAve.setLayout(flow);
-		chanceBot.setLayout(flow);
-		orientalAve.setLayout(flow);
-		readingRR.setLayout(flow);
-		inTax.setLayout(flow);
-		balticAve.setLayout(flow);
-		comChestBot.setLayout(flow);
-		medAve.setLayout(flow);
-		pGo.setLayout(flow);
-		justVisit.setLayout(flow);
-		pGo.add(passGo);
-		justVisit.add(justVisiting);
-
-		connAve.add(connAvenue);
-		vermontAve.add(vermontAvenue);
-		chanceBot.add(chanceBottom);
-		orientalAve.add(orientalAvenue);
-		readingRR.add(readingRailroad);
-		inTax.add(incomeTax);
-		balticAve.add(balticAvenue);
-		comChestBot.add(comChestBottom);
-		medAve.add(mediterraneanAvenue);
-
-		nyAvenue = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/newYorkAvenue.jpg"));
-			nyAvenue.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		tennAvenue = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/tennesseeAvenue.jpg"));
-			tennAvenue.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		commChestLe = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/communityChestL.jpg"));
-			commChestLe.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		stJamesPlace = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/stJamesPlace.jpg"));
-			stJamesPlace.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		pennRailroad = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/pennRailroad.jpg"));
-			pennRailroad.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		virginiaAvenue = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/virginiaAvenue.jpg"));
-			virginiaAvenue.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		statesAvenue = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/statesAvenue.jpg"));
-			statesAvenue.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		electricCompanyUtil = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/electricCompanyUtil.jpg"));
-			electricCompanyUtil.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		stCharlesPlace = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/stCharlesPlace.jpg"));
-			stCharlesPlace.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-
-		nyAve.setLayout(flow);
-		tennAve.setLayout(flow);
-		commChestL.setLayout(flow);
-		stJamesPl.setLayout(flow);
-		pennRR.setLayout(flow);
-		virginiaAve.setLayout(flow);
-		statesAve.setLayout(flow);
-		electricComp.setLayout(flow);
-		stCharlesPl.setLayout(flow);
-		
-		nyAve.add(nyAvenue);
-		tennAve.add(tennAvenue);
-		commChestL.add(commChestLe);
-		stJamesPl.add(stJamesPlace);
-		pennRR.add(pennRailroad);
-		virginiaAve.add(virginiaAvenue);
-		statesAve.add(statesAvenue);
-		electricComp.add(electricCompanyUtil);
-		stCharlesPl.add(stCharlesPlace);
-
-		freeParking = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/freeParking.jpg"));
-			freeParking.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		kentuckyAvenue = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/KentuckyAvenue.jpg"));
-			kentuckyAvenue.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		chanceUp = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/chanceUp.jpg"));
-			chanceUp.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		indianaAvenue = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/IndianaAvenue.jpg"));
-			indianaAvenue.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		illinoisAvenue = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/illinoisAvenue.jpg"));
-			illinoisAvenue.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		boRailroad = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/boRailroad.jpg"));
-			boRailroad.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		atlanticAvenue = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/AtlanticAvenue.jpg"));
-			atlanticAvenue.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		ventnorAvenue = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/VentnorAvenue.jpg"));
-			ventnorAvenue.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		waterWorksUtil = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/waterWorksUtil.jpg"));
-			waterWorksUtil.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		marvinGardens = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/MarvinGardens.jpg"));
-			marvinGardens.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-
-		freePark.setLayout(flow);
-		kentuckyAve.setLayout(flow);
-		chanceU.setLayout(flow);
-		indianaAve.setLayout(flow);
-		illinoisAve.setLayout(flow);
-		boRR.setLayout(flow);
-		atlanticAve.setLayout(flow);
-		ventnorAve.setLayout(flow);
-		waterWorks.setLayout(flow);
-		marvinGards.setLayout(flow);
+		setSquare(freeParking, "freeParking");
+		setSquare(kentuckyAvenue, "KentuckyAvenue");
+		setSquare(chanceUp, "chanceUp");
+		setSquare(indianaAvenue, "IndianaAvenue");
+		setSquare(illinoisAvenue, "illinoisAvenue");
+		setSquare(boRailroad, "boRailroad");
+		setSquare(atlanticAvenue, "AtlanticAvenue");
+		setSquare(ventnorAvenue, "VentnorAvenue");
+		setSquare(waterWorksUtil, "waterWorksUtil");
+		setSquare(marvinGardens, "MarvinGardens");
 		
 		freePark.add(freeParking);
 		kentuckyAve.add(kentuckyAvenue);
@@ -553,263 +269,336 @@ public class GUI {
 		ventnorAve.add(ventnorAvenue);
 		waterWorks.add(waterWorksUtil);
 		marvinGards.add(marvinGardens);
-
-		gotoJail = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/goToJail.jpg"));
-			gotoJail.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
 		
-		pacificAvenue = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/PacificAvenue.jpg"));
-			pacificAvenue.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
 		
-		northCarolinaAvenue = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/northCarolinaAvenue.jpg"));
-			northCarolinaAvenue.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
+	}
+	
+	private void setRightSquares() {
+		goJail.setBounds((int) (frameHeight / 6.5 * 10.9), 0, (int) (frameHeight / 6.5), (int) (frameHeight / 6.5));
+		pacificAve.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 11.8), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
+		northCarolinaAve.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 6.745), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
+		commChestR.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 4.745), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
+		pennAve.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 3.65), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
+		shortLRR.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 2.98), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
+		chanceR.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 2.51), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
+		parkPl.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 2.17), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
+		luxTax.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 1.91), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
+		bdwalk.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 1.71), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
 		
-		comChestRight = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/communityChestR.jpg"));
-			comChestRight.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
+		boardPanels.add(goJail);
+		boardPanels.add(pacificAve);
+		boardPanels.add(northCarolinaAve);
+		boardPanels.add(commChestR);
+		boardPanels.add(pennAve);
+		boardPanels.add(shortLRR);
+		boardPanels.add(chanceR);
+		boardPanels.add(parkPl);
+		boardPanels.add(luxTax);
+		boardPanels.add(bdwalk);
 		
-		pennAvenue = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/PennsylvaniaAvenue.jpg"));
-			pennAvenue.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		shortLineRailroad = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/shortLine.jpg"));
-			shortLineRailroad.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		chanceRi = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/chanceRi.jpg"));
-			chanceRi.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		parkPlace = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/parkPlace.jpg"));
-			parkPlace.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		luxuryTax = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/luxuryTax.jpg"));
-			luxuryTax.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		boardwalk = new JLabel();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/boardwalk.jpg"));
-			boardwalk.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-
-		goJail.setLayout(flow);
-		pacificAve.setLayout(flow);
-		northCarolinaAve.setLayout(flow);
-		comChestR.setLayout(flow);
-		pennAve.setLayout(flow);
-		shortLRR.setLayout(flow);
-		chanceR.setLayout(flow);
-		parkPl.setLayout(flow);
-		luxTax.setLayout(flow);
-		bdwalk.setLayout(flow);
+		setSquare(gotoJail, "gotoJail");
+		setSquare(pacificAvenue, "PacificAvenue");
+		setSquare(northCarolinaAvenue, "northCarolinaAvenue");
+		setSquare(commChestRight, "communityChestR");
+		setSquare(pennAvenue, "PennsylvaniaAvenue");
+		setSquare(shortLineRailroad, "shortLine");
+		setSquare(chanceRi, "chanceRi");
+		setSquare(parkPlace, "parkPlace");
+		setSquare(luxuryTax, "luxuryTax");
+		setSquare(boardwalk, "boardwalk");
 		
 		goJail.add(gotoJail);
 		pacificAve.add(pacificAvenue);
 		northCarolinaAve.add(northCarolinaAvenue);
-		comChestR.add(comChestRight);
+		commChestR.add(commChestRight);
 		pennAve.add(pennAvenue);
 		shortLRR.add(shortLineRailroad);
 		chanceR.add(chanceRi);
 		parkPl.add(parkPlace);
 		luxTax.add(luxuryTax);
 		bdwalk.add(boardwalk);
-
-		communityChest = new JButton();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/chest.jpg"));
-			communityChest.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		communityChest.setBounds((int) (frameHeight / .81), (int) (frameHeight / 7), (int) (frameHeight / 7), (int) (frameHeight / 5));
-		communityChest.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		communityChest.setBorderPainted(false);
-		communityChest.setContentAreaFilled(false);
-		
-		chanceButton = new JButton();
-		chanceButton.setBounds((int) (frameHeight / .7), (int) (frameHeight / 2.5), (int) (frameHeight / 3.33), (int) (frameHeight / 5));
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/chance.jpg"));
-			chanceButton.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		chanceButton.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		chanceButton.setBorderPainted(false);
-		chanceButton.setContentAreaFilled(false);
 		
 		
-		rollDiceButton = new JButton();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/rollDiceButton.jpg"));
-			rollDiceButton.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		rollDiceButton.setBounds((int) (frameHeight / 1.5), (int) (frameHeight / 20), (int) (frameHeight / 7), (int) (frameHeight / 5));
-		rollDiceButton.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		rollDiceButton.setBorderPainted(false);
-		rollDiceButton.setContentAreaFilled(false);
-		
-		buyButton = new JButton();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/buyButton.jpg"));
-			buyButton.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		buyButton.setBounds((int) (frameHeight / 1.5), (int) (frameHeight / 9), (int) (frameHeight / 7), (int) (frameHeight / 5));
-		buyButton.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		buyButton.setBorderPainted(false);
-		buyButton.setContentAreaFilled(false);
-		
-		sellButton = new JButton();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/sellButton.jpg"));
-			sellButton.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		sellButton.setBounds((int) (frameHeight / 1.5), (int) (frameHeight / 6), (int) (frameHeight / 7), (int) (frameHeight / 5));
-		sellButton.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		sellButton.setBorderPainted(false);
-		sellButton.setContentAreaFilled(false);
-		
-		auctionButton = new JButton();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/auctionButton.jpg"));
-			auctionButton.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		auctionButton.setBounds((int) (frameHeight / 1.5), (int) (frameHeight / 4.5), (int) (frameHeight / 7), (int) (frameHeight / 5));
-		auctionButton.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		auctionButton.setBorderPainted(false);
-		auctionButton.setContentAreaFilled(false);
-		
-		tradeButton = new JButton();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/tradeButton.jpg"));
-			tradeButton.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		tradeButton.setBounds((int) (frameHeight / 1.5), (int) (frameHeight / 3.6), (int) (frameHeight / 7), (int) (frameHeight / 5));
-		tradeButton.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		tradeButton.setBorderPainted(false);
-		tradeButton.setContentAreaFilled(false);
-		
-		fileBankruptcyButton = new JButton();
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/fileBankruptcyButton.jpg"));
-			fileBankruptcyButton.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-		}
-		
-		fileBankruptcyButton.setBounds((int) (frameHeight / 1.5), (int) (frameHeight / 3), (int) (frameHeight / 7), (int) (frameHeight / 5));
-		fileBankruptcyButton.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		fileBankruptcyButton.setBorderPainted(false);
-		fileBankruptcyButton.setContentAreaFilled(false);
-		
-		player1 = new JLayeredPane();
-		player1.setBounds(frameHeight + 145, 1600, (int) (frameHeight / 5.5), (int) (frameHeight / 5));
-		player1.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-		
-		player2 = new JLayeredPane();
-		player2.setBounds(frameHeight + 530, 1600, (int) (frameHeight / 5.5), (int) (frameHeight / 5));
-		player2.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-
-		player3 = new JLayeredPane();
-		player3.setBounds(frameHeight + 915, 1600, (int) (frameHeight / 5.5), (int) (frameHeight / 5));
-		player3.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-
-		player4 = new JLayeredPane();
-		player4.setBounds(frameHeight + 1300, 1600, (int) (frameHeight / 5.5), (int) (frameHeight / 5));
-		player4.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-
-		frame.getContentPane().add(player1);
-		frame.getContentPane().add(player2);
-		frame.getContentPane().add(player3);
-		frame.getContentPane().add(player4);
+	}
 	
-		frame.getContentPane().add(justVisit, -1);
-		frame.getContentPane().add(freePark, -1);
-		frame.getContentPane().add(nyAve, -1);
-		frame.getContentPane().add(tennAve, -1);
-		frame.getContentPane().add(commChestL, -1);
-		frame.getContentPane().add(stJamesPl, -1);
-		frame.getContentPane().add(pennRR, -1);
-		frame.getContentPane().add(virginiaAve, -1);
-		frame.getContentPane().add(statesAve, -1);
-		frame.getContentPane().add(electricComp, -1);
-		frame.getContentPane().add(stCharlesPl, -1);
-		frame.getContentPane().add(kentuckyAve, -1);
-		frame.getContentPane().add(chanceU, -1);
-		frame.getContentPane().add(indianaAve, -1);
-		frame.getContentPane().add(illinoisAve, -1);
-		frame.getContentPane().add(boRR, -1);
-		frame.getContentPane().add(atlanticAve, -1);
-		frame.getContentPane().add(ventnorAve, -1);
-		frame.getContentPane().add(waterWorks, -1);
-		frame.getContentPane().add(marvinGards, -1);
-		frame.getContentPane().add(goJail, -1);
-		frame.getContentPane().add(pacificAve, -1);
-		frame.getContentPane().add(northCarolinaAve, -1);
-		frame.getContentPane().add(comChestR, -1);
-		frame.getContentPane().add(pennAve, -1);
-		frame.getContentPane().add(shortLRR, -1);
-		frame.getContentPane().add(chanceR, -1);
-		frame.getContentPane().add(parkPl, -1);
-		frame.getContentPane().add(luxTax, -1);
-		frame.getContentPane().add(bdwalk, -1);
-		frame.getContentPane().add(connAve, -1);
-		frame.getContentPane().add(vermontAve, -1);
-		frame.getContentPane().add(chanceBot, -1);
-		frame.getContentPane().add(orientalAve, -1);
-		frame.getContentPane().add(readingRR, -1);
-		frame.getContentPane().add(inTax, -1);
-		frame.getContentPane().add(balticAve, -1);
-		frame.getContentPane().add(comChestBot, -1);
-		frame.getContentPane().add(medAve, -1);
-		frame.getContentPane().add(pGo, -1);
-		frame.getContentPane().add(communityChest, -1);
-		frame.getContentPane().add(chanceButton, -1);
-		frame.getContentPane().add(rollDiceButton, -1);
-		frame.getContentPane().add(buyButton, -1);
-		frame.getContentPane().add(sellButton, -1);
-		frame.getContentPane().add(auctionButton, -1);
-		frame.getContentPane().add(tradeButton, -1);
-		frame.getContentPane().add(fileBankruptcyButton, -1);
+	private void setBottomSquares() {
+		connAve.setBounds((int) (frameHeight / .86999), (int) (frameHeight / 1.544), (int) (frameHeight / 13), (int) (frameHeight / 6.5));
+		vermontAve.setBounds((int) (frameHeight / .8249), (int) (frameHeight / 1.544), (int) (frameHeight / 13), (int) (frameHeight / 6.5));
+		chanceBot.setBounds((int) (frameHeight / .7835), (int) (frameHeight / 1.544), (int) (frameHeight / 13), (int) (frameHeight / 6.5));
+		orientalAve.setBounds((int) (frameHeight / .746), (int) (frameHeight / 1.544), (int) (frameHeight / 13), (int) (frameHeight / 6.5));
+		readingRR.setBounds((int) (frameHeight / .715), (int) (frameHeight / 1.544), (int) (frameHeight / 13), (int) (frameHeight / 6.5));
+		inTax.setBounds((int) (frameHeight / .685), (int) (frameHeight / 1.544), (int) (frameHeight / 13), (int) (frameHeight / 6.5));
+		balticAve.setBounds((int) (frameHeight / .664), (int) (frameHeight / 1.544), (int) (frameHeight / 10), (int) (frameHeight / 4.5));
+		commChestB.setBounds((int) (frameHeight / .6334), (int) (frameHeight / 1.544), (int) (frameHeight / 13), (int) (frameHeight / 6.5));
+		medAve.setBounds((int) (frameHeight / .6134), (int) (frameHeight / 1.544), (int) (frameHeight / 10), (int) (frameHeight / 4.5));
+		pGo.setBounds((int) (frameHeight / .596), (int) (frameHeight / 1.54), (int) (frameHeight / 6.5), (int) (frameHeight / 6.5));
+
+		boardPanels.add(pGo);
+		boardPanels.add(medAve);
+		boardPanels.add(commChestB);
+		boardPanels.add(balticAve);
+		boardPanels.add(inTax);
+		boardPanels.add(readingRR);
+		boardPanels.add(orientalAve);
+		boardPanels.add(chanceBot);
+		boardPanels.add(vermontAve);
+		boardPanels.add(connAve);
+		
+		setSquare(passGo, "passGo");
+		setSquare(connAvenue, "connecticutAvenue");
+		setSquare(vermontAvenue, "vermontAvenue");
+		setSquare(chanceBottom, "chanceBot");
+		setSquare(orientalAvenue, "orientalAvenue");
+		setSquare(readingRailroad, "readingRailroad");
+		setSquare(incomeTax, "incomeTax");
+		setSquare(balticAvenue, "balticAvenue");		
+		setSquare(commChestBottom, "communityChestBot");		
+		setSquare(mediterraneanAvenue, "mediterraneanAvenue");
+		
+		pGo.add(passGo);
+		connAve.add(connAvenue);
+		vermontAve.add(vermontAvenue);
+		chanceBot.add(chanceBottom);
+		orientalAve.add(orientalAvenue);
+		readingRR.add(readingRailroad);
+		inTax.add(incomeTax);
+		balticAve.add(balticAvenue);
+		commChestB.add(commChestBottom);
+		medAve.add(mediterraneanAvenue);
+		
+		
+		
+		
+	}
+	
+	private void addButtonsToBoard() {
+		
+		
+	}
+
+	/**
+	 * Initializes the game frame
+	 */
+	private void initialize() {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		FlowLayout flow = new FlowLayout();
+		flow.setHgap(0);
+		flow.setVgap(0);
+		frame = new JFrame("T13 Monopoly Game CS414");
+		frame.setLayout(flow);
+		frame.getContentPane().setBackground(new Color(212, 252, 228));
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frame.setSize(screenSize);
+		frame.setResizable(false);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		frameHeight = frame.getHeight() - 40;
+		frameWidth = frame.getWidth();
+		
+		setLeftSquares();
+		setUpperSquares();
+		setRightSquares();
+		setBottomSquares();
+		
+		//set flow layouts
+		//left squares
+		nyAve.setLayout(flow);
+		tennAve.setLayout(flow);
+		commChestL.setLayout(flow);
+		stJamesPl.setLayout(flow);
+		pennRR.setLayout(flow);
+		virginiaAve.setLayout(flow);
+		statesAve.setLayout(flow);
+		electricComp.setLayout(flow);
+		stCharlesPl.setLayout(flow);
+		justVisit.setLayout(flow);
+		
+		//upper squares		
+		freePark.setLayout(flow);
+		kentuckyAve.setLayout(flow);
+		chanceU.setLayout(flow);
+		indianaAve.setLayout(flow);
+		illinoisAve.setLayout(flow);
+		boRR.setLayout(flow);
+		atlanticAve.setLayout(flow);
+		ventnorAve.setLayout(flow);
+		waterWorks.setLayout(flow);
+		marvinGards.setLayout(flow);
+
+		//right squares
+		goJail.setLayout(flow);
+		pacificAve.setLayout(flow);
+		northCarolinaAve.setLayout(flow);
+		commChestR.setLayout(flow);
+		pennAve.setLayout(flow);
+		shortLRR.setLayout(flow);
+		chanceR.setLayout(flow);
+		parkPl.setLayout(flow);
+		luxTax.setLayout(flow);
+		bdwalk.setLayout(flow);
+	
+		//bottom squares
+		connAve.setLayout(flow);
+		vermontAve.setLayout(flow);
+		chanceBot.setLayout(flow);
+		orientalAve.setLayout(flow);
+		readingRR.setLayout(flow);
+		inTax.setLayout(flow);
+		balticAve.setLayout(flow);
+		commChestB.setLayout(flow);
+		medAve.setLayout(flow);
+		pGo.setLayout(flow);
+		
+		
+		//set buttons on board		
+		communityChestButton.setBounds((int) (frameHeight / .81), (int) (frameHeight / 7), (int) (frameHeight / 7), (int) (frameHeight / 5));
+		chanceButton.setBounds((int) (frameHeight / .7), (int) (frameHeight / 2.5), (int) (frameHeight / 3.33), (int) (frameHeight / 5));
+		setButton(communityChestButton, "chest");
+		setButton(chanceButton, "chance");
+		
+		rollDiceButton.setBounds((int) (frameHeight / 1.5), 250, 300, 130);
+		buyButton.setBounds((int) (frameHeight / 1.5), 450, 300, 130);
+		sellButton.setBounds((int) (frameHeight / 1.5), 650, 300, 130);
+		auctionButton.setBounds((int) (frameHeight / 1.5), 850, 300, 130);
+		tradeButton.setBounds((int) (frameHeight / 1.5), 1050, 300, 130);
+		fileBankruptcyButton.setBounds((int) (frameHeight / 1.5), 1250, 300, 130);
+
+		
+		rollDiceButton.setFont(new Font("Arial", Font.BOLD, 34));
+		rollDiceButton.setBackground(new Color(255, 100, 100));
+		rollDiceButton.setBorder(BorderFactory.createLineBorder(Color.black, 3));
+		
+		buyButton.setFont(new Font("Arial", Font.BOLD, 34));
+		buyButton.setBackground(new Color(74, 165, 255));
+		buyButton.setBorder(BorderFactory.createLineBorder(Color.black, 3));
+		
+		sellButton.setFont(new Font("Arial", Font.BOLD, 34));
+		sellButton.setBackground(new Color(255, 172, 89));
+		sellButton.setBorder(BorderFactory.createLineBorder(Color.black, 3));
+		
+		auctionButton.setFont(new Font("Arial", Font.BOLD, 34));
+		auctionButton.setBackground(new Color(255, 255, 172));
+		auctionButton.setBorder(BorderFactory.createLineBorder(Color.black, 3));
+		
+		tradeButton.setFont(new Font("Arial", Font.BOLD, 34));
+		tradeButton.setBackground(new Color(153, 153, 255));
+		tradeButton.setBorder(BorderFactory.createLineBorder(Color.black, 3));
+		
+		fileBankruptcyButton.setFont(new Font("Arial", Font.BOLD, 34));
+		fileBankruptcyButton.setBackground(new Color(103, 180, 180));
+		fileBankruptcyButton.setBorder(BorderFactory.createLineBorder(Color.black, 3));
+		
+		//set player section of board
+		addPlayer1.setBounds(frameHeight + 215, 1800, 250, 110);
+		addPlayer1.setFont(new Font("Arial", Font.BOLD, 34));
+		addPlayer1.setBackground(new Color(0, 255, 128));
+		addPlayer1.setBorder(BorderFactory.createLineBorder(Color.black, 3));
+		player1Token.setBounds(frameHeight + 210, 1680, 250, 70);
+		setButton(player1Token, "dogToken");
+		
+		addPlayer2.setBounds(frameHeight + 600, 1800, 250, 110);
+		addPlayer2.setFont(new Font("Arial", Font.BOLD, 34));
+		addPlayer2.setBackground(new Color(0, 255, 128));
+		addPlayer2.setBorder(BorderFactory.createLineBorder(Color.black, 3));
+		player2Token.setBounds(frameHeight + 600, 1680, 250, 70);
+		setButton(player2Token, "battleShipToken");
+		
+		addPlayer3.setBounds(frameHeight + 985, 1800, 250, 110);
+		addPlayer3.setFont(new Font("Arial", Font.BOLD, 34));
+		addPlayer3.setBackground(new Color(0, 255, 128));
+		addPlayer3.setBorder(BorderFactory.createLineBorder(Color.black, 3));
+		player3Token.setBounds(frameHeight + 985, 1680, 250, 70);
+		setButton(player3Token, "carToken");
+		
+		addPlayer4.setBounds(frameHeight + 1370, 1800, 250, 110);
+		addPlayer4.setFont(new Font("Arial", Font.BOLD, 34));
+		addPlayer4.setBackground(new Color(0, 255, 128));
+		addPlayer4.setBorder(BorderFactory.createLineBorder(Color.black, 3));
+		player4Token.setBounds(frameHeight + 1370, 1680, 250, 70);
+		setButton(player4Token, "hatToken");
+		
+		p1.setBounds(frameHeight + 145, 1600, (int) (frameHeight / 5.5), (int) (frameHeight / 5));
+		p1.setBorder(BorderFactory.createLineBorder(Color.black, 4));
+		p2.setBounds(frameHeight + 530, 1600, (int) (frameHeight / 5.5), (int) (frameHeight / 5));
+		p2.setBorder(BorderFactory.createLineBorder(Color.black, 4));
+		p3.setBounds(frameHeight + 915, 1600, (int) (frameHeight / 5.5), (int) (frameHeight / 5));
+		p3.setBorder(BorderFactory.createLineBorder(Color.black, 4));
+		p4.setBounds(frameHeight + 1300, 1600, (int) (frameHeight / 5.5), (int) (frameHeight / 5));
+		p4.setBorder(BorderFactory.createLineBorder(Color.black, 4));
+		
+		playersPanels.add(p1);
+		playersPanels.add(p2);
+		playersPanels.add(p3);
+		playersPanels.add(p4);
+	
+		player1Token.setVisible(true);
+		player2Token.setVisible(true);
+		player3Token.setVisible(true);
+		player4Token.setVisible(true);
+		
+		//add everything to frame
+		frame.getContentPane().add(player1Token);
+		frame.getContentPane().add(player2Token);
+		frame.getContentPane().add(player3Token);
+		frame.getContentPane().add(player4Token);
+		frame.getContentPane().add(p1);
+		frame.getContentPane().add(p2);
+		frame.getContentPane().add(p3);
+		frame.getContentPane().add(p4);
+		frame.getContentPane().add(addPlayer1);
+		frame.getContentPane().add(addPlayer2);
+		frame.getContentPane().add(addPlayer3);
+		frame.getContentPane().add(addPlayer4);
+	
+		frame.getContentPane().add(justVisit);
+		frame.getContentPane().add(freePark);
+		frame.getContentPane().add(nyAve);
+		frame.getContentPane().add(tennAve);
+		frame.getContentPane().add(commChestL);
+		frame.getContentPane().add(stJamesPl);
+		frame.getContentPane().add(pennRR);
+		frame.getContentPane().add(virginiaAve);
+		frame.getContentPane().add(statesAve);
+		frame.getContentPane().add(electricComp);
+		frame.getContentPane().add(stCharlesPl);
+		frame.getContentPane().add(kentuckyAve);
+		frame.getContentPane().add(chanceU);
+		frame.getContentPane().add(indianaAve);
+		frame.getContentPane().add(illinoisAve);
+		frame.getContentPane().add(boRR);
+		frame.getContentPane().add(atlanticAve);
+		frame.getContentPane().add(ventnorAve);
+		frame.getContentPane().add(waterWorks);
+		frame.getContentPane().add(marvinGards);
+		frame.getContentPane().add(goJail);
+		frame.getContentPane().add(pacificAve);
+		frame.getContentPane().add(northCarolinaAve);
+		frame.getContentPane().add(commChestR);
+		frame.getContentPane().add(pennAve);
+		frame.getContentPane().add(shortLRR);
+		frame.getContentPane().add(chanceR);
+		frame.getContentPane().add(parkPl);
+		frame.getContentPane().add(luxTax);
+		frame.getContentPane().add(bdwalk);
+		frame.getContentPane().add(connAve);
+		frame.getContentPane().add(vermontAve);
+		frame.getContentPane().add(chanceBot);
+		frame.getContentPane().add(orientalAve);
+		frame.getContentPane().add(readingRR);
+		frame.getContentPane().add(inTax);
+		frame.getContentPane().add(balticAve);
+		frame.getContentPane().add(commChestB);
+		frame.getContentPane().add(medAve);
+		frame.getContentPane().add(pGo);
+		frame.getContentPane().add(communityChestButton);
+		frame.getContentPane().add(chanceButton);
+		frame.getContentPane().add(rollDiceButton);
+		frame.getContentPane().add(buyButton);
+		frame.getContentPane().add(sellButton);
+		frame.getContentPane().add(auctionButton);
+		frame.getContentPane().add(tradeButton);
+		frame.getContentPane().add(fileBankruptcyButton);
 	}
 	
 	/**
