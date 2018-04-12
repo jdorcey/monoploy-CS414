@@ -79,10 +79,13 @@ public class Board {
 	}
 
 	public void movePiece(Player current, int diceRoll) {
-		//move player's token around the board
-		currentLocations.replace(current, (currentLocations.get(current) + diceRoll) % board.length);
-		board[currentLocations.get(current)].performAction(current);
+		//check if player is jailed due to rolling 3 doubles in same turn
 		if(current.isJailed()) { currentLocations.replace(current, 10); }
+		else {
+			currentLocations.replace(current, (currentLocations.get(current) + diceRoll) % board.length);
+			board[currentLocations.get(current)].performAction(current);
+			//check if Player landed on Go To Jail
+			if(current.isJailed()) { currentLocations.replace(current, 10); } 
+		}
 	}
-	
 }

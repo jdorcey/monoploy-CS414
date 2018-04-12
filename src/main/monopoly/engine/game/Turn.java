@@ -19,17 +19,20 @@ public class Turn {
 		//monopoly = Monopoly.getInstance()
 	}
 	
-	public void rollDice() {
-		//roll dice and move player 
-		getDice();
-		board.movePiece(player, (diceValue[0] + diceValue[1]));
-	}
+	//how is this class getting called?
+	//how is this the state pattern?
 	
-	private void getDice() {
+	public void rollDice() {
 		Random r = new Random();
 		diceValue[0] = r.nextInt(6); diceValue[1] = r.nextInt(6);
+		if(diceValue[0] == diceValue[1]) { numDoubles++; }
+		if(numDoubles < 3) { board.movePiece(player, (diceValue[0] + diceValue[1])); }
+		if(numDoubles == 3) { 
+			player.setJailed(true);
+			board.movePiece(player, 0);
+		}
 	}
-	
+
 	public void buyHouse() {
 		//buy house/hotel
 		//DO NOT DO FOR THIS ITERATION
@@ -40,17 +43,19 @@ public class Turn {
 		//DO NOT DO FOR THIS ITERATION
 	}
 	
+	//where is this being called?
 	public void endTurn() {
 		//set next player as current player
 		player = monopoly.getNextPlayer(player);
 	}
 	
+	//is this method necessary?
 	public boolean canRoll() {
-		//return true if dice are doubles or if dice are null
+		//if player is jailed they can still roll to attempt to get doubles and therefore get out of jail...
 		if(player.isJailed()) {
 			return false;
 		}
-		if(diceValue == null || (diceValue[0] == diceValue[1])) {
+		if(diceValue.length == 0 || (diceValue[0] == diceValue[1])) {
 			return true;
 		}
 		return false;

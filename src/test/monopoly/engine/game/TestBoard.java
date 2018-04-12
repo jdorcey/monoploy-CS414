@@ -1,5 +1,23 @@
 package monopoly.engine.game;
 
-public class TestBoard {
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+
+class TestBoard {
+
+	@Before
+	void setUp() throws Exception {
+	}
+
+	@Test
+	void testgetCurrentLocations() {
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	void testMovePiece() {
+		fail("Not yet implemented");
+	}
 
 }

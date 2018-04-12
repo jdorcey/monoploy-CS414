@@ -37,6 +37,15 @@ public class Monopoly implements Observer {
 		// TODO Auto-generated method stub
 	}
 	
+	public ArrayList<Player> getPlayers() {
+		return players;
+	}
+	
+	public Player getCurrentPlayer() { 
+		// TODO need to implement this
+		return null; 
+	}
+	
 	public Player getNextPlayer(Player player) {
 		return players.get((players.indexOf(player) + 1) % players.size());
 	}
