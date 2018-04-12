@@ -9,10 +9,9 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -21,12 +20,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 import monopoly.engine.player.Player;
+import monopoly.engine.player.Player.TokenName;
 
 public class GUI {
 	private JFrame frame;
@@ -116,28 +112,38 @@ public class GUI {
 	private JLabel parkPlace = new JLabel();
 	private JLabel luxuryTax = new JLabel();
 	private JLabel boardwalk = new JLabel();
+	private JLabel player1Money = new JLabel();
+	private JLabel player2Money = new JLabel();
+	private JLabel player3Money = new JLabel();
+	private JLabel player4Money = new JLabel();
+	private JLabel player1 = new JLabel();
+	private JLabel player2 = new JLabel();
+	private JLabel player3 = new JLabel();
+	private JLabel player4 = new JLabel();
+	private JLabel logo = new JLabel();
+	private JLabel dice1 = new JLabel();
+	private JLabel dice2 = new JLabel();
 	
-	private JButton communityChestButton = new JButton();
-	private JButton chanceButton = new JButton();
+	private JButton communityChestButton = new JButton("Community Chest");
+	private JButton chanceButton = new JButton("Chance");
 	private JButton rollDiceButton = new JButton("Roll Dice");
 	private JButton buyButton = new JButton("Buy Properties");
 	private JButton sellButton = new JButton("Sell Properties");
 	private JButton tradeButton = new JButton("Trade");
 	private JButton auctionButton = new JButton("Auction");
-	private JButton fileBankruptcyButton = new JButton("File Bankruptcy");
-	private JButton addPlayer1 = new JButton("Add Player");
-	private JButton addPlayer2 = new JButton("Add Player");
-	private JButton addPlayer3 = new JButton("Add Player");
-	private JButton addPlayer4 = new JButton("Add Player");
+	private JButton addPlayer1Button = new JButton("Add Player");
+	private JButton addPlayer2Button = new JButton("Add Player");
+	private JButton addPlayer3Button = new JButton("Add Player");
+	private JButton addPlayer4Button = new JButton("Add Player");
+	private JButton startGameButton = new JButton("START GAME!");
 	private JButton player1Token = new JButton();
 	private JButton player2Token = new JButton();
 	private JButton player3Token = new JButton();
 	private JButton player4Token = new JButton();
 
+	private ArrayList<Player> players;
 	private ArrayList<JLayeredPane> playersPanels;
 	private ArrayList<JLayeredPane> boardPanels;
-	private int frameWidth;
-	private int frameHeight;
 
 	/**
 	 * GUI constructor to create the main frame
@@ -145,14 +151,15 @@ public class GUI {
 	public GUI() {
 		boardPanels = new ArrayList<JLayeredPane>();	
 		playersPanels = new ArrayList<JLayeredPane>();
+		players = new ArrayList<Player>();
 
 		initialize();
 	}
 	
 	/**
-	 * Set board squares
+	 * Set labels on board
 	 */
-	private void setSquare(JLabel square, String imgJPG) {
+	private void setLabel(JLabel square, String imgJPG) {
 		try {
 			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/" + imgJPG + ".jpg"));
 			square.setIcon(new ImageIcon(img));
@@ -162,7 +169,7 @@ public class GUI {
 	}
 	
 	/**
-	 * Set Buttons on Board
+	 * Set buttons on board
 	 */
 	private void setButton(JButton button, String imgJPG) {
 		try {
@@ -176,17 +183,29 @@ public class GUI {
 		button.setContentAreaFilled(false);
 	}
 	
+	/**
+	 * Set buttons on board, overloaded method
+	 */
+	private void setButton(JButton button, int r, int b, int g) {
+		button.setFont(new Font("Arial", Font.BOLD, 34));
+		button.setBackground(new Color(r, b, g));
+		button.setBorder(BorderFactory.createLineBorder(Color.black, 3));	
+	}
+	
+	/**
+	 * Set squares on left side of board
+	 */
 	private void setLeftSquares() {
-		nyAve.setBounds(10, (int) (frameHeight / 11.5), (int) (frameHeight / .451), (int) (frameHeight / 13));
-		tennAve.setBounds(0, (int) (frameHeight / 6.7), (int) (frameHeight / .4491), (int) (frameHeight / 13));
-		commChestL.setBounds(0, (int) (frameHeight / 4.72), (int) (frameHeight / .4491), (int) (frameHeight / 13));
-		stJamesPl.setBounds(0, (int) (frameHeight / 3.65), (int) (frameHeight / .4491), (int) (frameHeight / 13));
-		pennRR.setBounds(0, (int) (frameHeight / 3), (int) (frameHeight / .4491), (int) (frameHeight / 13));
-		virginiaAve.setBounds(0, (int) (frameHeight / 2.52), (int) (frameHeight / .4491), (int) (frameHeight / 13));
-		statesAve.setBounds(0, (int) (frameHeight / 2.17435), (int) (frameHeight / .4491), (int) (frameHeight / 13));
-		electricComp.setBounds(0, (int) (frameHeight / 1.911), (int) (frameHeight / .4491), (int) (frameHeight / 13));
-		stCharlesPl.setBounds(0, (int) (frameHeight / 1.705), (int) (frameHeight / .4491), (int) (frameHeight / 9));
-		justVisit.setBounds(0, (int) (frameHeight / 1.54), (int) (frameHeight / .4491), (int) (frameHeight / 6.5));
+		nyAve.setBounds(10, 184, 4700, 163);
+		tennAve.setBounds(0, 316, 4720, 163);
+		commChestL.setBounds(0, 449, 4720, 163);
+		stJamesPl.setBounds(0, 580, 4720, 163);
+		pennRR.setBounds(0, 706, 4720, 163);
+		virginiaAve.setBounds(0, 841, 4720, 163);
+		statesAve.setBounds(0, 975, 4720, 163);
+		electricComp.setBounds(0, 1109, 4720, 163);
+		stCharlesPl.setBounds(0, 1243, 4720, 163);
+		justVisit.setBounds(0, 1376, 4720, 200);
 				
 		boardPanels.add(justVisit);
 		boardPanels.add(stCharlesPl);
@@ -199,16 +218,16 @@ public class GUI {
 		boardPanels.add(tennAve);
 		boardPanels.add(nyAve);
 				
-		setSquare(nyAvenue, "newYorkAvenue");
-		setSquare(tennAvenue, "tennesseeAvenue");
-		setSquare(commChestLeft, "communityChestL");
-		setSquare(stJamesPlace, "stJamesPlace");
-		setSquare(pennRailroad, "pennRailroad");
-		setSquare(virginiaAvenue, "virginiaAvenue");
-		setSquare(statesAvenue, "statesAvenue");
-		setSquare(electricCompanyUtil, "electricCompanyUtil");
-		setSquare(stCharlesPlace, "stCharlesPlace");
-		setSquare(justVisiting, "justVisiting");
+		setLabel(nyAvenue, "newYorkAvenue");
+		setLabel(tennAvenue, "tennesseeAvenue");
+		setLabel(commChestLeft, "communityChestL");
+		setLabel(stJamesPlace, "stJamesPlace");
+		setLabel(pennRailroad, "pennRailroad");
+		setLabel(virginiaAvenue, "virginiaAvenue");
+		setLabel(statesAvenue, "statesAvenue");
+		setLabel(electricCompanyUtil, "electricCompanyUtil");
+		setLabel(stCharlesPlace, "stCharlesPlace");
+		setLabel(justVisiting, "justVisiting");
 		
 		nyAve.add(nyAvenue);
 		tennAve.add(tennAvenue);
@@ -219,23 +238,23 @@ public class GUI {
 		statesAve.add(statesAvenue);
 		electricComp.add(electricCompanyUtil);
 		stCharlesPl.add(stCharlesPlace);
-		justVisit.add(justVisiting);
-		
-		
-		
+		justVisit.add(justVisiting);	
 	}
 	
+	/**
+	 * Set squares on upper side of board
+	 */
 	private void setUpperSquares() {
-		freePark.setBounds(5, 3, (int) (frameHeight / .45), (int) (frameHeight / 6.5));
-		kentuckyAve.setBounds((int) (frameHeight / 6.5), 0, (int) (frameHeight / .484), (int) (frameHeight / 6.5));
-		chanceU.setBounds((int) (frameHeight / 6.5 * 1.5), 0, (int) (frameHeight / .492), (int) (frameHeight / 6.5));
-		indianaAve.setBounds((int) (frameHeight / 6.5 * 2), 0, (int) (frameHeight / .5), (int) (frameHeight / 6.5));
-		illinoisAve.setBounds((int) (frameHeight / 6.5 * 2.5), 0, (int) (frameHeight / .508), (int) (frameHeight / 6.5));
-		boRR.setBounds((int) (frameHeight / 6.5 * 3), 0, (int) (frameHeight / .516), (int) (frameHeight / 6.5));
-		atlanticAve.setBounds((int) (frameHeight / 6.5 * 3.5), 0, (int) (frameHeight / .524), (int) (frameHeight / 6.5));
-		ventnorAve.setBounds((int) (frameHeight / 6.5 * 4), 0, (int) (frameHeight / .532), (int) (frameHeight / 6.5));
-		waterWorks.setBounds((int) (frameHeight / 6.5 * 4.5), 0, (int) (frameHeight / .54), (int) (frameHeight / 6.5));
-		marvinGards.setBounds((int) (frameHeight / 6.5 * 5), 0, (int) (frameHeight /.548), (int) (frameHeight / 6.5));
+		freePark.setBounds(5, 3, 4711, 326);
+		kentuckyAve.setBounds(326, 0, 4380, 326);
+		chanceU.setBounds(489, 0, 4308, 326);
+		indianaAve.setBounds(652, 0, 4240, 326);
+		illinoisAve.setBounds(815, 0, 4173, 326);
+		boRR.setBounds(978, 0, 4108, 326);
+		atlanticAve.setBounds(1141, 0, 4045, 326);
+		ventnorAve.setBounds(1304, 0, 3984, 326);
+		waterWorks.setBounds(1467, 0, 3925, 326);
+		marvinGards.setBounds(1630, 0, 3868, 326);
 		
 		boardPanels.add(freePark);
 		boardPanels.add(kentuckyAve);
@@ -248,16 +267,16 @@ public class GUI {
 		boardPanels.add(waterWorks);
 		boardPanels.add(marvinGards);
 		
-		setSquare(freeParking, "freeParking");
-		setSquare(kentuckyAvenue, "KentuckyAvenue");
-		setSquare(chanceUp, "chanceUp");
-		setSquare(indianaAvenue, "IndianaAvenue");
-		setSquare(illinoisAvenue, "illinoisAvenue");
-		setSquare(boRailroad, "boRailroad");
-		setSquare(atlanticAvenue, "AtlanticAvenue");
-		setSquare(ventnorAvenue, "VentnorAvenue");
-		setSquare(waterWorksUtil, "waterWorksUtil");
-		setSquare(marvinGardens, "MarvinGardens");
+		setLabel(freeParking, "freeParking");
+		setLabel(kentuckyAvenue, "KentuckyAvenue");
+		setLabel(chanceUp, "chanceUp");
+		setLabel(indianaAvenue, "IndianaAvenue");
+		setLabel(illinoisAvenue, "illinoisAvenue");
+		setLabel(boRailroad, "boRailroad");
+		setLabel(atlanticAvenue, "AtlanticAvenue");
+		setLabel(ventnorAvenue, "VentnorAvenue");
+		setLabel(waterWorksUtil, "waterWorksUtil");
+		setLabel(marvinGardens, "MarvinGardens");
 		
 		freePark.add(freeParking);
 		kentuckyAve.add(kentuckyAvenue);
@@ -268,22 +287,23 @@ public class GUI {
 		atlanticAve.add(atlanticAvenue);
 		ventnorAve.add(ventnorAvenue);
 		waterWorks.add(waterWorksUtil);
-		marvinGards.add(marvinGardens);
-		
-		
+		marvinGards.add(marvinGardens);	
 	}
 	
+	/**
+	 * Set squares on right side of board
+	 */
 	private void setRightSquares() {
-		goJail.setBounds((int) (frameHeight / 6.5 * 10.9), 0, (int) (frameHeight / 6.5), (int) (frameHeight / 6.5));
-		pacificAve.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 11.8), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
-		northCarolinaAve.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 6.745), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
-		commChestR.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 4.745), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
-		pennAve.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 3.65), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
-		shortLRR.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 2.98), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
-		chanceR.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 2.51), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
-		parkPl.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 2.17), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
-		luxTax.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 1.91), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
-		bdwalk.setBounds((int) (frameHeight / 6.5 * 10.9), (int) (frameHeight / 1.71), (int) (frameHeight / 6.5), (int) (frameHeight / 13));
+		goJail.setBounds(3555, 0, 326, 326);
+		pacificAve.setBounds(3555, 179, 326, 163);
+		northCarolinaAve.setBounds(3555, 314, 326, 163);
+		commChestR.setBounds(3555, 446, 326, 163);
+		pennAve.setBounds(3555, 580, 326, 163);
+		shortLRR.setBounds(3555, 711, 326, 163);
+		chanceR.setBounds(3555, 844, 326, 163);
+		parkPl.setBounds(3555, 976, 326, 163);
+		luxTax.setBounds(3555, 1109, 326, 163);
+		bdwalk.setBounds(3555, 1239, 326, 163);
 		
 		boardPanels.add(goJail);
 		boardPanels.add(pacificAve);
@@ -296,16 +316,16 @@ public class GUI {
 		boardPanels.add(luxTax);
 		boardPanels.add(bdwalk);
 		
-		setSquare(gotoJail, "gotoJail");
-		setSquare(pacificAvenue, "PacificAvenue");
-		setSquare(northCarolinaAvenue, "northCarolinaAvenue");
-		setSquare(commChestRight, "communityChestR");
-		setSquare(pennAvenue, "PennsylvaniaAvenue");
-		setSquare(shortLineRailroad, "shortLine");
-		setSquare(chanceRi, "chanceRi");
-		setSquare(parkPlace, "parkPlace");
-		setSquare(luxuryTax, "luxuryTax");
-		setSquare(boardwalk, "boardwalk");
+		setLabel(gotoJail, "gotoJail");
+		setLabel(pacificAvenue, "PacificAvenue");
+		setLabel(northCarolinaAvenue, "northCarolinaAvenue");
+		setLabel(commChestRight, "communityChestR");
+		setLabel(pennAvenue, "PennsylvaniaAvenue");
+		setLabel(shortLineRailroad, "shortLine");
+		setLabel(chanceRi, "chanceRi");
+		setLabel(parkPlace, "parkPlace");
+		setLabel(luxuryTax, "luxuryTax");
+		setLabel(boardwalk, "boardwalk");
 		
 		goJail.add(gotoJail);
 		pacificAve.add(pacificAvenue);
@@ -316,22 +336,23 @@ public class GUI {
 		chanceR.add(chanceRi);
 		parkPl.add(parkPlace);
 		luxTax.add(luxuryTax);
-		bdwalk.add(boardwalk);
-		
-		
+		bdwalk.add(boardwalk);	
 	}
 	
+	/**
+	 * Set squares on bottom side of board
+	 */
 	private void setBottomSquares() {
-		connAve.setBounds((int) (frameHeight / .86999), (int) (frameHeight / 1.544), (int) (frameHeight / 13), (int) (frameHeight / 6.5));
-		vermontAve.setBounds((int) (frameHeight / .8249), (int) (frameHeight / 1.544), (int) (frameHeight / 13), (int) (frameHeight / 6.5));
-		chanceBot.setBounds((int) (frameHeight / .7835), (int) (frameHeight / 1.544), (int) (frameHeight / 13), (int) (frameHeight / 6.5));
-		orientalAve.setBounds((int) (frameHeight / .746), (int) (frameHeight / 1.544), (int) (frameHeight / 13), (int) (frameHeight / 6.5));
-		readingRR.setBounds((int) (frameHeight / .715), (int) (frameHeight / 1.544), (int) (frameHeight / 13), (int) (frameHeight / 6.5));
-		inTax.setBounds((int) (frameHeight / .685), (int) (frameHeight / 1.544), (int) (frameHeight / 13), (int) (frameHeight / 6.5));
-		balticAve.setBounds((int) (frameHeight / .664), (int) (frameHeight / 1.544), (int) (frameHeight / 10), (int) (frameHeight / 4.5));
-		commChestB.setBounds((int) (frameHeight / .6334), (int) (frameHeight / 1.544), (int) (frameHeight / 13), (int) (frameHeight / 6.5));
-		medAve.setBounds((int) (frameHeight / .6134), (int) (frameHeight / 1.544), (int) (frameHeight / 10), (int) (frameHeight / 4.5));
-		pGo.setBounds((int) (frameHeight / .596), (int) (frameHeight / 1.54), (int) (frameHeight / 6.5), (int) (frameHeight / 6.5));
+		connAve.setBounds(2436, 1373, 163, 326);
+		vermontAve.setBounds(2570, 1373, 163, 326);
+		chanceBot.setBounds(2705, 1373, 163, 326);
+		orientalAve.setBounds(2841, 1373, 163, 326);
+		readingRR.setBounds(2965, 1373, 163, 326);
+		inTax.setBounds(3094, 1373, 163, 326);
+		balticAve.setBounds(3192, 1373, 212, 326);
+		commChestB.setBounds(3347, 1373, 163, 326);
+		medAve.setBounds(3456, 1373, 212, 326);
+		pGo.setBounds(3557, 1373, 326, 326);
 
 		boardPanels.add(pGo);
 		boardPanels.add(medAve);
@@ -344,16 +365,16 @@ public class GUI {
 		boardPanels.add(vermontAve);
 		boardPanels.add(connAve);
 		
-		setSquare(passGo, "passGo");
-		setSquare(connAvenue, "connecticutAvenue");
-		setSquare(vermontAvenue, "vermontAvenue");
-		setSquare(chanceBottom, "chanceBot");
-		setSquare(orientalAvenue, "orientalAvenue");
-		setSquare(readingRailroad, "readingRailroad");
-		setSquare(incomeTax, "incomeTax");
-		setSquare(balticAvenue, "balticAvenue");		
-		setSquare(commChestBottom, "communityChestBot");		
-		setSquare(mediterraneanAvenue, "mediterraneanAvenue");
+		setLabel(passGo, "passGo");
+		setLabel(connAvenue, "connecticutAvenue");
+		setLabel(vermontAvenue, "vermontAvenue");
+		setLabel(chanceBottom, "chanceBot");
+		setLabel(orientalAvenue, "orientalAvenue");
+		setLabel(readingRailroad, "readingRailroad");
+		setLabel(incomeTax, "incomeTax");
+		setLabel(balticAvenue, "balticAvenue");		
+		setLabel(commChestBottom, "communityChestBot");		
+		setLabel(mediterraneanAvenue, "mediterraneanAvenue");
 		
 		pGo.add(passGo);
 		connAve.add(connAvenue);
@@ -364,16 +385,7 @@ public class GUI {
 		inTax.add(incomeTax);
 		balticAve.add(balticAvenue);
 		commChestB.add(commChestBottom);
-		medAve.add(mediterraneanAvenue);
-		
-		
-		
-		
-	}
-	
-	private void addButtonsToBoard() {
-		
-		
+		medAve.add(mediterraneanAvenue);	
 	}
 
 	/**
@@ -387,21 +399,19 @@ public class GUI {
 		frame = new JFrame("T13 Monopoly Game CS414");
 		frame.setLayout(flow);
 		frame.getContentPane().setBackground(new Color(212, 252, 228));
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setSize(screenSize);
 		frame.setResizable(false);
-		frame.setVisible(true);
+		//frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frameHeight = frame.getHeight() - 40;
-		frameWidth = frame.getWidth();
-		
+	
+		//put all squares on board
 		setLeftSquares();
 		setUpperSquares();
 		setRightSquares();
 		setBottomSquares();
 		
-		//set flow layouts
 		//left squares
 		nyAve.setLayout(flow);
 		tennAve.setLayout(flow);
@@ -450,94 +460,195 @@ public class GUI {
 		medAve.setLayout(flow);
 		pGo.setLayout(flow);
 		
+		//set monopoly logo on board
+		logo.setBounds(2555, 650, 1000, 200);
+		setLabel(logo, "logo");
 		
 		//set buttons on board		
-		communityChestButton.setBounds((int) (frameHeight / .81), (int) (frameHeight / 7), (int) (frameHeight / 7), (int) (frameHeight / 5));
-		chanceButton.setBounds((int) (frameHeight / .7), (int) (frameHeight / 2.5), (int) (frameHeight / 3.33), (int) (frameHeight / 5));
-		setButton(communityChestButton, "chest");
-		setButton(chanceButton, "chance");
+		communityChestButton.setBounds(2575, 300, 400, 200);
+		chanceButton.setBounds(3100, 1050, 400, 200);
+		rollDiceButton.setBounds(1413, 250, 300, 130);
+		buyButton.setBounds(1413, 450, 300, 130);
+		sellButton.setBounds(1413, 650, 300, 130);
+		auctionButton.setBounds(1413, 850, 300, 130);
+		tradeButton.setBounds(1413, 1050, 300, 130);
+		startGameButton.setBounds(1800, 1750, 350, 170);
+		setButton(communityChestButton, 212, 252, 228);
+		setButton(chanceButton, 212, 252, 228);
+		setButton(rollDiceButton, 255, 100, 100);
+		setButton(buyButton, 74, 165, 255);
+		setButton(sellButton, 255, 172, 89);
+		setButton(auctionButton, 255, 255, 172);
+		setButton(tradeButton, 153, 153, 255);
+		setButton(startGameButton, 255, 0, 128);
 		
-		rollDiceButton.setBounds((int) (frameHeight / 1.5), 250, 300, 130);
-		buyButton.setBounds((int) (frameHeight / 1.5), 450, 300, 130);
-		sellButton.setBounds((int) (frameHeight / 1.5), 650, 300, 130);
-		auctionButton.setBounds((int) (frameHeight / 1.5), 850, 300, 130);
-		tradeButton.setBounds((int) (frameHeight / 1.5), 1050, 300, 130);
-		fileBankruptcyButton.setBounds((int) (frameHeight / 1.5), 1250, 300, 130);
-
+		startGameButton.setVisible(false);
+		communityChestButton.setEnabled(false);
+		chanceButton.setEnabled(false);
+		rollDiceButton.setEnabled(false);
+		buyButton.setEnabled(false);
+		sellButton.setEnabled(false);
+		auctionButton.setEnabled(false);
+		tradeButton.setEnabled(false);
 		
-		rollDiceButton.setFont(new Font("Arial", Font.BOLD, 34));
-		rollDiceButton.setBackground(new Color(255, 100, 100));
-		rollDiceButton.setBorder(BorderFactory.createLineBorder(Color.black, 3));
+		//set the dice on the board
+		dice1.setBounds(1475, 50, 100, 100);
+		dice2.setBounds(1575, 125, 100, 100);
+		setLabel(dice1, "dice1");
+		setLabel(dice2, "dice2");
+		dice1.setVisible(false);
+		dice2.setVisible(false);
 		
-		buyButton.setFont(new Font("Arial", Font.BOLD, 34));
-		buyButton.setBackground(new Color(74, 165, 255));
-		buyButton.setBorder(BorderFactory.createLineBorder(Color.black, 3));
-		
-		sellButton.setFont(new Font("Arial", Font.BOLD, 34));
-		sellButton.setBackground(new Color(255, 172, 89));
-		sellButton.setBorder(BorderFactory.createLineBorder(Color.black, 3));
-		
-		auctionButton.setFont(new Font("Arial", Font.BOLD, 34));
-		auctionButton.setBackground(new Color(255, 255, 172));
-		auctionButton.setBorder(BorderFactory.createLineBorder(Color.black, 3));
-		
-		tradeButton.setFont(new Font("Arial", Font.BOLD, 34));
-		tradeButton.setBackground(new Color(153, 153, 255));
-		tradeButton.setBorder(BorderFactory.createLineBorder(Color.black, 3));
-		
-		fileBankruptcyButton.setFont(new Font("Arial", Font.BOLD, 34));
-		fileBankruptcyButton.setBackground(new Color(103, 180, 180));
-		fileBankruptcyButton.setBorder(BorderFactory.createLineBorder(Color.black, 3));
-		
-		//set player section of board
-		addPlayer1.setBounds(frameHeight + 215, 1800, 250, 110);
-		addPlayer1.setFont(new Font("Arial", Font.BOLD, 34));
-		addPlayer1.setBackground(new Color(0, 255, 128));
-		addPlayer1.setBorder(BorderFactory.createLineBorder(Color.black, 3));
-		player1Token.setBounds(frameHeight + 210, 1680, 250, 70);
-		setButton(player1Token, "dogToken");
-		
-		addPlayer2.setBounds(frameHeight + 600, 1800, 250, 110);
-		addPlayer2.setFont(new Font("Arial", Font.BOLD, 34));
-		addPlayer2.setBackground(new Color(0, 255, 128));
-		addPlayer2.setBorder(BorderFactory.createLineBorder(Color.black, 3));
-		player2Token.setBounds(frameHeight + 600, 1680, 250, 70);
-		setButton(player2Token, "battleShipToken");
-		
-		addPlayer3.setBounds(frameHeight + 985, 1800, 250, 110);
-		addPlayer3.setFont(new Font("Arial", Font.BOLD, 34));
-		addPlayer3.setBackground(new Color(0, 255, 128));
-		addPlayer3.setBorder(BorderFactory.createLineBorder(Color.black, 3));
-		player3Token.setBounds(frameHeight + 985, 1680, 250, 70);
-		setButton(player3Token, "carToken");
-		
-		addPlayer4.setBounds(frameHeight + 1370, 1800, 250, 110);
-		addPlayer4.setFont(new Font("Arial", Font.BOLD, 34));
-		addPlayer4.setBackground(new Color(0, 255, 128));
-		addPlayer4.setBorder(BorderFactory.createLineBorder(Color.black, 3));
-		player4Token.setBounds(frameHeight + 1370, 1680, 250, 70);
-		setButton(player4Token, "hatToken");
-		
-		p1.setBounds(frameHeight + 145, 1600, (int) (frameHeight / 5.5), (int) (frameHeight / 5));
+		//set players section of board
+		p1.setBounds(2265, 1600, 385, 424);
 		p1.setBorder(BorderFactory.createLineBorder(Color.black, 4));
-		p2.setBounds(frameHeight + 530, 1600, (int) (frameHeight / 5.5), (int) (frameHeight / 5));
+		p2.setBounds(2650, 1600, 385, 424);
 		p2.setBorder(BorderFactory.createLineBorder(Color.black, 4));
-		p3.setBounds(frameHeight + 915, 1600, (int) (frameHeight / 5.5), (int) (frameHeight / 5));
+		p3.setBounds(3035, 1600, 385, 424);
 		p3.setBorder(BorderFactory.createLineBorder(Color.black, 4));
-		p4.setBounds(frameHeight + 1300, 1600, (int) (frameHeight / 5.5), (int) (frameHeight / 5));
+		p4.setBounds(3420, 1600, 385, 424);
 		p4.setBorder(BorderFactory.createLineBorder(Color.black, 4));
-		
 		playersPanels.add(p1);
 		playersPanels.add(p2);
 		playersPanels.add(p3);
 		playersPanels.add(p4);
+		
+		//button to add player 1 
+		addPlayer1Button.setBounds(2335, 1800, 250, 110);
+		setButton(addPlayer1Button, 0, 255, 128);
 	
-		player1Token.setVisible(true);
-		player2Token.setVisible(true);
-		player3Token.setVisible(true);
-		player4Token.setVisible(true);
+		addPlayer1Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				addPlayer1Button.setVisible(false);				
+				//add a new player
+				players.add(new Player(Player.TokenName.DOG));
+				
+				//add player1 token and info to board
+				player1Token.setBounds(3550, 1370, 255, 110);
+				setButton(player1Token, "dogToken");
+				player1.setBounds(2420, 1600, 255, 110);
+				setLabel(player1, "dogToken");
+				
+				//add player1 initial starting money to board
+				player1Money.setText("Money: $" + String.valueOf(players.get(0).getMoney()));
+				player1Money.setFont(new Font("Arial", Font.ITALIC, 30));
+				player1Money.setBounds(2350, 1685, 250, 110);
+
+				frame.getContentPane().add(player1);
+				frame.getContentPane().add(player1Money);
+				
+				//button to add player2
+				addPlayer2Button.setBounds(2720, 1800, 250, 110);
+				setButton(addPlayer2Button, 0, 255, 128);	
+			}
+
+		});
+		
+		addPlayer2Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				addPlayer2Button.setVisible(false);
+				//add new player
+				players.add(new Player(Player.TokenName.BATTLESHIP));
+				
+				//add player2 token and info to board
+				player2Token.setBounds(3635, 1370, 255, 110);
+				setButton(player2Token, "battleShipToken");
+				player2.setBounds(2810, 1605, 100, 110);
+				setLabel(player2, "battleShipToken");
+		
+				//add player2 initial starting money to board
+				player2Money.setText("Money: $" + String.valueOf(players.get(0).getMoney()));
+				player2Money.setFont(new Font("Arial", Font.ITALIC, 30));
+				player2Money.setBounds(2750, 1685, 250, 110);
+
+				frame.getContentPane().add(player2);
+				frame.getContentPane().add(player2Money);
+				
+				//button to add player3
+				addPlayer3Button.setBounds(3105, 1800, 250, 110);
+				setButton(addPlayer3Button, 0, 255, 128);
+				
+				//Game can be started since 2 players have been added
+				startGameButton.setVisible(true);
+				startGameButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						p1.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
+						addPlayer3Button.setVisible(false);
+						startGame();
+					}
+				});
+			}
+
+		});
+		
+		addPlayer3Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				addPlayer3Button.setVisible(false);
+				//add new player
+				players.add(new Player(Player.TokenName.CAR));
+				
+				//add player3 token and info to board
+				player3Token.setBounds(3550, 1458, 255, 110);
+				setButton(player3Token, "carToken");
+				player3.setBounds(3190, 1615, 255, 110);
+				setLabel(player3, "carToken");
+
+				//add player3 initial starting money to board
+				player3Money.setText("Money: $" + String.valueOf(players.get(0).getMoney()));
+				player3Money.setFont(new Font("Arial", Font.ITALIC, 30));
+				player3Money.setBounds(3130, 1685, 250, 110);
+
+				frame.getContentPane().add(player3);
+				frame.getContentPane().add(player3Money);
+				
+				//button to add player3
+				addPlayer4Button.setBounds(3490, 1800, 250, 110);
+				setButton(addPlayer4Button, 0, 255, 128);
+				
+				startGameButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						p1.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
+						addPlayer4Button.setVisible(false);
+						
+						startGame();
+					}
+				});
+			}
+
+		});
+		
+		addPlayer4Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				addPlayer4Button.setVisible(false);
+				//add new player
+				players.add(new Player(Player.TokenName.HAT));
+				
+				//add player4 token and info to board
+				player4Token.setBounds(3640, 1458, 255, 110);
+				setButton(player4Token, "hatToken");
+				player4.setBounds(3570, 1615, 255, 110);
+				setLabel(player4, "hatToken");
+
+				//add player4 initial starting money to board
+				player4Money.setText("Money: $" + String.valueOf(players.get(0).getMoney()));
+				player4Money.setFont(new Font("Arial", Font.ITALIC, 30));
+				player4Money.setBounds(3520, 1685, 250, 110);
+
+				frame.getContentPane().add(player4);
+				frame.getContentPane().add(player4Money);	
+				
+				startGameButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						p1.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
+						startGame();
+					}
+				});
+			}
+
+		});
 		
 		//add everything to frame
+		frame.getContentPane().add(logo);
 		frame.getContentPane().add(player1Token);
 		frame.getContentPane().add(player2Token);
 		frame.getContentPane().add(player3Token);
@@ -546,11 +657,10 @@ public class GUI {
 		frame.getContentPane().add(p2);
 		frame.getContentPane().add(p3);
 		frame.getContentPane().add(p4);
-		frame.getContentPane().add(addPlayer1);
-		frame.getContentPane().add(addPlayer2);
-		frame.getContentPane().add(addPlayer3);
-		frame.getContentPane().add(addPlayer4);
-	
+		frame.getContentPane().add(addPlayer1Button);
+		frame.getContentPane().add(addPlayer2Button);
+		frame.getContentPane().add(addPlayer3Button);
+		frame.getContentPane().add(addPlayer4Button);
 		frame.getContentPane().add(justVisit);
 		frame.getContentPane().add(freePark);
 		frame.getContentPane().add(nyAve);
@@ -594,11 +704,25 @@ public class GUI {
 		frame.getContentPane().add(communityChestButton);
 		frame.getContentPane().add(chanceButton);
 		frame.getContentPane().add(rollDiceButton);
+		frame.getContentPane().add(dice1);
+		frame.getContentPane().add(dice2);
 		frame.getContentPane().add(buyButton);
 		frame.getContentPane().add(sellButton);
 		frame.getContentPane().add(auctionButton);
 		frame.getContentPane().add(tradeButton);
-		frame.getContentPane().add(fileBankruptcyButton);
+		frame.getContentPane().add(startGameButton);
+	}
+	
+	/**
+	 * start a new game
+	 */
+	private void startGame() {
+		startGameButton.setVisible(false);
+
+		rollDiceButton.setEnabled(true);
+		dice1.setVisible(true);
+		dice2.setVisible(true);
+		
 	}
 	
 	/**

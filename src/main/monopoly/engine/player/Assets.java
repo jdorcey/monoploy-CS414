@@ -15,7 +15,7 @@ public class Assets extends Observable {
 	private ArrayList<Object> observers = new ArrayList<>();
 
 	public Assets(Player owner) {
-		money = 0;
+		money = 1500;
 		deeds = new LinkedList<>();
 		this.owner = owner;
 	}

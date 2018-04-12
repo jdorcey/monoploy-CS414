@@ -6,10 +6,11 @@ import monopoly.engine.square.Deed;
 
 public class Player {
 	
-	private enum TokenName{DOG, BATTLESHIP, CAR, HAT, IRON, THIMBLE, WHEELBARROW, MONEY_BAG, SHOE, COWBOY};
+	public enum TokenName{DOG, BATTLESHIP, CAR, HAT};
 	private Assets assets;
 	private TokenName token; 
 	private boolean isJailed;
+	
 	
 	public Player(TokenName name) {
 		assets = new Assets(this);
