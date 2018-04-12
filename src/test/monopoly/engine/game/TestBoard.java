@@ -11,11 +11,6 @@ class TestBoard {
 	}
 
 	@Test
-	void testgetCurrentLocations() {
-		fail("Not yet implemented");
-	}
-	
-	@Test
 	void testMovePiece() {
 		fail("Not yet implemented");
 	}

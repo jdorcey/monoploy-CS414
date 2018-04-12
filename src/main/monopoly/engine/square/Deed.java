@@ -45,7 +45,7 @@ public class Deed extends Square{
 		return mortgageValue;
 	}
 	
-	private int calculateRent() {
+	public int calculateRent() {
 		if(this.color.getType() == Color.Type.RAILROAD) { return rent[color.numRailroadsorUtilitiesOwned(this)]; }
 		if(this.color.getType() == Color.Type.UTILITY) {
 			int numOwned = color.numRailroadsorUtilitiesOwned(this);
