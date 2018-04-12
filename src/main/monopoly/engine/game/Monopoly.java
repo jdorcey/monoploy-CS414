@@ -21,22 +21,23 @@ public class Monopoly implements Observer {
   private long gameLength;
 	
 	protected Monopoly() { 
-		players = new ArrayList<>();
 		board = new Board();
 		clock = Clock.systemDefaultZone();
 		time = clock.millis();
 		gameLength = 60; //one minute
 	}
 	
+	public Board getBoard() {
+		return board;
+	}
+	
     public static Monopoly getInstance() {
         if (INSTANCE != null) return INSTANCE;
         else return new Monopoly();
     }
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-	}
-	
+    public void setPlayers(ArrayList<Player> players) {
+    	this.players = players;
+    }
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
@@ -69,7 +70,7 @@ public class Monopoly implements Observer {
 	
 	private void setUpGame() {
 		//prompt user to input number of players and choose tokens
-		Banker.initializePlayers(players);
+		//Banker.initializePlayers(players);
 		determineOrder();
 		for(Player p : players) { 
 			board.getCurrentLocations().put(p, 0);

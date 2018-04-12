@@ -12,11 +12,11 @@ public class Turn {
 	private Monopoly monopoly;
 	
 	
-	public Turn(Board board) {
+	public Turn() {
 		player = null;
 		diceValue = new int[2];
-		this.board = board;
-		//monopoly = Monopoly.getInstance()
+		monopoly = Monopoly.getInstance();
+		this.board = monopoly.getBoard();
 	}
 	
 	//how is this class getting called?

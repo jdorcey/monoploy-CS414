@@ -7,11 +7,6 @@ import monopoly.engine.square.Deed;
 
 public class Banker {
 
-	public static void initializePlayers(ArrayList<Player> players) {
-		for(Player player : players) {
-			player.deposit(1500); //players start with 1500
-		}
-	}
 	public static void sellProperty(Player player, Deed deed) {
 		//TODO Prompt User for buy or auction
 	}
