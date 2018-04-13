@@ -31,14 +31,15 @@ public class Deed extends Square{
 	
 	@Override
 	public void performAction(Player player) {
-		if (owner == null) {
-			Banker.sellProperty(player, this);
-		}else {
-			if(owner.equals(player)) {
-				return;
-			}
+		if (owner == null) { Banker.sellProperty(player, this); }
+		else {
+			if(owner.equals(player)) { return; }
 			player.transfer(owner, calculateRent());
 		}
+	}
+	
+	public int getPurchasePrice() {
+		return purchasePrice;
 	}
 	
 	public int getMortgageValue() {

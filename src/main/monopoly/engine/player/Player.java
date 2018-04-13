@@ -10,26 +10,41 @@ public class Player {
 	private Assets assets;
 	private TokenName token; 
 	private boolean isJailed;
-	private int currentBoardIndex;
-	
+	private int currentIndex;
 	
 	public Player(TokenName name) {
 		assets = new Assets(this);
 		token = name;
 		isJailed = false;
-		currentBoardIndex = 0;
+		currentIndex = 0;
+	}
+	
+	public TokenName getToken() {
+		return token;
+	}
+	
+	public Assets getAssets() {
+		return assets;
+	}
+	
+	public LinkedList<Deed> getDeeds() {
+		return assets.getDeeds();
+	}
+	
+	public int getMoney() {
+		return assets.getMoney();
+	}
+	
+	public void setCurrentIndex(int currentIndex) {
+		this.currentIndex = currentIndex;
+	}
+	
+	public int getCurrentIndex() {
+		return this.currentIndex;
 	}
 	
 	public boolean isJailed() {
 		return isJailed;
-	}
-	
-	public void setCurrentBoardIndex(int index) {
-		this.currentBoardIndex = index;
-	}
-	
-	public int getCurrentBoardIndex() {
-		return this.currentBoardIndex;
 	}
 	
 	public void setJailed(boolean isJailed) {
@@ -48,10 +63,6 @@ public class Player {
 			removeDeed(deed);
 			other.addDeed(deed);
 		}
-	}
-	
-	public TokenName getToken() {
-		return token;
 	}
 	
 	public void transfer(Player other, int amount) {
@@ -73,17 +84,5 @@ public class Player {
 	
 	public void removeDeed(Deed deed) {
 		assets.removeDeed(deed);
-	}
-	
-	public Assets getAssets() {
-		return assets;
-	}
-	
-	public LinkedList<Deed> getDeeds() {
-		return assets.getDeeds();
-	}
-	
-	public int getMoney() {
-		return assets.getMoney();
 	}
 }

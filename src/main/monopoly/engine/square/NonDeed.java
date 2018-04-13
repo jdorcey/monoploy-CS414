@@ -1,7 +1,6 @@
 package monopoly.engine.square;
 
 import monopoly.engine.game.Banker;
-import monopoly.engine.game.Monopoly;
 import monopoly.engine.player.Player;
 
 public class NonDeed extends Square {

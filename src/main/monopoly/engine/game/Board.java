@@ -1,17 +1,14 @@
 package monopoly.engine.game;
 
-import monopoly.engine.player.Player;
+import java.util.Arrays;
+
 import monopoly.engine.square.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Random;
 
 public class Board {
 	
-	private HashMap<Player, Integer> currentLocations;
-	private Square[] board;	
+	//private HashMap<Player, Integer> currentLocations;
+	private Square[] squares;	
 	private Color purple = new Color(Color.Type.PURPLE, 50);
 	private Color lightblue = new Color(Color.Type.LIGHT_BLUE, 50);
 	private Color pink = new Color(Color.Type.PINK, 100);
@@ -52,7 +49,7 @@ public class Board {
 	private Deed WaterWorks = new Deed(Deed.DeedName.WATER_WORKS, 150, new int[] {4, 10}, utility);
 		
 	public Board() {
-		board = new Square[] {new NonDeed(NonDeed.SquareType.GO), MediteranneanAvenue, new NonDeed(NonDeed.SquareType.COMMUNITY_CHEST), 
+		squares = new Square[] {new NonDeed(NonDeed.SquareType.GO), MediteranneanAvenue, new NonDeed(NonDeed.SquareType.COMMUNITY_CHEST), 
 				BalticAvenue, new NonDeed(NonDeed.SquareType.INCOME_TAX), ReadingRailroad, OrientalAvenue, 
 				new NonDeed(NonDeed.SquareType.CHANCE), VermontAvenue, ConnecticutAvenue, new NonDeed(NonDeed.SquareType.JUST_VISITING_JAIL),
 				StCharlesPlace, ElectricCompany, StatesAvenue, VirginiaAvenue, PennsylvaniaRailroad, StJamesPlace,
@@ -71,21 +68,10 @@ public class Board {
 		blue.addDeeds(Arrays.asList(new Deed[] {ParkPlace, Boardwalk}));
 		railroad.addDeeds(Arrays.asList(new Deed[] {ReadingRailroad, PennsylvaniaRailroad, BandORailroad, ShortLine}));
 		utility.addDeeds(Arrays.asList(new Deed[] {ElectricCompany, WaterWorks}));
-		currentLocations = new HashMap<>();
-	}
-	
-	public HashMap<Player, Integer> getCurrentLocations() {
-		return currentLocations;
+		//currentLocations = new HashMap<>();
 	}
 
-	public void movePiece(Player current, int diceRoll) {
-		//check if player is jailed due to rolling 3 doubles in same turn
-		if(current.isJailed()) { currentLocations.replace(current, 10); }
-		else {
-			currentLocations.replace(current, (currentLocations.get(current) + diceRoll) % board.length);
-			board[currentLocations.get(current)].performAction(current);
-			//check if Player landed on Go To Jail
-			if(current.isJailed()) { currentLocations.replace(current, 10); } 
-		}
+	public Square[] getSquares() {
+		return squares;
 	}
 }
