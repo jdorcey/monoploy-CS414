@@ -10,16 +10,26 @@ public class Player {
 	private Assets assets;
 	private TokenName token; 
 	private boolean isJailed;
+	private int currentBoardIndex;
 	
 	
 	public Player(TokenName name) {
 		assets = new Assets(this);
 		token = name;
 		isJailed = false;
+		currentBoardIndex = 0;
 	}
 	
 	public boolean isJailed() {
 		return isJailed;
+	}
+	
+	public void setCurrentBoardIndex(int index) {
+		this.currentBoardIndex = index;
+	}
+	
+	public int getCurrentBoardIndex() {
+		return this.currentBoardIndex;
 	}
 	
 	public void setJailed(boolean isJailed) {

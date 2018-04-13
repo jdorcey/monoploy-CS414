@@ -136,6 +136,7 @@ public class GUI {
 	private JButton addPlayer3Button = new JButton("Add Player");
 	private JButton addPlayer4Button = new JButton("Add Player");
 	private JButton startGameButton = new JButton("START GAME!");
+	private JButton finishTurnButton = new JButton("Finish Turn");
 	private JButton player1Token = new JButton();
 	private JButton player2Token = new JButton();
 	private JButton player3Token = new JButton();
@@ -144,11 +145,14 @@ public class GUI {
 	private ArrayList<Player> players;
 	private ArrayList<JLayeredPane> playersPanels;
 	private ArrayList<JLayeredPane> boardPanels;
+	
+	int[] rollVal;
 
 	/**
 	 * GUI constructor to create the main frame
 	 */
 	public GUI() {
+		Monopoly game = new Monopoly();
 		boardPanels = new ArrayList<JLayeredPane>();	
 		playersPanels = new ArrayList<JLayeredPane>();
 		players = new ArrayList<Player>();
@@ -473,6 +477,7 @@ public class GUI {
 		auctionButton.setBounds(1413, 850, 300, 130);
 		tradeButton.setBounds(1413, 1050, 300, 130);
 		startGameButton.setBounds(1800, 1750, 350, 170);
+		finishTurnButton.setBounds(1900, 1750, 300, 130);
 		setButton(communityChestButton, 212, 252, 228);
 		setButton(chanceButton, 212, 252, 228);
 		setButton(rollDiceButton, 255, 100, 100);
@@ -481,8 +486,10 @@ public class GUI {
 		setButton(auctionButton, 255, 255, 172);
 		setButton(tradeButton, 153, 153, 255);
 		setButton(startGameButton, 255, 0, 128);
+		setButton(finishTurnButton, 99, 177, 177);
 		
 		startGameButton.setVisible(false);
+		finishTurnButton.setVisible(false);
 		communityChestButton.setEnabled(false);
 		chanceButton.setEnabled(false);
 		rollDiceButton.setEnabled(false);
@@ -570,16 +577,10 @@ public class GUI {
 				
 				//Game can be started since 2 players have been added
 				startGameButton.setVisible(true);
-				startGameButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						p1.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
-						addPlayer3Button.setVisible(false);
-						startGame();
-					}
-				});
+				
 			}
 
-		});
+		});		
 		
 		addPlayer3Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -605,14 +606,6 @@ public class GUI {
 				addPlayer4Button.setBounds(3490, 1800, 250, 110);
 				setButton(addPlayer4Button, 0, 255, 128);
 				
-				startGameButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						p1.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
-						addPlayer4Button.setVisible(false);
-						
-						startGame();
-					}
-				});
 			}
 
 		});
@@ -635,16 +628,17 @@ public class GUI {
 				player4Money.setBounds(3520, 1685, 250, 110);
 
 				frame.getContentPane().add(player4);
-				frame.getContentPane().add(player4Money);	
-				
-				startGameButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						p1.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
-						startGame();
-					}
-				});
+				frame.getContentPane().add(player4Money);				
 			}
-
+		});
+		
+		startGameButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				p1.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
+				addPlayer3Button.setVisible(false);
+				addPlayer4Button.setVisible(false);
+				startGame();
+			}
 		});
 		
 		//add everything to frame
@@ -711,6 +705,7 @@ public class GUI {
 		frame.getContentPane().add(auctionButton);
 		frame.getContentPane().add(tradeButton);
 		frame.getContentPane().add(startGameButton);
+		frame.getContentPane().add(finishTurnButton);
 	}
 	
 	/**
@@ -718,10 +713,89 @@ public class GUI {
 	 */
 	private void startGame() {
 		startGameButton.setVisible(false);
+		Monopoly game = new Monopoly();
+		game.setPlayers(players);
+		
+		Turn playerTurn = new Turn(game.getPlayers().get(0));
 
 		rollDiceButton.setEnabled(true);
 		dice1.setVisible(true);
 		dice2.setVisible(true);
+		
+		rollDiceButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				rollVal = playerTurn.rollDice();	
+				
+				//set dice label to value rolled
+				switch (rollVal[0]) {
+				case 1:
+					setLabel(dice1, "dice1");
+					break;
+				case 2:
+					setLabel(dice1, "dice2");
+					break;
+				case 3:
+					setLabel(dice1, "dice3");
+					break;
+				case 4:
+					setLabel(dice1, "dice4");
+					break;
+				case 5:
+					setLabel(dice1, "dice5");
+					break;
+				case 6:
+					setLabel(dice1, "dice6");
+					break;
+				}
+					
+				switch (rollVal[1]) {
+				case 1:
+					setLabel(dice2, "dice1");
+					break;
+				case 2:
+					setLabel(dice2, "dice2");
+					break;
+				case 3:
+					setLabel(dice2, "dice3");
+					break;
+				case 4:
+					setLabel(dice2, "dice4");
+					break;
+				case 5:
+					setLabel(dice2, "dice5");
+					break;
+				case 6:
+					setLabel(dice2, "dice6");
+					break;
+				}
+				
+				//player rolled doubles
+				if(playerTurn.playerRolledDoubles() == true && playerTurn.getNumDoubles() != 0) {
+					rollDiceButton.setEnabled(true);
+					//game.getCurrentPlayer().setCurrentBoardIndex(rollVal[0] + rollVal[1]);
+					
+				}
+				//player rolled doubles 3 times in a row, send them to jail
+				else if(playerTurn.playerRolledDoubles() == true && playerTurn.getNumDoubles() == 0) {
+					rollDiceButton.setEnabled(false);
+					finishTurnButton.setVisible(true);
+					//game.getCurrentPlayer().setCurrentBoardIndex(31);
+				}
+				//player didnt roll doubles
+				
+				else {
+					rollDiceButton.setEnabled(false);
+					//game.getCurrentPlayer().setCurrentBoardIndex(rollVal[0] + rollVal[1]);
+				}
+				
+						
+			}
+			
+		});
+		
+	}
+	
+	private void movePlayerPosition() {
 		
 	}
 	

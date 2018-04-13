@@ -51,6 +51,7 @@ public class Monopoly implements Observer {
 		return players.get((players.indexOf(player) + 1) % players.size());
 	}
 
+	/*
 	private void determineOrder() {
 		TreeMap<Integer, Player> order = new TreeMap<>();
 		Random r = new Random();
@@ -77,6 +78,7 @@ public class Monopoly implements Observer {
 			p.getAssets().addObserver(this); 
 		}
 	}
+	*/
 	
 	private Player winner() {
 		int highest = 0;

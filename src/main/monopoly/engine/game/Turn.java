@@ -10,11 +10,13 @@ public class Turn {
 	private Player player;
 	private Board board;
 	private Monopoly monopoly;
+	private boolean rolledDoubles;
 	
 	
-	public Turn() {
-		player = null;
+	public Turn(Player player) {
+		this.player = player;
 		diceValue = new int[2];
+		numDoubles = 0;
 		monopoly = Monopoly.getInstance();
 		this.board = monopoly.getBoard();
 	}
@@ -22,15 +24,31 @@ public class Turn {
 	//how is this class getting called?
 	//how is this the state pattern?
 	
-	public void rollDice() {
+	public int[] rollDice() {
 		Random r = new Random();
+		rolledDoubles = false;
 		diceValue[0] = r.nextInt(6); diceValue[1] = r.nextInt(6);
-		if(diceValue[0] == diceValue[1]) { numDoubles++; }
+		if(diceValue[0] == diceValue[1]) { 
+			numDoubles++; 
+			rolledDoubles = true;
+		}	
+		
 		if(numDoubles < 3) { board.movePiece(player, (diceValue[0] + diceValue[1])); }
 		if(numDoubles == 3) { 
 			player.setJailed(true);
 			board.movePiece(player, 0);
+			numDoubles = 0;
 		}
+		
+		return diceValue;
+	}
+	
+	public int getNumDoubles() {
+		return numDoubles;
+	}
+	
+	public boolean playerRolledDoubles() {
+		return rolledDoubles;
 	}
 
 	public void buyHouse() {

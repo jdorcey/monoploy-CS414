@@ -1,7 +1,5 @@
 package monopoly.engine.game;
 
-import java.util.ArrayList;
-
 import monopoly.engine.player.Player;
 import monopoly.engine.square.Deed;
 
