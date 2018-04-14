@@ -716,6 +716,7 @@ public class GUI implements Observer {
 		startGameButton.setVisible(false);
 		game.setPlayers(players);
 		playerTurn = game.getTurn();
+		playerTurn.addObserver(this);
 		
 		rollDiceButton.setEnabled(true);
 		dice1.setVisible(true);
@@ -772,7 +773,6 @@ public class GUI implements Observer {
 					rollDiceButton.setEnabled(true);
 				}else {
 					rollDiceButton.setEnabled(false);
-					finishTurnButton.setVisible(true);
 				}
 //				//player rolled doubles
 //				if(playerTurn.playerRolledDoubles() == true && playerTurn.getNumDoubles() != 0) {
@@ -803,12 +803,16 @@ public class GUI implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		//arg here is null, we don't need it
-		if(playerTurn.getPlayer().isJailed()) {
+		if(playerTurn.isOver()) { finishTurnButton.setVisible(true); }
+		if(playerTurn.isJailed()) {
 			//move to Jail square
+			System.out.printf("Moving %s to Jail", playerTurn.getPlayer().getToken());
 		}
 		else { 
 			int numSpaces = playerTurn.getDiceSum();
 			//move player's token numSpaces
+			System.out.printf("Moving %s to %s", playerTurn.getToken(), 
+					game.getBoard().getSquares()[playerTurn.getCurrentIndex() + numSpaces].getName());
 		}
 	}
 	

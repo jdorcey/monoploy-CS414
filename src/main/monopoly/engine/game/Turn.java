@@ -70,6 +70,14 @@ public class Turn extends Observable {
 		return numDoubles;
 	}
 
+	public String getToken() {
+		return player.getToken();
+	}
+	
+	public int getCurrentIndex() {
+		return player.getCurrentIndex();
+	}
+	
 	public int getDiceSum() {
 		return diceValues[0] + diceValues[1];
 	}

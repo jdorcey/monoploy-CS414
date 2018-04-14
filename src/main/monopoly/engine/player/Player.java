@@ -19,8 +19,14 @@ public class Player {
 		currentIndex = 0;
 	}
 	
-	public TokenName getToken() {
-		return token;
+	public String getToken() {
+		switch(token) {
+		case BATTLESHIP: 	return "Battleship"; 	
+		case DOG: 			return "Dog"; 			
+		case CAR: 			return "Car";			
+		case HAT:			return "Hat"; 
+		}
+		return null;
 	}
 	
 	public Assets getAssets() {
