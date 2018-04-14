@@ -9,7 +9,7 @@ import monopoly.engine.player.Player;
 
 public class Monopoly implements Observer { 
 	
-	private static Monopoly INSTANCE;
+	private static Monopoly INSTANCE = null;
 	private Board board;
 	private ArrayList<Player> players;
 	private Player winner;
@@ -23,6 +23,7 @@ public class Monopoly implements Observer {
 		clock = Clock.systemDefaultZone();
 		time = clock.millis();
 		gameLength = 60; //one minute
+		INSTANCE = this;
 	}
 	
 	public Player playGame() {
@@ -49,7 +50,7 @@ public class Monopoly implements Observer {
     
     public void setPlayers(ArrayList<Player> players) {
     	this.players = players;
-    	this.turn = new Turn(players.get(0));
+    	this.turn = new Turn(this.players.get(0));
     }
     public Turn getTurn() {
 		return turn;

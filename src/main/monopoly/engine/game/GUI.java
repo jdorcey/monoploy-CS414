@@ -635,7 +635,6 @@ public class GUI implements Observer {
 		
 		startGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				p1.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
 				addPlayer3Button.setVisible(false);
 				addPlayer4Button.setVisible(false);
 				startGame();
@@ -708,7 +707,26 @@ public class GUI implements Observer {
 		frame.getContentPane().add(startGameButton);
 		frame.getContentPane().add(finishTurnButton);
 	}
-	
+	private void setPlayerBorder() {
+		switch(playerTurn.getToken()) {
+		case DOG: 			
+			p1.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
+			p4.setBorder(BorderFactory.createLineBorder(Color.black, 4));
+			break;
+		case BATTLESHIP: 	 			
+			p2.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
+			p1.setBorder(BorderFactory.createLineBorder(Color.black, 4));
+			break;
+		case HAT: 			 			
+			p3.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
+			p2.setBorder(BorderFactory.createLineBorder(Color.black, 4));
+			break;
+		case CAR: 	 			
+			p4.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
+			p3.setBorder(BorderFactory.createLineBorder(Color.black, 4));
+			break;
+		}
+	}
 	/**
 	 * start a new game
 	 */
@@ -716,6 +734,7 @@ public class GUI implements Observer {
 		startGameButton.setVisible(false);
 		game.setPlayers(players);
 		playerTurn = game.getTurn();
+		setPlayerBorder();
 		playerTurn.addObserver(this);
 		
 		rollDiceButton.setEnabled(true);
@@ -797,7 +816,14 @@ public class GUI implements Observer {
 			}
 			
 		});
-		
+		finishTurnButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("finish turn!");
+				playerTurn.endTurn();
+				setPlayerBorder();
+			}
+			
+		});
 	}
 	
 	@Override
