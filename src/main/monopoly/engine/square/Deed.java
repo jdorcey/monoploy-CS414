@@ -1,6 +1,7 @@
 package monopoly.engine.square;
 
 import monopoly.engine.game.Banker;
+import monopoly.engine.game.Monopoly;
 import monopoly.engine.player.Player;
 
 public class Deed extends Square{
@@ -9,6 +10,7 @@ public class Deed extends Square{
 		PENNSYLVANIA_AVENUE, PENNSYLVANIA_RAILROAD, READING_RAILROAD, SHORT_LINE, STCHARLES_PLACE, STJAMES_PLACE, STATES_AVENUE, TENNESSEE_AVENUE, 
 		VENTNOR_AVENUE, VERMONT_AVENUE, VIRGINIA_AVENUE, WATER_WORKS};
 	
+	private Monopoly game = Monopoly.getInstance();
 	private DeedName name;
 	private int purchasePrice;
 	private int mortgageValue;
@@ -49,12 +51,7 @@ public class Deed extends Square{
 	public int calculateRent() {
 		if(this.color.getType() == Color.Type.RAILROAD) { return rent[color.numRailroadsorUtilitiesOwned(this)]; }
 		if(this.color.getType() == Color.Type.UTILITY) {
-			int numOwned = color.numRailroadsorUtilitiesOwned(this);
-			switch(numOwned) {
-			//replace -1 with current dice roll
-			case 1: 	return rent[0] * -1;
-			case 2:		return rent[1] * -1; 
-			}
+			return rent[color.numRailroadsorUtilitiesOwned(this) - 1] * game.getTurn().getDiceSum();
 		}
 		if (hasHotel) { return rent[5]; }
 		if(numHouses == 0 && color.isMonopoly()) { return rent[0] * 2; }

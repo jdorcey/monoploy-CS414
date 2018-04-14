@@ -48,23 +48,37 @@ public class Turn extends Observable {
 		return diceValues;
 	}
 	
-	public boolean isJailed() { return player.isJailed(); }
+	public boolean isJailed() { 
+    return player.isJailed(); 
+  }
 
 	public boolean canRoll() {
 		return diceValues[0] == 0 || ((isDoubles()) && (numDoubles != 0) && (numDoubles < 3));
 	}
 	
-	public Player getPlayer() { return player;	}
+	public Player getPlayer() { 
+		return player;	
+	}
 
-	private int getNumDoubles() { return numDoubles;  }
+	private int getNumDoubles() { 
+		return numDoubles; 
+	}
 
-	public int getDiceSum() { return diceValues[0] + diceValues[1]; }
+	public int getDiceSum() { 
+		return diceValues[0] + diceValues[1]; 
+	}
 	
-	public String getToken() { return player.getToken();}
+	public String getToken() { 
+		return player.getToken();
+	}
 	
-	public int getCurrentIndex() { return player.getCurrentIndex();	}
+	public int getCurrentIndex() { 
+    return player.getCurrentIndex();	
+  }
 	
-	public boolean isBuyState() { return player.isBuyState(); }
+	public boolean isBuyState() { 
+    return player.isBuyState(); 
+  }
 	
 	public void doneBuying() { 
 		setChanged();
@@ -83,9 +97,11 @@ public class Turn extends Observable {
 		//sell house/hotel
 		//DO NOT DO FOR THIS ITERATION
 	}
-    
-	public boolean isTurnOver() { return isTurnOver; }
 	
+    public boolean isTurnOver() { 
+    	return isTurnOver; 
+    }
+
     public void endTurn() {
     	setChanged();
 		//set next player as current player
@@ -97,12 +113,15 @@ public class Turn extends Observable {
 		notifyObservers();
 		clearChanged();
 	}
+    
+	private boolean isDoubles() {
+		return diceValues[0] == diceValues[1];
+	}
 	
     private void resetdiceValues() {
 		diceValues[0] = 0;
 		diceValues[1] = 0;
     }
-	private boolean isDoubles() {return diceValues[0] == diceValues[1];}
 	
 	private void movePlayer() {
 		setChanged();
