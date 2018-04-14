@@ -55,7 +55,9 @@ public class Monopoly implements Observer {
     	this.players = players;
     	this.turn = new Turn(players.get(0));
     }
-    
+    public Turn getTurn() {
+		return turn;
+	}
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}

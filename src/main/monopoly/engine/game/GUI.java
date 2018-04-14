@@ -148,17 +148,16 @@ public class GUI implements Observer {
 	private ArrayList<JLayeredPane> playersPanels;
 	private ArrayList<JLayeredPane> boardPanels;
 	
-	int[] rollVal;
-
+	private int[] rollVal;
+	private Monopoly game = Monopoly.getInstance();
+	private Turn playerTurn;
 	/**
 	 * GUI constructor to create the main frame
 	 */
 	public GUI() {
-		Monopoly game = new Monopoly();
 		boardPanels = new ArrayList<JLayeredPane>();	
 		playersPanels = new ArrayList<JLayeredPane>();
 		players = new ArrayList<Player>();
-
 		initialize();
 	}
 	
@@ -715,18 +714,17 @@ public class GUI implements Observer {
 	 */
 	private void startGame() {
 		startGameButton.setVisible(false);
-		Monopoly game = new Monopoly();
 		game.setPlayers(players);
+		playerTurn = game.getTurn();
 		
-		Turn playerTurn = new Turn(game.getPlayers().get(0));
-
 		rollDiceButton.setEnabled(true);
 		dice1.setVisible(true);
 		dice2.setVisible(true);
 		
+		//Only handles displaying the dice
 		rollDiceButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				rollVal = playerTurn.rollDice();	
+				rollVal = playerTurn.takeTurn();	
 				
 				//set dice label to value rolled
 				switch (rollVal[0]) {
@@ -770,20 +768,30 @@ public class GUI implements Observer {
 					setLabel(dice2, "dice6");
 					break;
 				}
-				
-				//player rolled doubles
-				if(playerTurn.getNumDoubles() > 0) { rollDiceButton.setEnabled(true); }
-				//player rolled doubles 3 times in a row, send them to jail
-				else if(playerTurn.getPlayer().isJailed()) {
+				if (playerTurn.canRoll()) {
+					rollDiceButton.setEnabled(true);
+				}else {
 					rollDiceButton.setEnabled(false);
 					finishTurnButton.setVisible(true);
 				}
-				//player didnt roll doubles
-				
-				else {
-					rollDiceButton.setEnabled(false);
-					//game.getCurrentPlayer().setCurrentBoardIndex(rollVal[0] + rollVal[1]);
-				}
+//				//player rolled doubles
+//				if(playerTurn.playerRolledDoubles() == true && playerTurn.getNumDoubles() != 0) {
+//					rollDiceButton.setEnabled(true);
+//					//game.getCurrentPlayer().setCurrentBoardIndex(rollVal[0] + rollVal[1]);
+//					
+//				}
+//				//player rolled doubles 3 times in a row, send them to jail
+//				else if(playerTurn.playerRolledDoubles() == true && playerTurn.getNumDoubles() == 0) {
+//					rollDiceButton.setEnabled(false);
+//				finishTurnButton.setVisible(true);
+//					//game.getCurrentPlayer().setCurrentBoardIndex(31);
+//				}
+//				//player didnt roll doubles
+//				
+//				else {
+//					rollDiceButton.setEnabled(false);
+//					//game.getCurrentPlayer().setCurrentBoardIndex(rollVal[0] + rollVal[1]);
+//				}
 				
 						
 			}

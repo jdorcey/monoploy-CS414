@@ -24,33 +24,42 @@ public class Turn extends Observable {
 		diceValues[0] = r.nextInt(6); 
 		diceValues[1] = r.nextInt(6);
 		return diceValues;
-
 	}
 	
-	public void takeTurn() {
+	public int[] takeTurn() {
 		rollDice();
 		if(player.isJailed()) {
 			if(diceValues[0] == diceValues[1]) { player.setJailed(false); }
-			return;
+			return diceValues;
 		}			
-		if(diceValues[0] == diceValues[1]) { numDoubles++; }
-		while(numDoubles > 0) {
+		if(isDoubles()) { numDoubles++; }
+		while(canRoll()) {
 			rollDice();
-			if(numDoubles < 3) { 
-				notifyObservers();
-				player.setCurrentIndex(player.getCurrentIndex() + (diceValues[0] + diceValues[1]));
-				board.getSquares()[player.getCurrentIndex()].performAction(player);
-				if(player.isJailed()) { 
-					notifyObservers(); 
-					return;
-				}
-			}
-			else if(numDoubles == 3) { 
+			movePlayer();
+//			if(numDoubles < 3) { 
+//				movePlayer();
+////				if(player.isJailed()) { 
+////					notifyObservers(); 
+////					return diceValues;
+////				}
+//			}else
+			if(numDoubles == 3) {
 				player.setJailed(true);
 				notifyObservers();
-				return;
+				return diceValues;
 			}		
 		}
+		return diceValues;
+	}
+	
+	public boolean isJailed() {
+		return player.isJailed();
+	}
+	public boolean canRoll() {
+		if((isDoubles()) && (numDoubles != 0) && (numDoubles < 3)) {
+			return true;
+		}
+		return false;
 	}
 	
 	public Player getPlayer() {
@@ -63,7 +72,7 @@ public class Turn extends Observable {
 
 	public int getDiceSum() {
 		return diceValues[0] + diceValues[1];
-
+	}
 	public void buyHouse() {
 		//buy house/hotel
 		//DO NOT DO FOR THIS ITERATION
@@ -78,5 +87,14 @@ public class Turn extends Observable {
 		//set next player as current player
 		player = monopoly.getNextPlayer(player);
 		numDoubles = 0;
+		diceValues = new int[2];
+	}
+	private boolean isDoubles() {return diceValues[0] == diceValues[1];}
+	private void movePlayer() {
+		setChanged();
+		notifyObservers();
+		player.setCurrentIndex(player.getCurrentIndex() + getDiceSum());
+		board.getSquares()[player.getCurrentIndex()].performAction(player);
+		clearChanged();
 	}
 }

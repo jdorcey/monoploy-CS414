@@ -36,7 +36,7 @@ public class Player {
 	}
 	
 	public void setCurrentIndex(int currentIndex) {
-		this.currentIndex = currentIndex;
+		this.currentIndex = (currentIndex % 40);
 	}
 	
 	public int getCurrentIndex() {
