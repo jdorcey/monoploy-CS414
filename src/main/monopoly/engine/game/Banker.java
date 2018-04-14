@@ -12,8 +12,10 @@ public class Banker {
 			player.deposit(1500); //players start with 1500
 		}
 	}
-	public static void sellProperty(Player player, Deed deed) {
-		//TODO Prompt User for buy or auction
+	public static void buyProperty(Player player, Deed deed) {
+		player.addDeed(deed);
+		player.deduct(deed.getPurchasePrice());
+		System.out.printf("player %s bought %s\n", player.getToken(), deed.getName());
 	}
 	public static void auctionProperty(Deed deed) {
 		//TODO Prompt User for buy or auction

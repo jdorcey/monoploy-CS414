@@ -74,4 +74,8 @@ public class Board {
 	public Square[] getSquares() {
 		return squares;
 	}
+	
+	public Deed getDeed(int index) {
+		return (Deed) squares[index];
+	}
 }

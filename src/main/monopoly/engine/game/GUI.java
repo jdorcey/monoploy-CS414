@@ -151,6 +151,7 @@ public class GUI implements Observer {
 	private int[] rollVal;
 	private Monopoly game = Monopoly.getInstance();
 	private Turn playerTurn;
+	private String lastToken = "";
 	/**
 	 * GUI constructor to create the main frame
 	 */
@@ -708,22 +709,59 @@ public class GUI implements Observer {
 		frame.getContentPane().add(finishTurnButton);
 	}
 	private void setPlayerBorder() {
+		switch (lastToken) {
+		case "Dog": 			
+			p1.setBorder(BorderFactory.createLineBorder(Color.black, 4));
+			break;
+		case "Battleship": 	 			
+			p2.setBorder(BorderFactory.createLineBorder(Color.black, 4));
+			break;
+		case "Car": 			 			
+			p3.setBorder(BorderFactory.createLineBorder(Color.black, 4));
+			break;
+		case "Hat": 	 			
+			p4.setBorder(BorderFactory.createLineBorder(Color.black, 4));
+			break;
+		default:
+			break;
+		}
 		switch(playerTurn.getToken()) {
 		case "Dog": 			
 			p1.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
-			p4.setBorder(BorderFactory.createLineBorder(Color.black, 4));
 			break;
 		case "Battleship": 	 			
 			p2.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
-			p1.setBorder(BorderFactory.createLineBorder(Color.black, 4));
 			break;
-		case "Hat": 			 			
+		case "Car": 			 			
 			p3.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
-			p2.setBorder(BorderFactory.createLineBorder(Color.black, 4));
 			break;
-		case "Car": 	 			
+		case "Hat": 
 			p4.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
-			p3.setBorder(BorderFactory.createLineBorder(Color.black, 4));
+			break;
+		default:
+			break;
+		}
+		lastToken = playerTurn.getToken();
+	}
+	private void updateDice(JLabel die, int index) {
+		switch (rollVal[index]) {
+		case 1:
+			setLabel(die, "dice1");
+			break;
+		case 2:
+			setLabel(die, "dice2");
+			break;
+		case 3:
+			setLabel(die, "dice3");
+			break;
+		case 4:
+			setLabel(die, "dice4");
+			break;
+		case 5:
+			setLabel(die, "dice5");
+			break;
+		case 6:
+			setLabel(die, "dice6");
 			break;
 		}
 	}
@@ -744,100 +782,54 @@ public class GUI implements Observer {
 		//Only handles displaying the dice
 		rollDiceButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				rollVal = playerTurn.takeTurn();	
-				
+				rollVal = playerTurn.takeTurn();
 				//set dice label to value rolled
-				switch (rollVal[0]) {
-				case 1:
-					setLabel(dice1, "dice1");
-					break;
-				case 2:
-					setLabel(dice1, "dice2");
-					break;
-				case 3:
-					setLabel(dice1, "dice3");
-					break;
-				case 4:
-					setLabel(dice1, "dice4");
-					break;
-				case 5:
-					setLabel(dice1, "dice5");
-					break;
-				case 6:
-					setLabel(dice1, "dice6");
-					break;
-				}
-					
-				switch (rollVal[1]) {
-				case 1:
-					setLabel(dice2, "dice1");
-					break;
-				case 2:
-					setLabel(dice2, "dice2");
-					break;
-				case 3:
-					setLabel(dice2, "dice3");
-					break;
-				case 4:
-					setLabel(dice2, "dice4");
-					break;
-				case 5:
-					setLabel(dice2, "dice5");
-					break;
-				case 6:
-					setLabel(dice2, "dice6");
-					break;
-				}
-				if (playerTurn.canRoll()) {
-					rollDiceButton.setEnabled(true);
-				}else {
-					rollDiceButton.setEnabled(false);
-				}
-//				//player rolled doubles
-//				if(playerTurn.playerRolledDoubles() == true && playerTurn.getNumDoubles() != 0) {
-//					rollDiceButton.setEnabled(true);
-//					//game.getCurrentPlayer().setCurrentBoardIndex(rollVal[0] + rollVal[1]);
-//					
-//				}
-//				//player rolled doubles 3 times in a row, send them to jail
-//				else if(playerTurn.playerRolledDoubles() == true && playerTurn.getNumDoubles() == 0) {
-//					rollDiceButton.setEnabled(false);
-//				finishTurnButton.setVisible(true);
-//					//game.getCurrentPlayer().setCurrentBoardIndex(31);
-//				}
-//				//player didnt roll doubles
-//				
-//				else {
-//					rollDiceButton.setEnabled(false);
-//					//game.getCurrentPlayer().setCurrentBoardIndex(rollVal[0] + rollVal[1]);
-//				}
-				
-						
+				updateDice(dice1, 0);
+				updateDice(dice2, 1);
 			}
-			
 		});
+		//end turn
 		finishTurnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("finish turn!");
+				System.out.println("finish turn!\n");
 				playerTurn.endTurn();
 				setPlayerBorder();
 			}
-			
+		});
+		//Yeah we need to talk about this one
+		auctionButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Auction!");
+				playerTurn.doneBuying();
+			}
+		});
+		//need money check on this
+		buyButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("buyProperty!");
+				Banker.buyProperty(playerTurn.getPlayer(), game.getBoard().getDeed(playerTurn.getCurrentIndex()));
+				playerTurn.doneBuying();
+			}
 		});
 	}
 	
 	@Override
 	public void update(Observable o, Object arg) {
 		//arg here is null, we don't need it
-		if(playerTurn.isTurnOver()) { finishTurnButton.setVisible(true); }
+		//update money!
+		rollDiceButton.setEnabled(playerTurn.canRoll());
+		finishTurnButton.setVisible(playerTurn.isTurnOver());
+		auctionButton.setEnabled(playerTurn.isBuyState());
+		buyButton.setEnabled(playerTurn.isBuyState());
+
 		if(playerTurn.isJailed()) {
 			//move to Jail square
-			System.out.printf("Moving %s to Jail", playerTurn.getPlayer().getToken());
+			System.out.printf("Moving %s to Jail\n", playerTurn.getPlayer().getToken());
 		}
 		else { 
 			int numSpaces = playerTurn.getDiceSum();
 			//move player's token numSpaces
-			System.out.printf("Moving %s to %s", playerTurn.getToken(), 
+			System.out.printf("Moving %s to %s\n", playerTurn.getToken(), 
 					game.getBoard().getSquares()[playerTurn.getCurrentIndex() + numSpaces].getName());
 		}
 	}

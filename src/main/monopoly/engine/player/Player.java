@@ -10,12 +10,16 @@ public class Player {
 	private Assets assets;
 	private TokenName token; 
 	private boolean isJailed;
+	private boolean buyState;
+	private int buyIndex;
 	private int currentIndex;
 	
 	public Player(TokenName name) {
 		assets = new Assets(this);
 		token = name;
 		isJailed = false;
+		buyState = false;
+		buyIndex = -1;
 		currentIndex = 0;
 	}
 	
@@ -28,7 +32,12 @@ public class Player {
 		}
 		return null;
 	}
-	
+	public boolean isBuyState() {
+		return buyState;
+	}
+	public void setBuyState(boolean buyState) {
+		this.buyState = buyState;
+	}
 	public Assets getAssets() {
 		return assets;
 	}

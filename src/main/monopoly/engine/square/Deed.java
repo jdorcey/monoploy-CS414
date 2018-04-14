@@ -31,7 +31,7 @@ public class Deed extends Square{
 	
 	@Override
 	public void performAction(Player player) {
-		if (owner == null) { Banker.sellProperty(player, this); }
+		if (owner == null) { player.setBuyState(true); }
 		else {
 			if(owner.equals(player)) { return; }
 			player.transfer(owner, calculateRent());

@@ -17,6 +17,7 @@ public class Turn extends Observable {
 	public Turn(Player player) {
 		this.player = player;
 		diceValues = new int[2];
+		resetdiceValues();
 		board = monopoly.getBoard();
 		isTurnOver = false;
 	}
@@ -29,45 +30,50 @@ public class Turn extends Observable {
 	}
 	
 	public int[] takeTurn() {
+		if(!canRoll())
+			return diceValues;
 		rollDice();
 		if(player.isJailed()) {
-			if(diceValues[0] == diceValues[1]) { player.setJailed(false); isTurnOver = true;}
-			if(diceValues[0] == diceValues[1]) { player.setJailed(false); }
+			if(isDoubles()) { player.setJailed(false); isTurnOver = true;}
 			return diceValues;
 		}			
 		if(isDoubles()) { numDoubles++; }
-		while(canRoll()) {
-			rollDice();
-			movePlayer();
-			if(numDoubles == 3) {
-				player.setJailed(true);
-				isTurnOver = true;
-				notifyObservers();
-				return diceValues;
-			}		
-		}
+		movePlayer();
+		if(numDoubles == 3) {
+			player.setJailed(true);
+			isTurnOver = true;
+			notifyObservers();
+			return diceValues;
+		}	
 		return diceValues;
 	}
 	
 	public boolean isJailed() { return player.isJailed(); }
+
 	public boolean canRoll() {
-		if((isDoubles()) && (numDoubles != 0) && (numDoubles < 3)) {
-			return true;
-		}
-		return false;
+		return diceValues[0] == 0 || ((isDoubles()) && (numDoubles != 0) && (numDoubles < 3));
 	}
 	
 	public Player getPlayer() { return player;	}
 
-	private int getNumDoubles() { return numDoubles;	}
+	private int getNumDoubles() { return numDoubles;  }
 
 	public int getDiceSum() { return diceValues[0] + diceValues[1]; }
 	
 	public String getToken() { return player.getToken();}
 	
-	public int getCurrentIndex() {
-		return player.getCurrentIndex();
+	public int getCurrentIndex() { return player.getCurrentIndex();	}
+	
+	public boolean isBuyState() { return player.isBuyState(); }
+	
+	public void doneBuying() { 
+		setChanged();
+		player.setBuyState(false);
+		isTurnOver = true;
+		notifyObservers();
+		clearChanged();
 	}
+	
 	public void buyHouse() {
 		//buy house/hotel
 		//DO NOT DO FOR THIS ITERATION
@@ -77,24 +83,35 @@ public class Turn extends Observable {
 		//sell house/hotel
 		//DO NOT DO FOR THIS ITERATION
 	}
-    public boolean isTurnOver() { return isTurnOver; }
-	public void endTurn() {
+    
+	public boolean isTurnOver() { return isTurnOver; }
+	
+    public void endTurn() {
+    	setChanged();
 		//set next player as current player
 		player = monopoly.getNextPlayer(player);
 		//reset class variables
 		numDoubles = 0;
-		diceValues = new int[2];
+		resetdiceValues();
 		isTurnOver = false;
+		notifyObservers();
+		clearChanged();
 	}
+	
+    private void resetdiceValues() {
+		diceValues[0] = 0;
+		diceValues[1] = 0;
+    }
 	private boolean isDoubles() {return diceValues[0] == diceValues[1];}
+	
 	private void movePlayer() {
 		setChanged();
-		notifyObservers();
 		player.setCurrentIndex(player.getCurrentIndex() + getDiceSum());
 		isTurnOver = false;
 		board.getSquares()[player.getCurrentIndex()].performAction(player);
-		isTurnOver = true;
-		board.getSquares()[player.getCurrentIndex()].performAction(player);
+		if (!player.isBuyState())
+			isTurnOver = true;
+		notifyObservers();
 		clearChanged();
 	}
 }
