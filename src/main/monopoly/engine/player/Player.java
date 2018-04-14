@@ -11,7 +11,6 @@ public class Player {
 	private TokenName token; 
 	private boolean isJailed;
 	private boolean buyState;
-	private int buyIndex;
 	private int currentIndex;
 	
 	public Player(TokenName name) {
@@ -19,8 +18,11 @@ public class Player {
 		token = name;
 		isJailed = false;
 		buyState = false;
-		buyIndex = -1;
 		currentIndex = 0;
+	}
+	
+	public Assets getAssets() {
+		return assets;
 	}
 	
 	public String getToken() {
@@ -32,31 +34,6 @@ public class Player {
 		}
 		return null;
 	}
-	public boolean isBuyState() {
-		return buyState;
-	}
-	public void setBuyState(boolean buyState) {
-		this.buyState = buyState;
-	}
-	public Assets getAssets() {
-		return assets;
-	}
-	
-	public LinkedList<Deed> getDeeds() {
-		return assets.getDeeds();
-	}
-	
-	public int getMoney() {
-		return assets.getMoney();
-	}
-	
-	public void setCurrentIndex(int currentIndex) {
-		this.currentIndex = (currentIndex % 40);
-	}
-	
-	public int getCurrentIndex() {
-		return this.currentIndex;
-	}
 	
 	public boolean isJailed() {
 		return isJailed;
@@ -64,6 +41,38 @@ public class Player {
 	
 	public void setJailed(boolean isJailed) {
 		this.isJailed = isJailed;
+	}
+	
+	public boolean inBuyState() {
+		return buyState;
+	}
+	
+	public void setBuyState(boolean buyState) {
+		this.buyState = buyState;
+	}
+	
+	public int getCurrentIndex() {
+		return this.currentIndex;
+	}
+	
+	public void setCurrentIndex(int currentIndex) {
+		this.currentIndex = (currentIndex % 40);
+	}
+	
+	public int getMoney() {
+		return assets.getMoney();
+	}
+	
+	public LinkedList<Deed> getDeeds() {
+		return assets.getDeeds();
+	}
+
+	public void addDeed(Deed deed) {
+		assets.addDeed(deed);
+	}
+	
+	public void removeDeed(Deed deed) {
+		assets.removeDeed(deed);
 	}
 	
 	public int getNetWorth() {
@@ -91,13 +100,5 @@ public class Player {
 	
 	public void deposit(int amount) {
 		assets.deposit(amount);
-	}
-	
-	public void addDeed(Deed deed) {
-		assets.addDeed(deed);
-	}
-	
-	public void removeDeed(Deed deed) {
-		assets.removeDeed(deed);
 	}
 }

@@ -815,8 +815,8 @@ public class GUI implements Observer {
 		//update money!
 		rollDiceButton.setEnabled(playerTurn.canRoll());
 		finishTurnButton.setVisible(playerTurn.isTurnOver());
-		auctionButton.setEnabled(playerTurn.isBuyState());
-		buyButton.setEnabled(playerTurn.isBuyState());
+		auctionButton.setEnabled(playerTurn.inBuyState());
+		buyButton.setEnabled(playerTurn.inBuyState());
 
 		if(playerTurn.isJailed()) {
 			//move to Jail square

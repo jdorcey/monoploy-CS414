@@ -1,7 +1,5 @@
 package monopoly.engine.player;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
@@ -18,17 +16,21 @@ public class Assets extends Observable {
 		deeds = new LinkedList<>();
 		this.owner = owner;
 	}
-
-	public void addObserver(Observer o) {
-		super.addObserver(o);
-	}
-
+	
 	public int getMoney() {
 		return money;
 	}
 	
 	public LinkedList<Deed> getDeeds() {
 		return deeds;
+	}
+	
+	public Player getOwner() {
+		return owner;
+	}
+
+	public void addObserver(Observer o) {
+		super.addObserver(o);
 	}
 
 	public void addDeed(Deed deed) {

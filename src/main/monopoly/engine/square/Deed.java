@@ -1,6 +1,5 @@
 package monopoly.engine.square;
 
-import monopoly.engine.game.Banker;
 import monopoly.engine.game.Monopoly;
 import monopoly.engine.player.Player;
 
@@ -10,7 +9,6 @@ public class Deed extends Square{
 		PENNSYLVANIA_AVENUE, PENNSYLVANIA_RAILROAD, READING_RAILROAD, SHORT_LINE, STCHARLES_PLACE, STJAMES_PLACE, STATES_AVENUE, TENNESSEE_AVENUE, 
 		VENTNOR_AVENUE, VERMONT_AVENUE, VIRGINIA_AVENUE, WATER_WORKS};
 	
-	private Monopoly game = Monopoly.getInstance();
 	private DeedName name;
 	private int purchasePrice;
 	private int mortgageValue;
@@ -31,49 +29,6 @@ public class Deed extends Square{
 		this.hasHotel = false;
 	}
 	
-	@Override
-	public void performAction(Player player) {
-		if (owner == null) { player.setBuyState(true); }
-		else {
-			if(owner.equals(player)) { return; }
-			player.transfer(owner, calculateRent());
-		}
-	}
-	
-	public int getPurchasePrice() {
-		return purchasePrice;
-	}
-	
-	public int getMortgageValue() {
-		return mortgageValue;
-	}
-	
-	public int calculateRent() {
-		if(this.color.getType() == Color.Type.RAILROAD) { return rent[color.numRailroadsorUtilitiesOwned(this)]; }
-		if(this.color.getType() == Color.Type.UTILITY) {
-			return rent[color.numRailroadsorUtilitiesOwned(this) - 1] * game.getTurn().getDiceSum();
-		}
-		if (hasHotel) { return rent[5]; }
-		if(numHouses == 0 && color.isMonopoly()) { return rent[0] * 2; }
-		return rent[numHouses];
-	}
-	
-	public Color getColor() {
-		return color;
-	}
-	
-	public Player getOwner() {
-		return owner;
-	}
-
-	public void setOwner(Player owner) {
-		this.owner = owner;
-	}
-	
-	public boolean isMortgaged() {
-		return false;
-	}
-
 	@Override
 	public String getName() {
 		switch(this.name) {
@@ -107,5 +62,48 @@ public class Deed extends Square{
 		case WATER_WORKS:			return "Water Works";
 		}
 		return null;
+	}
+	
+	public int getPurchasePrice() {
+		return purchasePrice;
+	}
+	
+	public int getMortgageValue() {
+		return mortgageValue;
+	}
+	
+	public Color getColor() {
+		return color;
+	}
+	
+	public Player getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Player owner) {
+		this.owner = owner;
+	}
+	
+	@Override
+	public void performAction(Player player) {
+		if (owner == null) { player.setBuyState(true); }
+		else {
+			if(owner.equals(player)) { return; }
+			player.transfer(owner, calculateRent());
+		}
+	}
+	
+	public int calculateRent() {
+		if(this.color.getType() == Color.Type.RAILROAD) { return rent[color.numRailroadsorUtilitiesOwned(this)]; }
+		if(this.color.getType() == Color.Type.UTILITY) {
+			return rent[color.numRailroadsorUtilitiesOwned(this) - 1] * Monopoly.getInstance().getTurn().getDiceSum();
+		}
+		if (hasHotel) { return rent[5]; }
+		if(numHouses == 0 && color.isMonopoly()) { return rent[0] * 2; }
+		return rent[numHouses];
+	}
+	
+	public boolean isMortgaged() {
+		return false;
 	}
 }

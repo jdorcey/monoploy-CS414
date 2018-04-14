@@ -8,24 +8,54 @@ import java.util.Observer;
 import monopoly.engine.player.Player;
 
 public class Monopoly implements Observer { 
-	
+
 	private static Monopoly INSTANCE = null;
 	private Board board;
+	private Turn turn;
 	private ArrayList<Player> players;
 	private Player winner;
-	private Turn turn;
 	private Clock clock;
 	private long time; 
 	private long gameLength;
-	
+
 	protected Monopoly() { 
+		INSTANCE = this;
 		board = new Board();
 		clock = Clock.systemDefaultZone();
 		time = clock.millis();
 		gameLength = 60; //one minute
-		INSTANCE = this;
 	}
-	
+
+	public static Monopoly getInstance() {
+		if (INSTANCE != null) return INSTANCE;
+		else return new Monopoly();
+	}
+
+	public Board getBoard() {
+		return board;
+	}
+
+	public Turn getTurn() {
+		return turn;
+	}
+
+	public ArrayList<Player> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(ArrayList<Player> players) {
+		this.players = players;
+		this.turn = new Turn(this.players.get(0));
+	}   
+
+	public Player getCurrentPlayer() { 
+		return turn.getPlayer();
+	}
+
+	public Player getNextPlayer(Player player) {
+		return players.get((players.indexOf(player) + 1) % players.size());
+	}
+
 	public Player playGame() {
 		for(Player p : players) { 
 			p.getAssets().addObserver(this); 
@@ -38,40 +68,7 @@ public class Monopoly implements Observer {
 		}
 		return winner();
 	}
-	
-	public Board getBoard() {
-		return board;
-	}
-	
-    public static Monopoly getInstance() {
-        if (INSTANCE != null) return INSTANCE;
-        else return new Monopoly();
-    }
-    
-    public void setPlayers(ArrayList<Player> players) {
-    	this.players = players;
-    	this.turn = new Turn(this.players.get(0));
-    }
-    public Turn getTurn() {
-		return turn;
-	}
-	public ArrayList<Player> getPlayers() {
-		return players;
-	}
-	
-	public Player getCurrentPlayer() { 
-		// TODO need to implement this
-		return turn.getPlayer();
-	}
-	
-	public Player getNextPlayer(Player player) {
-		return players.get((players.indexOf(player) + 1) % players.size());
-	}
 
-	private boolean gameOver() {
-		return players.size() == 1 || (clock.millis() - time) >= (gameLength * 1000);
-	}
-	
 	/*
 	private void determineOrder() {
 		TreeMap<Integer, Player> order = new TreeMap<>();
@@ -98,7 +95,11 @@ public class Monopoly implements Observer {
 			p.getAssets().addObserver(this); 
 		}
 	}
-	*/
+	 */
+
+	private boolean gameOver() {
+		return players.size() == 1 || (clock.millis() - time) >= (gameLength * 1000);
+	}
 	
 	private Player winner() {
 		int highest = 0;
@@ -108,12 +109,11 @@ public class Monopoly implements Observer {
 		}
 		return winner;
 	}
-	
+
 	//@Override
 	public void update(Observable o, Object arg) {
 		switch(o.getClass().getName()) {
-			case "Assets": 		players.remove(arg);	break;
+		case "Assets": 		players.remove(arg);	break;
 		}
-		//gameOver();  ????????
 	}
 }

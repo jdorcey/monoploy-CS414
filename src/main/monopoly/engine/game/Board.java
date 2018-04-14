@@ -7,7 +7,6 @@ import monopoly.engine.square.*;
 
 public class Board {
 	
-	//private HashMap<Player, Integer> currentLocations;
 	private Square[] squares;	
 	private Color purple = new Color(Color.Type.PURPLE, 50);
 	private Color lightblue = new Color(Color.Type.LIGHT_BLUE, 50);
@@ -68,7 +67,6 @@ public class Board {
 		blue.addDeeds(Arrays.asList(new Deed[] {ParkPlace, Boardwalk}));
 		railroad.addDeeds(Arrays.asList(new Deed[] {ReadingRailroad, PennsylvaniaRailroad, BandORailroad, ShortLine}));
 		utility.addDeeds(Arrays.asList(new Deed[] {ElectricCompany, WaterWorks}));
-		//currentLocations = new HashMap<>();
 	}
 
 	public Square[] getSquares() {
