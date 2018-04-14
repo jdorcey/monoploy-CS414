@@ -709,19 +709,19 @@ public class GUI implements Observer {
 	}
 	private void setPlayerBorder() {
 		switch(playerTurn.getToken()) {
-		case DOG: 			
+		case "Dog": 			
 			p1.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
 			p4.setBorder(BorderFactory.createLineBorder(Color.black, 4));
 			break;
-		case BATTLESHIP: 	 			
+		case "Battleship": 	 			
 			p2.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
 			p1.setBorder(BorderFactory.createLineBorder(Color.black, 4));
 			break;
-		case HAT: 			 			
+		case "Hat": 			 			
 			p3.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
 			p2.setBorder(BorderFactory.createLineBorder(Color.black, 4));
 			break;
-		case CAR: 	 			
+		case "Car": 	 			
 			p4.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
 			p3.setBorder(BorderFactory.createLineBorder(Color.black, 4));
 			break;
@@ -829,7 +829,7 @@ public class GUI implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		//arg here is null, we don't need it
-		if(playerTurn.isOver()) { finishTurnButton.setVisible(true); }
+		if(playerTurn.isTurnOver()) { finishTurnButton.setVisible(true); }
 		if(playerTurn.isJailed()) {
 			//move to Jail square
 			System.out.printf("Moving %s to Jail", playerTurn.getPlayer().getToken());

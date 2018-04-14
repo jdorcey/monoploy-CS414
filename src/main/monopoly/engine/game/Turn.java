@@ -49,16 +49,6 @@ public class Turn extends Observable {
 		return diceValues;
 	}
 	
-	public boolean isJailed() {
-		return player.isJailed();
-	}
-	public boolean canRoll() {
-		if((isDoubles()) && (numDoubles != 0) && (numDoubles < 3)) {
-			return true;
-		}
-		return false;
-	}
-	
 	public boolean isJailed() { return player.isJailed(); }
 	public boolean canRoll() {
 		if((isDoubles()) && (numDoubles != 0) && (numDoubles < 3)) {
@@ -73,9 +63,7 @@ public class Turn extends Observable {
 
 	public int getDiceSum() { return diceValues[0] + diceValues[1]; }
 	
-	public String getToken() {
-		return player.getToken();
-	}
+	public String getToken() { return player.getToken();}
 	
 	public int getCurrentIndex() {
 		return player.getCurrentIndex();
@@ -109,6 +97,4 @@ public class Turn extends Observable {
 		board.getSquares()[player.getCurrentIndex()].performAction(player);
 		clearChanged();
 	}
-
-	public TokenName getToken() { return player.getToken();	}
 }
