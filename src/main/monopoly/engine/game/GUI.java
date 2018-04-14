@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -24,7 +26,7 @@ import javax.swing.JLayeredPane;
 import monopoly.engine.player.Player;
 import monopoly.engine.player.Player.TokenName;
 
-public class GUI {
+public class GUI implements Observer {
 	private JFrame frame;
 	
 	private JLayeredPane freePark = new JLayeredPane();
@@ -770,16 +772,11 @@ public class GUI {
 				}
 				
 				//player rolled doubles
-				if(playerTurn.playerRolledDoubles() == true && playerTurn.getNumDoubles() != 0) {
-					rollDiceButton.setEnabled(true);
-					//game.getCurrentPlayer().setCurrentBoardIndex(rollVal[0] + rollVal[1]);
-					
-				}
+				if(playerTurn.getNumDoubles() > 0) { rollDiceButton.setEnabled(true); }
 				//player rolled doubles 3 times in a row, send them to jail
-				else if(playerTurn.playerRolledDoubles() == true && playerTurn.getNumDoubles() == 0) {
+				else if(playerTurn.getPlayer().isJailed()) {
 					rollDiceButton.setEnabled(false);
 					finishTurnButton.setVisible(true);
-					//game.getCurrentPlayer().setCurrentBoardIndex(31);
 				}
 				//player didnt roll doubles
 				
@@ -795,8 +792,16 @@ public class GUI {
 		
 	}
 	
-	private void movePlayerPosition() {
-		
+	@Override
+	public void update(Observable o, Object arg) {
+		//arg here is null, we don't need it
+		if(playerTurn.getPlayer().isJailed()) {
+			//move to Jail square
+		}
+		else { 
+			int numSpaces = playerTurn.getDiceSum();
+			//move player's token numSpaces
+		}
 	}
 	
 	/**

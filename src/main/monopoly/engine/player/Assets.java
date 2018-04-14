@@ -12,7 +12,6 @@ public class Assets extends Observable {
 	private int money;
 	private LinkedList<Deed> deeds;
 	private Player owner;
-	private ArrayList<Object> observers = new ArrayList<>();
 
 	public Assets(Player owner) {
 		money = 1500;
@@ -21,17 +20,7 @@ public class Assets extends Observable {
 	}
 
 	public void addObserver(Observer o) {
-		observers.add(o);
-	}
-
-	@Override
-	public void notifyObservers() {
-		// loop through and notify each observer
-		Iterator<Object> i = observers.iterator();
-		while(i.hasNext()) {
-			Observer o = (Observer) i.next();
-			o.update(this, owner);
-		}
+		super.addObserver(o);
 	}
 
 	public int getMoney() {
@@ -67,7 +56,9 @@ public class Assets extends Observable {
 				if(!current.isMortgaged())
 					bankrupt = false;
 			if(bankrupt) {
+				setChanged();
 				notifyObservers();
+				clearChanged();
 			}
 			//GUI feedback
 		}

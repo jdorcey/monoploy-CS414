@@ -8,7 +8,6 @@ import monopoly.engine.player.Player;
 public class Turn extends Observable {
 	private int numDoubles;
 	private int[] diceValues;
-	private int diceSum;
 	private Player player;
 	private Board board;
 	private Monopoly monopoly;
@@ -20,11 +19,12 @@ public class Turn extends Observable {
 		board = monopoly.getBoard();
 	}
 	
-	public void rollDice() {
+	public int[] rollDice() {
 		Random r = new Random();
 		diceValues[0] = r.nextInt(6); 
 		diceValues[1] = r.nextInt(6);
-		diceSum = diceValues[0] + diceValues[1];
+		return diceValues;
+
 	}
 	
 	public void takeTurn() {
@@ -38,7 +38,7 @@ public class Turn extends Observable {
 			rollDice();
 			if(numDoubles < 3) { 
 				notifyObservers();
-				player.setCurrentIndex(player.getCurrentIndex() + diceSum);
+				player.setCurrentIndex(player.getCurrentIndex() + (diceValues[0] + diceValues[1]));
 				board.getSquares()[player.getCurrentIndex()].performAction(player);
 				if(player.isJailed()) { 
 					notifyObservers(); 
@@ -53,14 +53,17 @@ public class Turn extends Observable {
 		}
 	}
 	
+	public Player getPlayer() {
+		return player;
+	}
+
 	public int getNumDoubles() {
 		return numDoubles;
 	}
 
 	public int getDiceSum() {
-		return diceSum;
-	}
-	
+		return diceValues[0] + diceValues[1];
+
 	public void buyHouse() {
 		//buy house/hotel
 		//DO NOT DO FOR THIS ITERATION

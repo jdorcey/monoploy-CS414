@@ -42,6 +42,10 @@ public class Monopoly implements Observer {
 		return board;
 	}
 	
+	public Turn getTurn() {
+		return turn;
+	}
+	
     public static Monopoly getInstance() {
         if (INSTANCE != null) return INSTANCE;
         else return new Monopoly();
