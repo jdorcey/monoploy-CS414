@@ -73,7 +73,7 @@ public class Board {
 		return squares;
 	}
 	
-	public Deed getDeed(int index) {
-		return (Deed) squares[index];
+	public Square getDeed(int index) {
+		return squares[index];
 	}
 }

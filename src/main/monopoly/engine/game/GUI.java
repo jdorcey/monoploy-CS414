@@ -302,8 +302,9 @@ public class GUI implements Observer {
 				player1Money.setText("Money: $" + String.valueOf(players.get(0).getMoney()));
 				player1Money.setFont(new Font("Arial", Font.ITALIC, 30));
 				player1Money.setBounds(2350, 1685, 250, 110);
-
+				
 				frame.getContentPane().add(player1);
+				frame.setComponentZOrder(player1Token, new Integer(0));
 				frame.getContentPane().add(player1Money);
 
 				//button to add player2
@@ -331,6 +332,7 @@ public class GUI implements Observer {
 				player2Money.setBounds(2750, 1685, 250, 110);
 
 				frame.getContentPane().add(player2);
+				frame.setComponentZOrder(player2Token, new Integer(0));
 				frame.getContentPane().add(player2Money);
 
 				//button to add player3
@@ -362,6 +364,7 @@ public class GUI implements Observer {
 				player3Money.setBounds(3130, 1685, 250, 110);
 
 				frame.getContentPane().add(player3);
+				frame.setComponentZOrder(player3Token, new Integer(0));
 				frame.getContentPane().add(player3Money);
 
 				//button to add player3
@@ -390,6 +393,7 @@ public class GUI implements Observer {
 				player4Money.setBounds(3520, 1685, 250, 110);
 
 				frame.getContentPane().add(player4);
+				frame.setComponentZOrder(player4Token, new Integer(0));
 				frame.getContentPane().add(player4Money);				
 			}
 		});

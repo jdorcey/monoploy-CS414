@@ -2,10 +2,16 @@ package monopoly.engine.game;
 
 import monopoly.engine.player.Player;
 import monopoly.engine.square.Deed;
+import monopoly.engine.square.Square;
 
 public class Banker {
 
-	public static void buyProperty(Player player, Deed deed) {
+	public static void buyProperty(Player player, Square tile) {
+		if (!(tile instanceof Deed)) {
+			System.out.println("Trying to buy a non deed Tile " + tile.getName());
+			return;
+		}
+		Deed deed = (Deed) tile;
 		player.addDeed(deed);
 		player.deduct(deed.getPurchasePrice());
 		System.out.printf("player %s bought %s for $%d\n", player.getToken(), deed.getName(), deed.getPurchasePrice());
