@@ -17,14 +17,6 @@
 //	}
 //	
 //	@Test
-//	void testInitializePlayers() {
-//		Banker.initializePlayers(game.getPlayers());
-//		for(Player player : game.getPlayers()) {
-//			assertEquals("ERROR in Banker: not all players have correct starting cash", 1500, player.getMoney());
-//		}
-//	}
-//
-//	@Test
 //	void testSellProperty() {
 //		fail("Not yet implemented");
 //	}

@@ -123,10 +123,10 @@ public class GUI implements Observer {
 	 * Set squares on left side of board
 	 */
 	private void setLeftSquares() {
-//		for (in range of 1 to 4)
-//		for (in range of 1 to 10)
-//			if i == 1 
-//			  //is corner space
+		//		for (in range of 1 to 4)
+		//		for (in range of 1 to 10)
+		//			if i == 1 
+		//			  //is corner space
 		tiles.set(19, new GuiHelper(10, 184, 4700, 163, boardPanels, "newYorkAvenue"));
 		tiles.set(18, new GuiHelper(0, 316, 4720, 163, boardPanels, "tennesseeAvenue"));
 		tiles.set(17, new GuiHelper(0, 449, 4720, 163, boardPanels, "communityChestL"));
@@ -186,7 +186,7 @@ public class GUI implements Observer {
 		tiles.set(1, new GuiHelper(3456, 1373, 212, 326, boardPanels, "mediterraneanAvenue"));
 		tiles.set(0, new GuiHelper(3557, 1373, 326, 326, boardPanels, "passGo"));
 	}
-	
+
 	private void playersOwnedPropertiesBox() {
 		propertiesLabel.setText(playerTurn.getToken() + "'s Owned Propetries:");
 	}
@@ -214,10 +214,10 @@ public class GUI implements Observer {
 		setUpperSquares();
 		setRightSquares();
 		setBottomSquares();
-		
+
 		for (int i = 0; i < 40 ; i++) 
 			tiles.get(i).setLayout(flow);
-		
+
 		//set monopoly logo on board
 		logo.setBounds(2555, 650, 1000, 200);
 		setLabel(logo, "logo");
@@ -263,12 +263,12 @@ public class GUI implements Observer {
 		//set players section of board	
 		propertiesBox.setBounds(100, 1600, 1600, 424);
 		propertiesBox.setBorder(BorderFactory.createLineBorder(Color.blue, 4));
-		
+
 		propertiesLabel.setFont(new Font("Arial", Font.BOLD, 30));
 		propertiesLabel.setBounds(150, 1600, 500, 110);
 		propertiesBox.setVisible(false);
 		propertiesLabel.setVisible(false);
-		
+
 		p1.setBounds(2265, 1600, 385, 424);
 		p1.setBorder(BorderFactory.createLineBorder(Color.black, 4));
 		p2.setBounds(2650, 1600, 385, 424);
@@ -432,7 +432,7 @@ public class GUI implements Observer {
 		frame.getContentPane().add(startGameButton);
 		frame.getContentPane().add(finishTurnButton);
 	}
-	
+
 	/**
 	 * Set player area
 	 */
@@ -453,7 +453,7 @@ public class GUI implements Observer {
 		default:
 			break;
 		}
-		
+
 		switch(playerTurn.getToken()) {
 		case "Dog": 			
 			p1.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
@@ -470,10 +470,10 @@ public class GUI implements Observer {
 		default:
 			break;
 		}
-		
+
 		lastToken = playerTurn.getToken();
 	}
-	
+
 	/**
 	 * updates the dice on the board after each roll
 	 */
@@ -499,7 +499,7 @@ public class GUI implements Observer {
 			break;
 		}
 	}
-	
+
 	/**
 	 * start a new game
 	 */
@@ -525,12 +525,12 @@ public class GUI implements Observer {
 				//set dice label to value rolled
 				updateDice(dice1, 0);
 				updateDice(dice2, 1);
-				
+
 				//move players token after roll
 				movePlayerOnBoard(playerTurn.getToken(), game.getCurrentPlayer().getCurrentIndex());	
 			}
 		});
-		
+
 		//end turn
 		finishTurnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -538,10 +538,10 @@ public class GUI implements Observer {
 				playerTurn.endTurn();
 				setPlayerBorder();
 				playersOwnedPropertiesBox();
-				
+
 			}
 		});
-		
+
 		//Yeah we need to talk about this one
 		auctionButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -549,7 +549,7 @@ public class GUI implements Observer {
 				playerTurn.doneBuying();
 			}
 		});
-		
+
 		//need money check on this
 		buyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -565,7 +565,7 @@ public class GUI implements Observer {
 	 */
 	private void movePlayerOnBoard(String token, int index) {
 		JButton playerToken = new JButton();
-		
+
 		switch(token) {
 		case "Dog": 			
 			playerToken = player1Token;
@@ -582,7 +582,7 @@ public class GUI implements Observer {
 		default:
 			break;
 		}
-		
+
 		switch (index) {
 		case 0:
 			playerToken.setBounds(3557, 1180, 326, 326);
@@ -706,7 +706,7 @@ public class GUI implements Observer {
 			break;
 		}		
 	}
-	
+
 	@Override
 	public void update(Observable o, Object arg) {
 		//arg here is null, we don't need it
