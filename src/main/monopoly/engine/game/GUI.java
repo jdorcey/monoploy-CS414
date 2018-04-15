@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -25,91 +26,12 @@ import monopoly.engine.player.Player;
 public class GUI implements Observer {
 	private JFrame frame;
 	
-	private JLayeredPane freePark = new JLayeredPane();
-	private JLayeredPane justVisit = new JLayeredPane();
-	private JLayeredPane goJail = new JLayeredPane();
-	private JLayeredPane pGo = new JLayeredPane();
-	private JLayeredPane nyAve = new JLayeredPane();
-	private JLayeredPane tennAve = new JLayeredPane();
-	private JLayeredPane commChestL = new JLayeredPane();
-	private JLayeredPane stJamesPl = new JLayeredPane();
-	private JLayeredPane pennRR = new JLayeredPane();
-	private JLayeredPane virginiaAve = new JLayeredPane();
-	private JLayeredPane statesAve = new JLayeredPane();
-	private JLayeredPane electricComp = new JLayeredPane();
-	private JLayeredPane stCharlesPl = new JLayeredPane();
-	private JLayeredPane kentuckyAve = new JLayeredPane();
-	private JLayeredPane chanceU = new JLayeredPane();
-	private JLayeredPane indianaAve = new JLayeredPane();
-	private JLayeredPane illinoisAve = new JLayeredPane();
-	private JLayeredPane boRR = new JLayeredPane();
-	private JLayeredPane atlanticAve = new JLayeredPane();
-	private JLayeredPane ventnorAve = new JLayeredPane();
-	private JLayeredPane waterWorks = new JLayeredPane();
-	private JLayeredPane marvinGards = new JLayeredPane();
-	private JLayeredPane pacificAve = new JLayeredPane();
-	private JLayeredPane northCarolinaAve = new JLayeredPane();
-	private JLayeredPane commChestR = new JLayeredPane();
-	private JLayeredPane pennAve = new JLayeredPane();
-	private JLayeredPane shortLRR = new JLayeredPane();
-	private JLayeredPane chanceR = new JLayeredPane();
-	private JLayeredPane parkPl = new JLayeredPane();
-	private JLayeredPane luxTax = new JLayeredPane();
-	private JLayeredPane bdwalk = new JLayeredPane();
-	private JLayeredPane connAve = new JLayeredPane();
-	private JLayeredPane vermontAve = new JLayeredPane();
-	private JLayeredPane chanceBot = new JLayeredPane();
-	private JLayeredPane orientalAve = new JLayeredPane();
-	private JLayeredPane readingRR = new JLayeredPane();
-	private JLayeredPane inTax = new JLayeredPane();
-	private JLayeredPane balticAve = new JLayeredPane();
-	private JLayeredPane commChestB = new JLayeredPane();
-	private JLayeredPane medAve = new JLayeredPane();
+	private ArrayList<GuiHelper> tiles;
 	private JLayeredPane p1 = new JLayeredPane();
 	private JLayeredPane p2 = new JLayeredPane();
 	private JLayeredPane p3 = new JLayeredPane();
 	private JLayeredPane p4 = new JLayeredPane();
 	
-	private JLabel passGo = new JLabel();
-	private JLabel connAvenue = new JLabel();
-	private JLabel vermontAvenue = new JLabel();
-	private JLabel chanceBottom = new JLabel();
-	private JLabel orientalAvenue = new JLabel();
-	private JLabel readingRailroad = new JLabel();
-	private JLabel incomeTax = new JLabel();
-	private JLabel balticAvenue = new JLabel();
-	private JLabel commChestBottom = new JLabel();
-	private JLabel mediterraneanAvenue = new JLabel();
-	private JLabel justVisiting = new JLabel();
-	private JLabel nyAvenue = new JLabel();
-	private JLabel tennAvenue = new JLabel();
-	private JLabel commChestLeft = new JLabel();
-	private JLabel stJamesPlace = new JLabel();
-	private JLabel pennRailroad = new JLabel();
-	private JLabel virginiaAvenue = new JLabel();
-	private JLabel statesAvenue = new JLabel();
-	private JLabel electricCompanyUtil = new JLabel();
-	private JLabel stCharlesPlace = new JLabel();
-	private JLabel freeParking = new JLabel();
-	private JLabel kentuckyAvenue = new JLabel();
-	private JLabel chanceUp = new JLabel();
-	private JLabel indianaAvenue = new JLabel();
-	private JLabel illinoisAvenue = new JLabel();
-	private JLabel boRailroad = new JLabel();
-	private JLabel atlanticAvenue = new JLabel();
-	private JLabel ventnorAvenue = new JLabel();
-	private JLabel waterWorksUtil = new JLabel();
-	private JLabel marvinGardens = new JLabel();
-	private JLabel gotoJail = new JLabel();
-	private JLabel pacificAvenue = new JLabel();
-	private JLabel northCarolinaAvenue = new JLabel();
-	private JLabel commChestRight = new JLabel();
-	private JLabel pennAvenue = new JLabel();
-	private JLabel shortLineRailroad = new JLabel();
-	private JLabel chanceRi = new JLabel();
-	private JLabel parkPlace = new JLabel();
-	private JLabel luxuryTax = new JLabel();
-	private JLabel boardwalk = new JLabel();
 	private JLabel player1Money = new JLabel();
 	private JLabel player2Money = new JLabel();
 	private JLabel player3Money = new JLabel();
@@ -155,7 +77,22 @@ public class GUI implements Observer {
 		boardPanels = new ArrayList<JLayeredPane>();	
 		playersPanels = new ArrayList<JLayeredPane>();
 		players = new ArrayList<Player>();
+		tiles = new ArrayList<GuiHelper>(40);
+		for (int i = 0; i < 40 ; i++)
+			tiles.add(null);
 		initialize();
+	}
+	
+	/**
+	 * Set labels on board
+	 */
+	private void setLabel(GuiHelper square, String imgJPG) {
+		try {
+			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/" + imgJPG + ".jpg"));
+			square.setIcon(new ImageIcon(img));
+		} catch (IOException ex) {
+			System.out.println("ERROR: Unable to set " + square + "image.");
+		}
 	}
 	
 	/**
@@ -198,196 +135,68 @@ public class GUI implements Observer {
 	 * Set squares on left side of board
 	 */
 	private void setLeftSquares() {
-		nyAve.setBounds(10, 184, 4700, 163);
-		tennAve.setBounds(0, 316, 4720, 163);
-		commChestL.setBounds(0, 449, 4720, 163);
-		stJamesPl.setBounds(0, 580, 4720, 163);
-		pennRR.setBounds(0, 706, 4720, 163);
-		virginiaAve.setBounds(0, 841, 4720, 163);
-		statesAve.setBounds(0, 975, 4720, 163);
-		electricComp.setBounds(0, 1109, 4720, 163);
-		stCharlesPl.setBounds(0, 1243, 4720, 163);
-		justVisit.setBounds(0, 1376, 4720, 200);
-				
-		boardPanels.add(justVisit);
-		boardPanels.add(stCharlesPl);
-		boardPanels.add(electricComp);
-		boardPanels.add(statesAve);
-		boardPanels.add(virginiaAve);
-		boardPanels.add(pennRR);
-		boardPanels.add(stJamesPl);
-		boardPanels.add(commChestL);
-		boardPanels.add(tennAve);
-		boardPanels.add(nyAve);
-				
-		setLabel(nyAvenue, "newYorkAvenue");
-		setLabel(tennAvenue, "tennesseeAvenue");
-		setLabel(commChestLeft, "communityChestL");
-		setLabel(stJamesPlace, "stJamesPlace");
-		setLabel(pennRailroad, "pennRailroad");
-		setLabel(virginiaAvenue, "virginiaAvenue");
-		setLabel(statesAvenue, "statesAvenue");
-		setLabel(electricCompanyUtil, "electricCompanyUtil");
-		setLabel(stCharlesPlace, "stCharlesPlace");
-		setLabel(justVisiting, "justVisiting");
-		
-		nyAve.add(nyAvenue);
-		tennAve.add(tennAvenue);
-		commChestL.add(commChestLeft);
-		stJamesPl.add(stJamesPlace);
-		pennRR.add(pennRailroad);
-		virginiaAve.add(virginiaAvenue);
-		statesAve.add(statesAvenue);
-		electricComp.add(electricCompanyUtil);
-		stCharlesPl.add(stCharlesPlace);
-		justVisit.add(justVisiting);	
+//		for (in range of 1 to 4)
+//		for (in range of 1 to 10)
+//			if i == 1 
+//			  //is corner space
+		tiles.set(19, new GuiHelper(10, 184, 4700, 163, boardPanels, "newYorkAvenue"));
+		tiles.set(18, new GuiHelper(0, 316, 4720, 163, boardPanels, "tennesseeAvenue"));
+		tiles.set(17, new GuiHelper(0, 449, 4720, 163, boardPanels, "communityChestL"));
+		tiles.set(16, new GuiHelper(0, 580, 4720, 163, boardPanels, "stJamesPlace"));
+		tiles.set(15, new GuiHelper(0, 706, 4720, 163, boardPanels, "pennRailroad"));
+		tiles.set(14, new GuiHelper(0, 841, 4720, 163, boardPanels, "virginiaAvenue"));
+		tiles.set(13, new GuiHelper(0, 975, 4720, 163, boardPanels, "statesAvenue"));
+		tiles.set(12, new GuiHelper(0, 1109, 4720, 163, boardPanels, "electricCompanyUtil"));
+		tiles.set(11, new GuiHelper(0, 1243, 4720, 163, boardPanels, "stCharlesPlace"));
+		tiles.set(10, new GuiHelper(0, 1376, 4720, 200, boardPanels, "justVisiting"));
 	}
 	
 	/**
 	 * Set squares on upper side of board
 	 */
 	private void setUpperSquares() {
-		freePark.setBounds(5, 3, 4711, 326);
-		kentuckyAve.setBounds(326, 0, 4380, 326);
-		chanceU.setBounds(489, 0, 4308, 326);
-		indianaAve.setBounds(652, 0, 4240, 326);
-		illinoisAve.setBounds(815, 0, 4173, 326);
-		boRR.setBounds(978, 0, 4108, 326);
-		atlanticAve.setBounds(1141, 0, 4045, 326);
-		ventnorAve.setBounds(1304, 0, 3984, 326);
-		waterWorks.setBounds(1467, 0, 3925, 326);
-		marvinGards.setBounds(1630, 0, 3868, 326);
-		
-		boardPanels.add(freePark);
-		boardPanels.add(kentuckyAve);
-		boardPanels.add(chanceU);
-		boardPanels.add(indianaAve);
-		boardPanels.add(illinoisAve);
-		boardPanels.add(boRR);
-		boardPanels.add(atlanticAve);
-		boardPanels.add(ventnorAve);
-		boardPanels.add(waterWorks);
-		boardPanels.add(marvinGards);
-		
-		setLabel(freeParking, "freeParking");
-		setLabel(kentuckyAvenue, "KentuckyAvenue");
-		setLabel(chanceUp, "chanceUp");
-		setLabel(indianaAvenue, "IndianaAvenue");
-		setLabel(illinoisAvenue, "illinoisAvenue");
-		setLabel(boRailroad, "boRailroad");
-		setLabel(atlanticAvenue, "AtlanticAvenue");
-		setLabel(ventnorAvenue, "VentnorAvenue");
-		setLabel(waterWorksUtil, "waterWorksUtil");
-		setLabel(marvinGardens, "MarvinGardens");
-		
-		freePark.add(freeParking);
-		kentuckyAve.add(kentuckyAvenue);
-		chanceU.add(chanceUp);
-		indianaAve.add(indianaAvenue);
-		illinoisAve.add(illinoisAvenue);
-		boRR.add(boRailroad);
-		atlanticAve.add(atlanticAvenue);
-		ventnorAve.add(ventnorAvenue);
-		waterWorks.add(waterWorksUtil);
-		marvinGards.add(marvinGardens);	
+		tiles.set(20, new GuiHelper(5, 3, 4711, 326, boardPanels, "freeParking"));
+		tiles.set(21, new GuiHelper(326, 0, 4380, 326, boardPanels, "KentuckyAvenue"));
+		tiles.set(22, new GuiHelper(489, 0, 4308, 326, boardPanels, "chanceUp"));
+		tiles.set(23, new GuiHelper(652, 0, 4240, 326, boardPanels, "IndianaAvenue"));
+		tiles.set(24, new GuiHelper(815, 0, 4173, 326, boardPanels, "illinoisAvenue"));
+		tiles.set(25, new GuiHelper(978, 0, 4108, 326, boardPanels, "boRailroad"));
+		tiles.set(26, new GuiHelper(1141, 0, 4045, 326, boardPanels, "AtlanticAvenue"));
+		tiles.set(27, new GuiHelper(1304, 0, 3984, 326, boardPanels, "VentnorAvenue"));
+		tiles.set(28, new GuiHelper(1467, 0, 3925, 326, boardPanels, "waterWorksUtil"));
+		tiles.set(29, new GuiHelper(1630, 0, 3868, 326, boardPanels, "MarvinGardens"));
 	}
 	
 	/**
 	 * Set squares on right side of board
 	 */
 	private void setRightSquares() {
-		goJail.setBounds(3555, 0, 326, 326);
-		pacificAve.setBounds(3555, 179, 326, 163);
-		northCarolinaAve.setBounds(3555, 314, 326, 163);
-		commChestR.setBounds(3555, 446, 326, 163);
-		pennAve.setBounds(3555, 580, 326, 163);
-		shortLRR.setBounds(3555, 711, 326, 163);
-		chanceR.setBounds(3555, 844, 326, 163);
-		parkPl.setBounds(3555, 976, 326, 163);
-		luxTax.setBounds(3555, 1109, 326, 163);
-		bdwalk.setBounds(3555, 1239, 326, 163);
-		
-		boardPanels.add(goJail);
-		boardPanels.add(pacificAve);
-		boardPanels.add(northCarolinaAve);
-		boardPanels.add(commChestR);
-		boardPanels.add(pennAve);
-		boardPanels.add(shortLRR);
-		boardPanels.add(chanceR);
-		boardPanels.add(parkPl);
-		boardPanels.add(luxTax);
-		boardPanels.add(bdwalk);
-		
-		setLabel(gotoJail, "gotoJail");
-		setLabel(pacificAvenue, "PacificAvenue");
-		setLabel(northCarolinaAvenue, "northCarolinaAvenue");
-		setLabel(commChestRight, "communityChestR");
-		setLabel(pennAvenue, "PennsylvaniaAvenue");
-		setLabel(shortLineRailroad, "shortLine");
-		setLabel(chanceRi, "chanceRi");
-		setLabel(parkPlace, "parkPlace");
-		setLabel(luxuryTax, "luxuryTax");
-		setLabel(boardwalk, "boardwalk");
-		
-		goJail.add(gotoJail);
-		pacificAve.add(pacificAvenue);
-		northCarolinaAve.add(northCarolinaAvenue);
-		commChestR.add(commChestRight);
-		pennAve.add(pennAvenue);
-		shortLRR.add(shortLineRailroad);
-		chanceR.add(chanceRi);
-		parkPl.add(parkPlace);
-		luxTax.add(luxuryTax);
-		bdwalk.add(boardwalk);	
+		tiles.set(30, new GuiHelper(3555, 0, 326, 326, boardPanels, "gotoJail"));
+		tiles.set(31, new GuiHelper(3555, 179, 326, 163, boardPanels, "PacificAvenue"));
+		tiles.set(32, new GuiHelper(3555, 314, 326, 163, boardPanels, "northCarolinaAvenue"));
+		tiles.set(33, new GuiHelper(3555, 446, 326, 163, boardPanels, "communityChestR"));
+		tiles.set(34, new GuiHelper(3555, 580, 326, 163, boardPanels, "PennsylvaniaAvenue"));
+		tiles.set(35, new GuiHelper(3555, 711, 326, 163, boardPanels, "shortLine"));
+		tiles.set(36, new GuiHelper(3555, 844, 326, 163, boardPanels, "chanceRi"));
+		tiles.set(37, new GuiHelper(3555, 976, 326, 163, boardPanels, "parkPlace"));
+		tiles.set(38, new GuiHelper(3555, 1109, 326, 163, boardPanels, "luxuryTax"));
+		tiles.set(39, new GuiHelper(3555, 1239, 326, 163, boardPanels, "boardwalk"));
 	}
 	
 	/**
 	 * Set squares on bottom side of board
 	 */
 	private void setBottomSquares() {
-		connAve.setBounds(2436, 1373, 163, 326);
-		vermontAve.setBounds(2570, 1373, 163, 326);
-		chanceBot.setBounds(2705, 1373, 163, 326);
-		orientalAve.setBounds(2841, 1373, 163, 326);
-		readingRR.setBounds(2965, 1373, 163, 326);
-		inTax.setBounds(3094, 1373, 163, 326);
-		balticAve.setBounds(3192, 1373, 212, 326);
-		commChestB.setBounds(3347, 1373, 163, 326);
-		medAve.setBounds(3456, 1373, 212, 326);
-		pGo.setBounds(3557, 1373, 326, 326);
-
-		boardPanels.add(pGo);
-		boardPanels.add(medAve);
-		boardPanels.add(commChestB);
-		boardPanels.add(balticAve);
-		boardPanels.add(inTax);
-		boardPanels.add(readingRR);
-		boardPanels.add(orientalAve);
-		boardPanels.add(chanceBot);
-		boardPanels.add(vermontAve);
-		boardPanels.add(connAve);
-		
-		setLabel(passGo, "passGo");
-		setLabel(connAvenue, "connecticutAvenue");
-		setLabel(vermontAvenue, "vermontAvenue");
-		setLabel(chanceBottom, "chanceBot");
-		setLabel(orientalAvenue, "orientalAvenue");
-		setLabel(readingRailroad, "readingRailroad");
-		setLabel(incomeTax, "incomeTax");
-		setLabel(balticAvenue, "balticAvenue");		
-		setLabel(commChestBottom, "communityChestBot");		
-		setLabel(mediterraneanAvenue, "mediterraneanAvenue");
-		
-		pGo.add(passGo);
-		connAve.add(connAvenue);
-		vermontAve.add(vermontAvenue);
-		chanceBot.add(chanceBottom);
-		orientalAve.add(orientalAvenue);
-		readingRR.add(readingRailroad);
-		inTax.add(incomeTax);
-		balticAve.add(balticAvenue);
-		commChestB.add(commChestBottom);
-		medAve.add(mediterraneanAvenue);	
+		tiles.set(9, new GuiHelper(2436, 1373, 163, 326, boardPanels, "connecticutAvenue"));
+		tiles.set(8, new GuiHelper(2570, 1373, 163, 326, boardPanels, "vermontAvenue"));
+		tiles.set(7, new GuiHelper(2705, 1373, 163, 326, boardPanels, "chanceBot"));
+		tiles.set(6, new GuiHelper(2841, 1373, 163, 326, boardPanels, "orientalAvenue"));
+		tiles.set(5, new GuiHelper(2965, 1373, 163, 326, boardPanels, "readingRailroad"));
+		tiles.set(4, new GuiHelper(3094, 1373, 163, 326, boardPanels, "incomeTax"));
+		tiles.set(3, new GuiHelper(3192, 1373, 212, 326, boardPanels, "balticAvenue"));
+		tiles.set(2, new GuiHelper(3347, 1373, 163, 326, boardPanels, "communityChestBot"));
+		tiles.set(1, new GuiHelper(3456, 1373, 212, 326, boardPanels, "mediterraneanAvenue"));
+		tiles.set(0, new GuiHelper(3557, 1373, 326, 326, boardPanels, "passGo"));
 	}
 
 	/**
@@ -414,53 +223,8 @@ public class GUI implements Observer {
 		setRightSquares();
 		setBottomSquares();
 		
-		//left squares
-		nyAve.setLayout(flow);
-		tennAve.setLayout(flow);
-		commChestL.setLayout(flow);
-		stJamesPl.setLayout(flow);
-		pennRR.setLayout(flow);
-		virginiaAve.setLayout(flow);
-		statesAve.setLayout(flow);
-		electricComp.setLayout(flow);
-		stCharlesPl.setLayout(flow);
-		justVisit.setLayout(flow);
-		
-		//upper squares		
-		freePark.setLayout(flow);
-		kentuckyAve.setLayout(flow);
-		chanceU.setLayout(flow);
-		indianaAve.setLayout(flow);
-		illinoisAve.setLayout(flow);
-		boRR.setLayout(flow);
-		atlanticAve.setLayout(flow);
-		ventnorAve.setLayout(flow);
-		waterWorks.setLayout(flow);
-		marvinGards.setLayout(flow);
-
-		//right squares
-		goJail.setLayout(flow);
-		pacificAve.setLayout(flow);
-		northCarolinaAve.setLayout(flow);
-		commChestR.setLayout(flow);
-		pennAve.setLayout(flow);
-		shortLRR.setLayout(flow);
-		chanceR.setLayout(flow);
-		parkPl.setLayout(flow);
-		luxTax.setLayout(flow);
-		bdwalk.setLayout(flow);
-	
-		//bottom squares
-		connAve.setLayout(flow);
-		vermontAve.setLayout(flow);
-		chanceBot.setLayout(flow);
-		orientalAve.setLayout(flow);
-		readingRR.setLayout(flow);
-		inTax.setLayout(flow);
-		balticAve.setLayout(flow);
-		commChestB.setLayout(flow);
-		medAve.setLayout(flow);
-		pGo.setLayout(flow);
+		for (int i = 0; i < 40 ; i++) 
+			tiles.get(i).setLayout(flow);
 		
 		//set monopoly logo on board
 		logo.setBounds(2555, 650, 1000, 200);
@@ -639,6 +403,8 @@ public class GUI implements Observer {
 		});
 		
 		//add everything to frame
+		for (int i = 0; i < 40 ; i++)
+			frame.getContentPane().add(tiles.get(i).getPane());
 		frame.getContentPane().add(logo);
 		frame.getContentPane().add(player1Token);
 		frame.getContentPane().add(player2Token);
@@ -652,46 +418,6 @@ public class GUI implements Observer {
 		frame.getContentPane().add(addPlayer2Button);
 		frame.getContentPane().add(addPlayer3Button);
 		frame.getContentPane().add(addPlayer4Button);
-		frame.getContentPane().add(justVisit);
-		frame.getContentPane().add(freePark);
-		frame.getContentPane().add(nyAve);
-		frame.getContentPane().add(tennAve);
-		frame.getContentPane().add(commChestL);
-		frame.getContentPane().add(stJamesPl);
-		frame.getContentPane().add(pennRR);
-		frame.getContentPane().add(virginiaAve);
-		frame.getContentPane().add(statesAve);
-		frame.getContentPane().add(electricComp);
-		frame.getContentPane().add(stCharlesPl);
-		frame.getContentPane().add(kentuckyAve);
-		frame.getContentPane().add(chanceU);
-		frame.getContentPane().add(indianaAve);
-		frame.getContentPane().add(illinoisAve);
-		frame.getContentPane().add(boRR);
-		frame.getContentPane().add(atlanticAve);
-		frame.getContentPane().add(ventnorAve);
-		frame.getContentPane().add(waterWorks);
-		frame.getContentPane().add(marvinGards);
-		frame.getContentPane().add(goJail);
-		frame.getContentPane().add(pacificAve);
-		frame.getContentPane().add(northCarolinaAve);
-		frame.getContentPane().add(commChestR);
-		frame.getContentPane().add(pennAve);
-		frame.getContentPane().add(shortLRR);
-		frame.getContentPane().add(chanceR);
-		frame.getContentPane().add(parkPl);
-		frame.getContentPane().add(luxTax);
-		frame.getContentPane().add(bdwalk);
-		frame.getContentPane().add(connAve);
-		frame.getContentPane().add(vermontAve);
-		frame.getContentPane().add(chanceBot);
-		frame.getContentPane().add(orientalAve);
-		frame.getContentPane().add(readingRR);
-		frame.getContentPane().add(inTax);
-		frame.getContentPane().add(balticAve);
-		frame.getContentPane().add(commChestB);
-		frame.getContentPane().add(medAve);
-		frame.getContentPane().add(pGo);
 		frame.getContentPane().add(communityChestButton);
 		frame.getContentPane().add(chanceButton);
 		frame.getContentPane().add(rollDiceButton);
