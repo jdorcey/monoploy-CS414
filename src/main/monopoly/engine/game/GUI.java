@@ -293,7 +293,7 @@ public class GUI implements Observer {
 				players.add(new Player(Player.TokenName.DOG));
 
 				//add player1 token and info to board
-				player1Token.setBounds(3550, 1535, 255, 110);
+				player1Token.setBounds(3550, 1430, 255, 110);
 				setButton(player1Token, "dogToken");
 				player1.setBounds(2420, 1600, 255, 110);
 				setLabel(player1, "dogToken");
@@ -321,7 +321,7 @@ public class GUI implements Observer {
 				players.add(new Player(Player.TokenName.BATTLESHIP));
 
 				//add player2 token and info to board
-				player2Token.setBounds(3635, 1535, 255, 110);
+				player2Token.setBounds(3635, 1430, 255, 110);
 				setButton(player2Token, "battleShipToken");
 				player2.setBounds(2810, 1605, 100, 110);
 				setLabel(player2, "battleShipToken");
@@ -353,7 +353,7 @@ public class GUI implements Observer {
 				players.add(new Player(Player.TokenName.CAR));
 
 				//add player3 token and info to board
-				player3Token.setBounds(3550, 1625, 255, 110);
+				player3Token.setBounds(3550, 1520, 255, 110);
 				setButton(player3Token, "carToken");
 				player3.setBounds(3190, 1615, 255, 110);
 				setLabel(player3, "carToken");
@@ -382,7 +382,7 @@ public class GUI implements Observer {
 				players.add(new Player(Player.TokenName.HAT));
 
 				//add player4 token and info to board
-				player4Token.setBounds(3640, 1625, 255, 110);
+				player4Token.setBounds(3640, 1520, 255, 110);
 				setButton(player4Token, "hatToken");
 				player4.setBounds(3570, 1615, 255, 110);
 				setLabel(player4, "hatToken");
@@ -589,124 +589,124 @@ public class GUI implements Observer {
 
 		switch (index) {
 		case 0:
-			playerToken.setBounds(3557, 1180, 326, 326);
+			playerToken.setBounds(3557, 1375, 326, 326);
 			break;
 		case 1:
-			playerToken.setBounds(3456, 1180, 212, 326);
+			playerToken.setBounds(3456, 1375, 212, 326);
 			break;
 		case 2:
-			playerToken.setBounds(3347, 1180, 163, 326);
+			playerToken.setBounds(3347, 1375, 163, 326);
 			break;
 		case 3:
-			playerToken.setBounds(3192, 1180, 212, 326);
+			playerToken.setBounds(3192, 1375, 212, 326);
 			break;
 		case 4:
-			playerToken.setBounds(3094, 1180, 163, 326);
+			playerToken.setBounds(3094, 1375, 163, 326);
 			break;
 		case 5:
-			playerToken.setBounds(2965, 1180, 163, 326);
+			playerToken.setBounds(2965, 1375, 163, 326);
 			break;
 		case 6:
-			playerToken.setBounds(2841, 1180, 163, 326);
+			playerToken.setBounds(2841, 1375, 163, 326);
 			break;
 		case 7:
-			playerToken.setBounds(2705, 1180, 163, 326);
+			playerToken.setBounds(2705, 1375, 163, 326);
 			break;
 		case 8:
-			playerToken.setBounds(2570, 1180, 163, 326);
+			playerToken.setBounds(2570, 1375, 163, 326);
 			break;
 		case 9:
-			playerToken.setBounds(2436, 1180, 163, 326);
+			playerToken.setBounds(2436, 1375, 163, 326);
 			break;	
 		case 10:
-			playerToken.setBounds(0, 1400, 4720, 200);
+			playerToken.setBounds(0, 1475, 4720, 200);
 			break;
 		case 11:
-			playerToken.setBounds(110, 1243, 4720, 163);
+			playerToken.setBounds(5, 1290, 4720, 163);
 			break;
 		case 12:
-			playerToken.setBounds(110, 1109, 4720, 163);
+			playerToken.setBounds(5, 1160, 4720, 163);
 			break;
 		case 13:
-			playerToken.setBounds(110, 975, 4720, 163);
+			playerToken.setBounds(5, 1022, 4720, 163);
 			break;
 		case 14:
-			playerToken.setBounds(110, 841, 4720, 163);
+			playerToken.setBounds(5, 890, 4720, 163);
 			break;
 		case 15:
-			playerToken.setBounds(110, 706, 4720, 163);
+			playerToken.setBounds(5, 750, 4720, 163);
 			break;
 		case 16:
-			playerToken.setBounds(110, 580, 4720, 163);
+			playerToken.setBounds(5, 620, 4720, 163);
 			break;
 		case 17:
-			playerToken.setBounds(110, 449, 4720, 163);
+			playerToken.setBounds(5, 490, 4720, 163);
 			break;
 		case 18:
-			playerToken.setBounds(110, 316, 4720, 163);
+			playerToken.setBounds(5, 365, 4720, 163);
 			break;
 		case 19:
-			playerToken.setBounds(110, 184, 4700, 163);
+			playerToken.setBounds(5, 230, 4700, 163);
 			break;
 		case 20:
 			playerToken.setBounds(5, 3, 4711, 326);
 			break;
 		case 21:
-			playerToken.setBounds(326, 110, 4380, 326);
+			playerToken.setBounds(326, 2, 4380, 295);
 			break;
 		case 22:
-			playerToken.setBounds(489, 110, 4308, 326);
+			playerToken.setBounds(489, 2, 4308, 295);
 			break;
 		case 23:
-			playerToken.setBounds(652, 110, 4240, 326);
+			playerToken.setBounds(652, 2, 4240, 295);
 			break;
 		case 24:
-			playerToken.setBounds(815, 110, 4173, 326);
+			playerToken.setBounds(815, 2, 4173, 295);
 			break;
 		case 25:
-			playerToken.setBounds(978, 110, 4108, 326);
+			playerToken.setBounds(978, 2, 4108, 295);
 			break;
 		case 26:
-			playerToken.setBounds(1141, 110, 4045, 326);
+			playerToken.setBounds(1141, 2, 4045, 295);
 			break;
 		case 27:
-			playerToken.setBounds(1304, 110, 3984, 326);
+			playerToken.setBounds(1304, 2, 3984, 295);
 			break;
 		case 28:
-			playerToken.setBounds(1467, 110, 3925, 326);
+			playerToken.setBounds(1467, 5, 3925, 295);
 			break;
 		case 29:
-			playerToken.setBounds(1630, 110, 3868, 326);
+			playerToken.setBounds(1630, 5, 3868, 295);
 			break;			
 		case 30:
-			playerToken.setBounds(3555, 110, 326, 326);
+			playerToken.setBounds(3555, 110, 326, 100);
 			break;
 		case 31:
-			playerToken.setBounds(3200, 179, 326, 163);
+			playerToken.setBounds(3200, 225, 326, 163);
 			break;
 		case 32:
-			playerToken.setBounds(3555, 314, 326, 163);
+			playerToken.setBounds(3555, 360, 326, 163);
 			break;
 		case 33:
-			playerToken.setBounds(3555, 446, 326, 163);
+			playerToken.setBounds(3555, 490, 326, 163);
 			break;
 		case 34:
-			playerToken.setBounds(3555, 580, 326, 163);
+			playerToken.setBounds(3555, 625, 326, 163);
 			break;
 		case 35:
-			playerToken.setBounds(3555, 711, 326, 163);
+			playerToken.setBounds(3555, 760, 326, 163);
 			break;
 		case 36:
-			playerToken.setBounds(3555, 844, 326, 163);
+			playerToken.setBounds(3555, 890, 326, 163);
 			break;
 		case 37:
-			playerToken.setBounds(3555, 976, 326, 163);
+			playerToken.setBounds(3555, 1025, 326, 163);
 			break;
 		case 38:
-			playerToken.setBounds(3555, 1109, 326, 163);
+			playerToken.setBounds(3555, 1155, 326, 163);
 			break;
 		case 39:
-			playerToken.setBounds(3555, 1239, 326, 163);
+			playerToken.setBounds(3555, 1285, 326, 163);
 			break;
 		}		
 	}
