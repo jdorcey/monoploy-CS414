@@ -83,7 +83,7 @@ public class Turn extends Observable {
 		board.getSquares()[player.getCurrentIndex()].performAction(player);
 		if (!player.inBuyState())
 			isTurnOver = true;
-		notifyObservers();
+		notifyObservers(" ");
 		clearChanged();
 	} 
 	
@@ -92,7 +92,10 @@ public class Turn extends Observable {
 			return diceValues;
 		rollDice();
 		if(player.isJailed()) {
-			if(isDoubles()) { player.setJailed(false); isTurnOver = true;}
+			if(isDoubles()) { 
+				player.setJailed(false); 
+				isTurnOver = true;
+			}
 			return diceValues;
 		}			
 		if(isDoubles()) { numDoubles++; }

@@ -92,6 +92,7 @@ public class Player {
 	public void transfer(Player other, int amount) {
 		deduct(amount);
 		other.deposit(amount);
+		System.out.printf("%s payed %s $%d\n", this.getToken(), other.getToken(), amount);
 	}
 	
 	public void deduct(int amount) {

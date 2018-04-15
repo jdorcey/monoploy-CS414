@@ -8,7 +8,7 @@ public class Banker {
 	public static void buyProperty(Player player, Deed deed) {
 		player.addDeed(deed);
 		player.deduct(deed.getPurchasePrice());
-		System.out.printf("player %s bought %s\n", player.getToken(), deed.getName());
+		System.out.printf("player %s bought %s for $%d\n", player.getToken(), deed.getName(), deed.getPurchasePrice());
 	}
 	
 	public static void auctionProperty(Deed deed) {
@@ -17,10 +17,12 @@ public class Banker {
 	
 	public static void go(Player player) {
 		player.deposit(200);
+		System.out.printf("%s received $200 for passing Go\n", player.getToken());
 	}
 	
 	public static void luxuryTax(Player player) {
 		player.deduct(100);
+		System.out.printf("%s paid $100 in luxury tax\n", player.getToken());
 	}
 	
 	public static void incomeTax(Player player) {
@@ -28,8 +30,10 @@ public class Banker {
 		int money = player.getMoney();
 		if (money/10 < 200) {
 			player.deduct(money/10);
+			System.out.printf("%s paid $%d in income tax\n", player.getToken(), money/10);
 		}else {
 			player.deduct(200);
+			System.out.printf("%s paid $%d in income tax\n", player.getToken(), 200);
 		}
 	}
 }

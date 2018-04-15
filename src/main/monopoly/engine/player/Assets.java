@@ -25,20 +25,18 @@ public class Assets extends Observable {
 		return deeds;
 	}
 	
-	public Player getOwner() {
-		return owner;
-	}
-
 	public void addObserver(Observer o) {
 		super.addObserver(o);
 	}
 
 	public void addDeed(Deed deed) {
 		deeds.add(deed);
+		System.out.printf("%s now owns %s\n", owner.getToken(), deed.getName());
 	}
 
 	public void removeDeed(Deed deed) {
 		deeds.remove(deed);
+		System.out.printf("%s no longer owns %s\n", owner.getToken(), deed.getName());
 	}
 	
 	public int getNetWorth() {
@@ -64,10 +62,12 @@ public class Assets extends Observable {
 			}
 			//GUI feedback
 		}
+		System.out.printf("%s's new balance is $%d", owner.getToken(), money);
 	}
 
 	public void deposit(int amount) {
 		money += amount;
+		System.out.printf("%s's new balance is $%d", owner.getToken(), money);
 	}
 
 }

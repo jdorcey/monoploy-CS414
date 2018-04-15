@@ -25,14 +25,12 @@ import monopoly.engine.player.Player;
 
 public class GUI implements Observer {
 	private JFrame frame;
-	
 	private ArrayList<GuiHelper> tiles;
 	private JLayeredPane p1 = new JLayeredPane();
 	private JLayeredPane p2 = new JLayeredPane();
 	private JLayeredPane p3 = new JLayeredPane();
 	private JLayeredPane p4 = new JLayeredPane();
 	private JLayeredPane propertiesBox = new JLayeredPane();
-	
 	private JLabel propertiesLabel = new JLabel();
 	private JLabel player1Money = new JLabel();
 	private JLabel player2Money = new JLabel();
@@ -45,7 +43,7 @@ public class GUI implements Observer {
 	private JLabel logo = new JLabel();
 	private JLabel dice1 = new JLabel();
 	private JLabel dice2 = new JLabel();
-	
+
 	private JButton communityChestButton = new JButton("Community Chest");
 	private JButton chanceButton = new JButton("Chance");
 	private JButton rollDiceButton = new JButton("Roll Dice");
@@ -67,7 +65,7 @@ public class GUI implements Observer {
 	private ArrayList<Player> players;
 	private ArrayList<JLayeredPane> playersPanels;
 	private ArrayList<JLayeredPane> boardPanels;
-	
+
 	private int[] rollVal;
 	private Monopoly game = Monopoly.getInstance();
 	private Turn playerTurn;
@@ -84,7 +82,7 @@ public class GUI implements Observer {
 			tiles.add(null);
 		initialize();
 	}
-	
+
 	/**
 	 * Set labels on board
 	 */
@@ -96,7 +94,7 @@ public class GUI implements Observer {
 			System.out.println("ERROR: Unable to set " + square + "image.");
 		}
 	}
-	
+
 	/**
 	 * Set buttons on board
 	 */
@@ -111,7 +109,7 @@ public class GUI implements Observer {
 		button.setBorderPainted(false);
 		button.setContentAreaFilled(false);
 	}
-	
+
 	/**
 	 * Set buttons on board, overloaded method
 	 */
@@ -120,7 +118,7 @@ public class GUI implements Observer {
 		button.setBackground(new Color(r, b, g));
 		button.setBorder(BorderFactory.createLineBorder(Color.black, 3));	
 	}
-	
+
 	/**
 	 * Set squares on left side of board
 	 */
@@ -140,7 +138,7 @@ public class GUI implements Observer {
 		tiles.set(11, new GuiHelper(0, 1243, 4720, 163, boardPanels, "stCharlesPlace"));
 		tiles.set(10, new GuiHelper(0, 1376, 4720, 200, boardPanels, "justVisiting"));
 	}
-	
+
 	/**
 	 * Set squares on upper side of board
 	 */
@@ -156,7 +154,7 @@ public class GUI implements Observer {
 		tiles.set(28, new GuiHelper(1467, 0, 3925, 326, boardPanels, "waterWorksUtil"));
 		tiles.set(29, new GuiHelper(1630, 0, 3868, 326, boardPanels, "MarvinGardens"));
 	}
-	
+
 	/**
 	 * Set squares on right side of board
 	 */
@@ -172,7 +170,7 @@ public class GUI implements Observer {
 		tiles.set(38, new GuiHelper(3555, 1109, 326, 163, boardPanels, "luxuryTax"));
 		tiles.set(39, new GuiHelper(3555, 1239, 326, 163, boardPanels, "boardwalk"));
 	}
-	
+
 	/**
 	 * Set squares on bottom side of board
 	 */
@@ -210,7 +208,7 @@ public class GUI implements Observer {
 		//frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-	
+
 		//put all squares on board
 		setLeftSquares();
 		setUpperSquares();
@@ -223,7 +221,7 @@ public class GUI implements Observer {
 		//set monopoly logo on board
 		logo.setBounds(2555, 650, 1000, 200);
 		setLabel(logo, "logo");
-		
+
 		//set buttons on board		
 		communityChestButton.setBounds(2575, 300, 400, 200);
 		chanceButton.setBounds(3100, 1050, 400, 200);
@@ -243,7 +241,7 @@ public class GUI implements Observer {
 		setButton(tradeButton, 153, 153, 255);
 		setButton(startGameButton, 255, 0, 128);
 		setButton(finishTurnButton, 99, 177, 177);
-		
+
 		startGameButton.setVisible(false);
 		finishTurnButton.setVisible(false);
 		communityChestButton.setEnabled(false);
@@ -253,7 +251,7 @@ public class GUI implements Observer {
 		mortgageButton.setEnabled(false);
 		auctionButton.setEnabled(false);
 		tradeButton.setEnabled(false);
-		
+
 		//set the dice on the board
 		dice1.setBounds(1475, 50, 100, 100);
 		dice2.setBounds(1575, 125, 100, 100);
@@ -261,7 +259,7 @@ public class GUI implements Observer {
 		setLabel(dice2, "dice2");
 		dice1.setVisible(false);
 		dice2.setVisible(false);
-		
+
 		//set players section of board	
 		propertiesBox.setBounds(100, 1600, 1600, 424);
 		propertiesBox.setBorder(BorderFactory.createLineBorder(Color.blue, 4));
@@ -270,7 +268,6 @@ public class GUI implements Observer {
 		propertiesLabel.setBounds(150, 1600, 500, 110);
 		propertiesBox.setVisible(false);
 		propertiesLabel.setVisible(false);
-		
 		
 		p1.setBounds(2265, 1600, 385, 424);
 		p1.setBorder(BorderFactory.createLineBorder(Color.black, 4));
@@ -284,23 +281,23 @@ public class GUI implements Observer {
 		playersPanels.add(p2);
 		playersPanels.add(p3);
 		playersPanels.add(p4);
-		
+
 		//button to add player 1 
 		addPlayer1Button.setBounds(2335, 1800, 250, 110);
 		setButton(addPlayer1Button, 0, 255, 128);
-	
+
 		addPlayer1Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				addPlayer1Button.setVisible(false);				
 				//add a new player
 				players.add(new Player(Player.TokenName.DOG));
-				
+
 				//add player1 token and info to board
 				player1Token.setBounds(3550, 1535, 255, 110);
 				setButton(player1Token, "dogToken");
 				player1.setBounds(2420, 1600, 255, 110);
 				setLabel(player1, "dogToken");
-				
+
 				//add player1 initial starting money to board
 				player1Money.setText("Money: $" + String.valueOf(players.get(0).getMoney()));
 				player1Money.setFont(new Font("Arial", Font.ITALIC, 30));
@@ -308,26 +305,26 @@ public class GUI implements Observer {
 
 				frame.getContentPane().add(player1);
 				frame.getContentPane().add(player1Money);
-				
+
 				//button to add player2
 				addPlayer2Button.setBounds(2720, 1800, 250, 110);
 				setButton(addPlayer2Button, 0, 255, 128);	
 			}
 
 		});
-		
+
 		addPlayer2Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				addPlayer2Button.setVisible(false);
 				//add new player
 				players.add(new Player(Player.TokenName.BATTLESHIP));
-				
+
 				//add player2 token and info to board
 				player2Token.setBounds(3635, 1535, 255, 110);
 				setButton(player2Token, "battleShipToken");
 				player2.setBounds(2810, 1605, 100, 110);
 				setLabel(player2, "battleShipToken");
-		
+
 				//add player2 initial starting money to board
 				player2Money.setText("Money: $" + String.valueOf(players.get(0).getMoney()));
 				player2Money.setFont(new Font("Arial", Font.ITALIC, 30));
@@ -335,24 +332,24 @@ public class GUI implements Observer {
 
 				frame.getContentPane().add(player2);
 				frame.getContentPane().add(player2Money);
-				
+
 				//button to add player3
 				addPlayer3Button.setBounds(3105, 1800, 250, 110);
 				setButton(addPlayer3Button, 0, 255, 128);
-				
+
 				//Game can be started since 2 players have been added
 				startGameButton.setVisible(true);
-				
+
 			}
 
 		});		
-		
+
 		addPlayer3Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				addPlayer3Button.setVisible(false);
 				//add new player
 				players.add(new Player(Player.TokenName.CAR));
-				
+
 				//add player3 token and info to board
 				player3Token.setBounds(3550, 1625, 255, 110);
 				setButton(player3Token, "carToken");
@@ -366,21 +363,21 @@ public class GUI implements Observer {
 
 				frame.getContentPane().add(player3);
 				frame.getContentPane().add(player3Money);
-				
+
 				//button to add player3
 				addPlayer4Button.setBounds(3490, 1800, 250, 110);
 				setButton(addPlayer4Button, 0, 255, 128);
-				
+
 			}
 
 		});
-		
+
 		addPlayer4Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				addPlayer4Button.setVisible(false);
 				//add new player
 				players.add(new Player(Player.TokenName.HAT));
-				
+
 				//add player4 token and info to board
 				player4Token.setBounds(3640, 1625, 255, 110);
 				setButton(player4Token, "hatToken");
@@ -396,7 +393,7 @@ public class GUI implements Observer {
 				frame.getContentPane().add(player4Money);				
 			}
 		});
-		
+
 		startGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				addPlayer3Button.setVisible(false);
@@ -404,7 +401,7 @@ public class GUI implements Observer {
 				startGame();
 			}
 		});
-		
+
 		//add everything to frame
 		for (int i = 0; i < 40 ; i++)
 			frame.getContentPane().add(tiles.get(i).getPane());
@@ -515,12 +512,12 @@ public class GUI implements Observer {
 		propertiesLabel.setVisible(true);
 		playersOwnedPropertiesBox();
 		playerTurn.addObserver(this);
-		
-		
+
 		rollDiceButton.setEnabled(true);
 		dice1.setVisible(true);
 		dice2.setVisible(true);
 		System.out.println(game.getCurrentPlayer().getCurrentIndex());
+    
 		//Only handles displaying the dice
 		rollDiceButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -562,7 +559,7 @@ public class GUI implements Observer {
 			}
 		});
 	}
-	
+
 	/**
 	 * moves the players token on the board
 	 */
@@ -718,20 +715,21 @@ public class GUI implements Observer {
 		finishTurnButton.setVisible(playerTurn.isTurnOver());
 		auctionButton.setEnabled(playerTurn.inBuyState());
 		buyButton.setEnabled(playerTurn.inBuyState());
-		
 
-		if(playerTurn.isJailed()) {
-			//move to Jail square
-			System.out.printf("Moving %s to Jail\n", playerTurn.getPlayer().getToken());
-		}
-		else { 
-			int numSpaces = playerTurn.getDiceSum();
-			//move player's token numSpaces
-			System.out.printf("Moving %s to %s\n", playerTurn.getToken(), 
-					game.getBoard().getSquares()[playerTurn.getCurrentIndex() + numSpaces].getName());
+		if(arg != null) {
+			if(playerTurn.isJailed()) {
+				//move to Jail square
+				System.out.printf("Moving %s to Jail\n", playerTurn.getPlayer().getToken());
+			}
+			else { 
+				int numSpaces = playerTurn.getDiceSum();
+				//move player's token numSpaces
+				System.out.printf("Moving %s to %s\n", playerTurn.getToken(), 
+						game.getBoard().getSquares()[playerTurn.getCurrentIndex() + numSpaces].getName());
+			}
 		}
 	}
-	
+
 	/**
 	 * Launch application.
 	 */
