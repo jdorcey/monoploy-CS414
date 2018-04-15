@@ -72,8 +72,8 @@ public class Turn extends Observable {
 	
 	public void rollDice() {
 		Random r = new Random();
-		diceValues[0] = r.nextInt(6); 
-		diceValues[1] = r.nextInt(6);
+		diceValues[0] = r.nextInt(6) +1; 
+		diceValues[1] = r.nextInt(6) +1;
 	}
 
 	private void movePlayer() {

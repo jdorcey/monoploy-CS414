@@ -31,7 +31,9 @@ public class GUI implements Observer {
 	private JLayeredPane p2 = new JLayeredPane();
 	private JLayeredPane p3 = new JLayeredPane();
 	private JLayeredPane p4 = new JLayeredPane();
+	private JLayeredPane propertiesBox = new JLayeredPane();
 	
+	private JLabel propertiesLabel = new JLabel();
 	private JLabel player1Money = new JLabel();
 	private JLabel player2Money = new JLabel();
 	private JLabel player3Money = new JLabel();
@@ -48,7 +50,7 @@ public class GUI implements Observer {
 	private JButton chanceButton = new JButton("Chance");
 	private JButton rollDiceButton = new JButton("Roll Dice");
 	private JButton buyButton = new JButton("Buy Properties");
-	private JButton sellButton = new JButton("Sell Properties");
+	private JButton mortgageButton = new JButton("Mortgage");
 	private JButton tradeButton = new JButton("Trade");
 	private JButton auctionButton = new JButton("Auction");
 	private JButton addPlayer1Button = new JButton("Add Player");
@@ -81,18 +83,6 @@ public class GUI implements Observer {
 		for (int i = 0; i < 40 ; i++)
 			tiles.add(null);
 		initialize();
-	}
-	
-	/**
-	 * Set labels on board
-	 */
-	private void setLabel(GuiHelper square, String imgJPG) {
-		try {
-			Image img = ImageIO.read(getClass().getResource("/monopoly/engine/game/resources1/" + imgJPG + ".jpg"));
-			square.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {
-			System.out.println("ERROR: Unable to set " + square + "image.");
-		}
 	}
 	
 	/**
@@ -198,6 +188,10 @@ public class GUI implements Observer {
 		tiles.set(1, new GuiHelper(3456, 1373, 212, 326, boardPanels, "mediterraneanAvenue"));
 		tiles.set(0, new GuiHelper(3557, 1373, 326, 326, boardPanels, "passGo"));
 	}
+	
+	private void playersOwnedPropertiesBox() {
+		propertiesLabel.setText(playerTurn.getToken() + "'s Owned Propetries:");
+	}
 
 	/**
 	 * Initializes the game frame
@@ -235,7 +229,7 @@ public class GUI implements Observer {
 		chanceButton.setBounds(3100, 1050, 400, 200);
 		rollDiceButton.setBounds(1413, 250, 300, 130);
 		buyButton.setBounds(1413, 450, 300, 130);
-		sellButton.setBounds(1413, 650, 300, 130);
+		mortgageButton.setBounds(1413, 650, 300, 130);
 		auctionButton.setBounds(1413, 850, 300, 130);
 		tradeButton.setBounds(1413, 1050, 300, 130);
 		startGameButton.setBounds(1800, 1750, 350, 170);
@@ -244,7 +238,7 @@ public class GUI implements Observer {
 		setButton(chanceButton, 212, 252, 228);
 		setButton(rollDiceButton, 255, 100, 100);
 		setButton(buyButton, 74, 165, 255);
-		setButton(sellButton, 255, 172, 89);
+		setButton(mortgageButton, 255, 172, 89);
 		setButton(auctionButton, 255, 255, 172);
 		setButton(tradeButton, 153, 153, 255);
 		setButton(startGameButton, 255, 0, 128);
@@ -256,7 +250,7 @@ public class GUI implements Observer {
 		chanceButton.setEnabled(false);
 		rollDiceButton.setEnabled(false);
 		buyButton.setEnabled(false);
-		sellButton.setEnabled(false);
+		mortgageButton.setEnabled(false);
 		auctionButton.setEnabled(false);
 		tradeButton.setEnabled(false);
 		
@@ -268,7 +262,16 @@ public class GUI implements Observer {
 		dice1.setVisible(false);
 		dice2.setVisible(false);
 		
-		//set players section of board
+		//set players section of board	
+		propertiesBox.setBounds(100, 1600, 1600, 424);
+		propertiesBox.setBorder(BorderFactory.createLineBorder(Color.blue, 4));
+		
+		propertiesLabel.setFont(new Font("Arial", Font.BOLD, 30));
+		propertiesLabel.setBounds(150, 1600, 500, 110);
+		propertiesBox.setVisible(false);
+		propertiesLabel.setVisible(false);
+		
+		
 		p1.setBounds(2265, 1600, 385, 424);
 		p1.setBorder(BorderFactory.createLineBorder(Color.black, 4));
 		p2.setBounds(2650, 1600, 385, 424);
@@ -293,7 +296,7 @@ public class GUI implements Observer {
 				players.add(new Player(Player.TokenName.DOG));
 				
 				//add player1 token and info to board
-				player1Token.setBounds(3550, 1370, 255, 110);
+				player1Token.setBounds(3550, 1535, 255, 110);
 				setButton(player1Token, "dogToken");
 				player1.setBounds(2420, 1600, 255, 110);
 				setLabel(player1, "dogToken");
@@ -320,7 +323,7 @@ public class GUI implements Observer {
 				players.add(new Player(Player.TokenName.BATTLESHIP));
 				
 				//add player2 token and info to board
-				player2Token.setBounds(3635, 1370, 255, 110);
+				player2Token.setBounds(3635, 1535, 255, 110);
 				setButton(player2Token, "battleShipToken");
 				player2.setBounds(2810, 1605, 100, 110);
 				setLabel(player2, "battleShipToken");
@@ -351,7 +354,7 @@ public class GUI implements Observer {
 				players.add(new Player(Player.TokenName.CAR));
 				
 				//add player3 token and info to board
-				player3Token.setBounds(3550, 1458, 255, 110);
+				player3Token.setBounds(3550, 1625, 255, 110);
 				setButton(player3Token, "carToken");
 				player3.setBounds(3190, 1615, 255, 110);
 				setLabel(player3, "carToken");
@@ -379,7 +382,7 @@ public class GUI implements Observer {
 				players.add(new Player(Player.TokenName.HAT));
 				
 				//add player4 token and info to board
-				player4Token.setBounds(3640, 1458, 255, 110);
+				player4Token.setBounds(3640, 1625, 255, 110);
 				setButton(player4Token, "hatToken");
 				player4.setBounds(3570, 1615, 255, 110);
 				setLabel(player4, "hatToken");
@@ -410,6 +413,8 @@ public class GUI implements Observer {
 		frame.getContentPane().add(player2Token);
 		frame.getContentPane().add(player3Token);
 		frame.getContentPane().add(player4Token);
+		frame.getContentPane().add(propertiesBox);
+		frame.getContentPane().add(propertiesLabel);
 		frame.getContentPane().add(p1);
 		frame.getContentPane().add(p2);
 		frame.getContentPane().add(p3);
@@ -424,12 +429,16 @@ public class GUI implements Observer {
 		frame.getContentPane().add(dice1);
 		frame.getContentPane().add(dice2);
 		frame.getContentPane().add(buyButton);
-		frame.getContentPane().add(sellButton);
+		frame.getContentPane().add(mortgageButton);
 		frame.getContentPane().add(auctionButton);
 		frame.getContentPane().add(tradeButton);
 		frame.getContentPane().add(startGameButton);
 		frame.getContentPane().add(finishTurnButton);
 	}
+	
+	/**
+	 * Set player area
+	 */
 	private void setPlayerBorder() {
 		switch (lastToken) {
 		case "Dog": 			
@@ -447,6 +456,7 @@ public class GUI implements Observer {
 		default:
 			break;
 		}
+		
 		switch(playerTurn.getToken()) {
 		case "Dog": 			
 			p1.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
@@ -463,8 +473,13 @@ public class GUI implements Observer {
 		default:
 			break;
 		}
+		
 		lastToken = playerTurn.getToken();
 	}
+	
+	/**
+	 * updates the dice on the board after each roll
+	 */
 	private void updateDice(JLabel die, int index) {
 		switch (rollVal[index]) {
 		case 1:
@@ -487,6 +502,7 @@ public class GUI implements Observer {
 			break;
 		}
 	}
+	
 	/**
 	 * start a new game
 	 */
@@ -495,12 +511,16 @@ public class GUI implements Observer {
 		game.setPlayers(players);
 		playerTurn = game.getTurn();
 		setPlayerBorder();
+		propertiesBox.setVisible(true);
+		propertiesLabel.setVisible(true);
+		playersOwnedPropertiesBox();
 		playerTurn.addObserver(this);
+		
 		
 		rollDiceButton.setEnabled(true);
 		dice1.setVisible(true);
 		dice2.setVisible(true);
-		
+		System.out.println(game.getCurrentPlayer().getCurrentIndex());
 		//Only handles displaying the dice
 		rollDiceButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -508,16 +528,23 @@ public class GUI implements Observer {
 				//set dice label to value rolled
 				updateDice(dice1, 0);
 				updateDice(dice2, 1);
+				
+				//move players token after roll
+				movePlayerOnBoard(playerTurn.getToken(), game.getCurrentPlayer().getCurrentIndex());	
 			}
 		});
+		
 		//end turn
 		finishTurnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("finish turn!\n");
+				System.out.println("Finish Turn!\n");
 				playerTurn.endTurn();
 				setPlayerBorder();
+				playersOwnedPropertiesBox();
+				
 			}
 		});
+		
 		//Yeah we need to talk about this one
 		auctionButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -525,6 +552,7 @@ public class GUI implements Observer {
 				playerTurn.doneBuying();
 			}
 		});
+		
 		//need money check on this
 		buyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -535,6 +563,153 @@ public class GUI implements Observer {
 		});
 	}
 	
+	/**
+	 * moves the players token on the board
+	 */
+	private void movePlayerOnBoard(String token, int index) {
+		JButton playerToken = new JButton();
+		
+		switch(token) {
+		case "Dog": 			
+			playerToken = player1Token;
+			break;
+		case "Battleship": 	
+			playerToken = player2Token;
+			break;
+		case "Car": 			 	
+			playerToken = player3Token;
+			break;
+		case "Hat": 
+			playerToken = player4Token;
+			break;
+		default:
+			break;
+		}
+		
+		switch (index) {
+		case 0:
+			playerToken.setBounds(3557, 1180, 326, 326);
+			break;
+		case 1:
+			playerToken.setBounds(3456, 1180, 212, 326);
+			break;
+		case 2:
+			playerToken.setBounds(3347, 1180, 163, 326);
+			break;
+		case 3:
+			playerToken.setBounds(3192, 1180, 212, 326);
+			break;
+		case 4:
+			playerToken.setBounds(3094, 1180, 163, 326);
+			break;
+		case 5:
+			playerToken.setBounds(2965, 1180, 163, 326);
+			break;
+		case 6:
+			playerToken.setBounds(2841, 1180, 163, 326);
+			break;
+		case 7:
+			playerToken.setBounds(2705, 1180, 163, 326);
+			break;
+		case 8:
+			playerToken.setBounds(2570, 1180, 163, 326);
+			break;
+		case 9:
+			playerToken.setBounds(2436, 1180, 163, 326);
+			break;	
+		case 10:
+			playerToken.setBounds(0, 1400, 4720, 200);
+			break;
+		case 11:
+			playerToken.setBounds(110, 1243, 4720, 163);
+			break;
+		case 12:
+			playerToken.setBounds(110, 1109, 4720, 163);
+			break;
+		case 13:
+			playerToken.setBounds(110, 975, 4720, 163);
+			break;
+		case 14:
+			playerToken.setBounds(110, 841, 4720, 163);
+			break;
+		case 15:
+			playerToken.setBounds(110, 706, 4720, 163);
+			break;
+		case 16:
+			playerToken.setBounds(110, 580, 4720, 163);
+			break;
+		case 17:
+			playerToken.setBounds(110, 449, 4720, 163);
+			break;
+		case 18:
+			playerToken.setBounds(110, 316, 4720, 163);
+			break;
+		case 19:
+			playerToken.setBounds(110, 184, 4700, 163);
+			break;
+		case 20:
+			playerToken.setBounds(5, 3, 4711, 326);
+			break;
+		case 21:
+			playerToken.setBounds(326, 110, 4380, 326);
+			break;
+		case 22:
+			playerToken.setBounds(489, 110, 4308, 326);
+			break;
+		case 23:
+			playerToken.setBounds(652, 110, 4240, 326);
+			break;
+		case 24:
+			playerToken.setBounds(815, 110, 4173, 326);
+			break;
+		case 25:
+			playerToken.setBounds(978, 110, 4108, 326);
+			break;
+		case 26:
+			playerToken.setBounds(1141, 110, 4045, 326);
+			break;
+		case 27:
+			playerToken.setBounds(1304, 110, 3984, 326);
+			break;
+		case 28:
+			playerToken.setBounds(1467, 110, 3925, 326);
+			break;
+		case 29:
+			playerToken.setBounds(1630, 110, 3868, 326);
+			break;			
+		case 30:
+			playerToken.setBounds(3555, 110, 326, 326);
+			break;
+		case 31:
+			playerToken.setBounds(3200, 179, 326, 163);
+			break;
+		case 32:
+			playerToken.setBounds(3555, 314, 326, 163);
+			break;
+		case 33:
+			playerToken.setBounds(3555, 446, 326, 163);
+			break;
+		case 34:
+			playerToken.setBounds(3555, 580, 326, 163);
+			break;
+		case 35:
+			playerToken.setBounds(3555, 711, 326, 163);
+			break;
+		case 36:
+			playerToken.setBounds(3555, 844, 326, 163);
+			break;
+		case 37:
+			playerToken.setBounds(3555, 976, 326, 163);
+			break;
+		case 38:
+			playerToken.setBounds(3555, 1109, 326, 163);
+			break;
+		case 39:
+			playerToken.setBounds(3555, 1239, 326, 163);
+			break;
+		}		
+	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		//arg here is null, we don't need it
@@ -543,6 +718,7 @@ public class GUI implements Observer {
 		finishTurnButton.setVisible(playerTurn.isTurnOver());
 		auctionButton.setEnabled(playerTurn.inBuyState());
 		buyButton.setEnabled(playerTurn.inBuyState());
+		
 
 		if(playerTurn.isJailed()) {
 			//move to Jail square
