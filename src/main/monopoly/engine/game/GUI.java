@@ -187,8 +187,11 @@ public class GUI implements Observer {
 		tiles.set(0, new GuiHelper(3557, 1373, 326, 326, boardPanels, "passGo"));
 	}
 
+	/**
+	 * display properties owned by each player
+	 */
 	private void playersOwnedPropertiesBox() {
-		propertiesLabel.setText(playerTurn.getToken() + "'s Owned Propetries:");
+		propertiesLabel.setText(playerTurn.getToken() + "'s Owned Propetries: \n" + playerTurn.getPlayer().getDeeds().toString());
 	}
 
 	/**
@@ -265,7 +268,7 @@ public class GUI implements Observer {
 		propertiesBox.setBorder(BorderFactory.createLineBorder(Color.blue, 4));
 
 		propertiesLabel.setFont(new Font("Arial", Font.BOLD, 30));
-		propertiesLabel.setBounds(150, 1600, 500, 110);
+		propertiesLabel.setBounds(150, 1600, 1500, 110);
 		propertiesBox.setVisible(false);
 		propertiesLabel.setVisible(false);
 
