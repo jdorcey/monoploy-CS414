@@ -762,7 +762,7 @@ public class GUI implements Observer {
 				int numSpaces = playerTurn.getDiceSum();
 				//move player's token numSpaces
 				System.out.printf("Moving %s to %s\n", playerTurn.getToken(), 
-						game.getBoard().getSquares()[(playerTurn.getCurrentIndex() + numSpaces) % 40].getName());
+						game.getBoard().getSquares()[playerTurn.getCurrentIndex() % 40].getName());
 			}
 		}
 	}

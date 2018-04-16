@@ -46,7 +46,7 @@ public class Color {
 		Player owner = deed.getOwner();
 		int count = 0;
 		for (Deed current: deeds) {
-			if(current.getOwner().equals(owner))
+			if(current.getOwner() != null && current.getOwner().equals(owner))
 				count++;
 		}
 		return count - 1;
