@@ -718,6 +718,11 @@ public class GUI implements Observer {
 	public void update(Observable o, Object arg) {
 		//arg here is null, we don't need it
 		//update money!
+		if (game.gameOver()) {
+			
+			return; //do nothing else since the game is over!!!
+		}
+		//update time
 		rollDiceButton.setEnabled(playerTurn.canRoll());
 		finishTurnButton.setVisible(playerTurn.isTurnOver());
 		auctionButton.setEnabled(playerTurn.inBuyState());

@@ -62,12 +62,12 @@ public class Assets extends Observable {
 			}
 			//GUI feedback
 		}
-		System.out.printf("%s's new balance is $%d", owner.getToken(), money);
+		System.out.printf("%s's new balance is $%d\n", owner.getToken(), money);
 	}
 
 	public void deposit(int amount) {
 		money += amount;
-		System.out.printf("%s's new balance is $%d", owner.getToken(), money);
+		System.out.printf("%s's new balance is $%d\n", owner.getToken(), money);
 	}
 
 }

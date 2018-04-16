@@ -18,12 +18,12 @@ public class Monopoly implements Observer {
 	private long time; 
 	private long gameLength;
 
-	protected Monopoly() { 
+	private Monopoly() { 
 		INSTANCE = this;
 		board = new Board();
 		clock = Clock.systemDefaultZone();
 		time = clock.millis();
-		gameLength = 60; //one minute
+		gameLength = 300; //one minute
 	}
 
 	public static Monopoly getInstance() {
@@ -96,8 +96,12 @@ public class Monopoly implements Observer {
 		}
 	}
 	 */
-
-	private boolean gameOver() {
+	public double timeLeft() {
+		return (gameLength * 1000) - (clock.millis() - time);
+	}
+	
+	
+	public boolean gameOver() {
 		return players.size() == 1 || (clock.millis() - time) >= (gameLength * 1000);
 	}
 	
