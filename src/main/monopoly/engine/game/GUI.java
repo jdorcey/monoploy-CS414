@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -22,6 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import monopoly.engine.player.Player;
+import monopoly.engine.square.Deed;
 
 public class GUI implements Observer {
 	private JFrame frame;
@@ -32,6 +34,7 @@ public class GUI implements Observer {
 	private JLayeredPane p4 = new JLayeredPane();
 	private JLayeredPane propertiesBox = new JLayeredPane();
 	private JLabel propertiesLabel = new JLabel();
+	private JLabel timer = new JLabel();
 	private JLabel player1Money = new JLabel();
 	private JLabel player2Money = new JLabel();
 	private JLabel player3Money = new JLabel();
@@ -191,8 +194,22 @@ public class GUI implements Observer {
 	 * display properties owned by each player
 	 */
 	private void playersOwnedPropertiesBox() {
-		propertiesLabel.setText(playerTurn.getToken() + "'s Owned Propetries: \n" + playerTurn.getPlayer().getDeeds().toString());
+		
+		String propsStr = "";
+		int count = 0;
+
+		for(Deed d : playerTurn.getPlayer().getDeeds()) {
+			if(count == 4)  {
+				propsStr += "\n" + d + ", ";
+				count = 0;
+			}
+			propsStr += d + ", ";
+			count++;
+		}
+				
+		propertiesLabel.setText(playerTurn.getToken() + "'s Owned Properties: \n" + propsStr);
 	}
+	
 
 	/**
 	 * Initializes the game frame
@@ -263,12 +280,15 @@ public class GUI implements Observer {
 		dice1.setVisible(false);
 		dice2.setVisible(false);
 
+		timer.setBounds(50, 50, 1000, 200);
+		timer.setFont(new Font("Arial", Font.BOLD, 60));
+		timer.setVisible(false);
 		//set players section of board	
 		propertiesBox.setBounds(100, 1600, 1600, 424);
 		propertiesBox.setBorder(BorderFactory.createLineBorder(Color.blue, 4));
 
 		propertiesLabel.setFont(new Font("Arial", Font.BOLD, 30));
-		propertiesLabel.setBounds(150, 1600, 1500, 110);
+		propertiesLabel.setBounds(150, 1600, 1500, 500);
 		propertiesBox.setVisible(false);
 		propertiesLabel.setVisible(false);
 
@@ -417,6 +437,7 @@ public class GUI implements Observer {
 		frame.getContentPane().add(player2Token);
 		frame.getContentPane().add(player3Token);
 		frame.getContentPane().add(player4Token);
+		frame.getContentPane().add(timer);
 		frame.getContentPane().add(propertiesBox);
 		frame.getContentPane().add(propertiesLabel);
 		frame.getContentPane().add(p1);
@@ -515,6 +536,7 @@ public class GUI implements Observer {
 		game.setPlayers(players);
 		playerTurn = game.getTurn();
 		setPlayerBorder();
+		timer.setVisible(true);
 		propertiesBox.setVisible(true);
 		propertiesLabel.setVisible(true);
 		playersOwnedPropertiesBox();
@@ -523,7 +545,6 @@ public class GUI implements Observer {
 		rollDiceButton.setEnabled(true);
 		dice1.setVisible(true);
 		dice2.setVisible(true);
-		System.out.println(game.getCurrentPlayer().getCurrentIndex());
     
 		//Only handles displaying the dice
 		rollDiceButton.addActionListener(new ActionListener() {
@@ -622,7 +643,11 @@ public class GUI implements Observer {
 			playerToken.setBounds(2436, 1375, 163, 326);
 			break;	
 		case 10:
+			if(playerTurn.isJailed()) {
+				playerToken.setBounds(0, 1450, 4770, 200);	
+			}else {
 			playerToken.setBounds(0, 1475, 4720, 200);
+			}
 			break;
 		case 11:
 			playerToken.setBounds(5, 1290, 4720, 163);
@@ -682,7 +707,7 @@ public class GUI implements Observer {
 			playerToken.setBounds(1630, 5, 3868, 295);
 			break;			
 		case 30:
-			playerToken.setBounds(3555, 110, 326, 100);
+			playerToken.setBounds(0, 1450, 4770, 200);
 			break;
 		case 31:
 			playerToken.setBounds(3200, 225, 326, 163);
@@ -722,6 +747,7 @@ public class GUI implements Observer {
 			return; //do nothing else since the game is over!!!
 		}
 		//update time
+		timer.setText("Time Remaining: " + (int) game.timeLeft() / 1000 + " seconds");
 		rollDiceButton.setEnabled(playerTurn.canRoll());
 		finishTurnButton.setVisible(playerTurn.isTurnOver());
 		auctionButton.setEnabled(playerTurn.inBuyState());
