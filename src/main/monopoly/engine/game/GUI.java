@@ -288,7 +288,7 @@ public class GUI implements Observer {
 		propertiesBox.setBorder(BorderFactory.createLineBorder(Color.blue, 4));
 
 		propertiesLabel.setFont(new Font("Arial", Font.BOLD, 30));
-		propertiesLabel.setBounds(150, 1600, 1500, 500);
+		propertiesLabel.setBounds(150, 1400, 1500, 500);
 		propertiesBox.setVisible(false);
 		propertiesLabel.setVisible(false);
 
@@ -317,6 +317,7 @@ public class GUI implements Observer {
 
 				//add player1 token and info to board
 				player1Token.setBounds(3550, 1430, 255, 110);
+
 				setButton(player1Token, "dogToken");
 				player1.setBounds(2420, 1600, 255, 110);
 				setLabel(player1, "dogToken");
@@ -581,7 +582,7 @@ public class GUI implements Observer {
 		//need money check on this
 		buyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("buyProperty!");
+				System.out.println("Buy Property!");
 				Banker.buyProperty(playerTurn.getPlayer(), game.getBoard().getDeed(playerTurn.getCurrentIndex()));
 				playerTurn.doneBuying();
 			}
@@ -710,7 +711,7 @@ public class GUI implements Observer {
 			playerToken.setBounds(0, 1450, 4770, 200);
 			break;
 		case 31:
-			playerToken.setBounds(3200, 225, 326, 163);
+			playerToken.setBounds(3555, 225, 326, 163);
 			break;
 		case 32:
 			playerToken.setBounds(3555, 360, 326, 163);
@@ -742,10 +743,8 @@ public class GUI implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		//update money!
-		if (game.gameOver()) {
-			
-			return; //do nothing else since the game is over!!!
-		}
+		//do nothing else since the game is over!!!
+		if (game.gameOver()) { return; }
 		//update time
 		timer.setText("Time Remaining: " + (int) game.timeLeft() / 1000 + " seconds");
 		rollDiceButton.setEnabled(playerTurn.canRoll());
@@ -759,8 +758,6 @@ public class GUI implements Observer {
 				System.out.printf("Moving %s to Jail\n", playerTurn.getPlayer().getToken());
 			}
 			else { 
-				int numSpaces = playerTurn.getDiceSum();
-				//move player's token numSpaces
 				System.out.printf("Moving %s to %s\n", playerTurn.getToken(), 
 						game.getBoard().getSquares()[playerTurn.getCurrentIndex() % 40].getName());
 			}

@@ -100,7 +100,7 @@ public class Deed extends Square{
 	public int calculateRent() {
 		if(this.color.getType() == Color.Type.RAILROAD) { return rent[color.numRailroadsorUtilitiesOwned(this)]; }
 		if(this.color.getType() == Color.Type.UTILITY) {
-			return rent[color.numRailroadsorUtilitiesOwned(this) - 1] * Monopoly.getInstance().getTurn().getDiceSum();
+			return rent[color.numRailroadsorUtilitiesOwned(this)] * Monopoly.getInstance().getTurn().getDiceSum();
 		}
 		if (hasHotel) { return rent[5]; }
 		if(numHouses == 0 && color.isMonopoly()) { return rent[0] * 2; }

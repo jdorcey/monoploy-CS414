@@ -11,6 +11,7 @@ public class Player {
 	private TokenName token; 
 	private boolean isJailed;
 	private boolean buyState;
+	private boolean onNonDeed;
 	private int currentIndex;
 	
 	public Player(TokenName name) {
@@ -18,6 +19,7 @@ public class Player {
 		token = name;
 		isJailed = false;
 		buyState = false;
+		onNonDeed = false;
 		currentIndex = 0;
 	}
 	
@@ -45,6 +47,14 @@ public class Player {
 	
 	public boolean inBuyState() {
 		return buyState;
+	}
+
+	public boolean isOnNonDeed() {
+		return onNonDeed;
+	}
+	
+	public void setOnNonDeed(boolean onNonDeed) {
+		this.onNonDeed = onNonDeed;
 	}
 	
 	public void setBuyState(boolean buyState) {

@@ -46,9 +46,9 @@ public class Turn extends Observable {
 	}
 
 	public void doneBuying() { 
-		setChanged();
 		player.setBuyState(false);
-		isTurnOver = true;
+		if(!isDoubles()) isTurnOver = true;
+		setChanged();
 		notifyObservers();
 		clearChanged();
 	}
@@ -77,12 +77,17 @@ public class Turn extends Observable {
 	}
 
 	private void movePlayer() {
-		setChanged();
+		if ((player.getCurrentIndex() + getDiceSum()) >= 40)
+			Banker.go(player);
 		player.setCurrentIndex(player.getCurrentIndex() + getDiceSum());
 		isTurnOver = false;
 		board.getSquares()[player.getCurrentIndex()].performAction(player);
-		if (!player.inBuyState() && numDoubles == 0)
+		if (!player.inBuyState() && !isDoubles())
 			isTurnOver = true;
+		else if(player.isOnNonDeed())
+			//if(numDoubles == 0)
+			isTurnOver = true;
+		setChanged();
 		notifyObservers(" ");
 		clearChanged();
 	} 
@@ -101,10 +106,6 @@ public class Turn extends Observable {
 			clearChanged();
 			return diceValues;
 		}			
-		if(isDoubles()) { 
-			numDoubles++; 
-			System.out.printf("%s rolled doubles\n", player.getToken());
-		}
 		movePlayer();
 		if(numDoubles == 3) {
 			player.setJailed(true);
@@ -114,6 +115,10 @@ public class Turn extends Observable {
 			clearChanged();
 			return diceValues;
 		}	
+		if(isDoubles()) { 
+			numDoubles++; 
+			System.out.printf("%s rolled doubles\n", player.getToken());
+		}
 		return diceValues;
 	}
 
@@ -133,6 +138,7 @@ public class Turn extends Observable {
 		//reset class variables
 		numDoubles = 0;
 		resetDiceValues();
+		player.setBuyState(false);
 		isTurnOver = false;
 		setChanged();
 		notifyObservers();
