@@ -719,7 +719,7 @@ public class GUI implements Observer {
 		finishTurnButton.setVisible(playerTurn.isTurnOver());
 		auctionButton.setEnabled(playerTurn.inBuyState());
 		buyButton.setEnabled(playerTurn.inBuyState());
-
+		updateMoney(playerTurn.getToken());
 		if(arg != null) {
 			if(playerTurn.isJailed()) {
 				//move to Jail square
@@ -731,6 +731,29 @@ public class GUI implements Observer {
 				System.out.printf("Moving %s to %s\n", playerTurn.getToken(), 
 						game.getBoard().getSquares()[playerTurn.getCurrentIndex() + numSpaces].getName());
 			}
+		}
+	}
+	/**
+	 * moves the players token on the board
+	 */
+	private void updateMoney(String token) {
+		JButton playerToken = new JButton();
+
+		switch(token) {
+		case "Dog": 			
+			player1Money.setText("Money: $" + playerTurn.getPlayer().getMoney());
+			break;
+		case "Battleship": 	
+			player2Money.setText("Money: $" + playerTurn.getPlayer().getMoney());
+			break;
+		case "Car": 			 	
+			player3Money.setText("Money: $" + playerTurn.getPlayer().getMoney());
+			break;
+		case "Hat": 
+			player4Money.setText("Money: $" + playerTurn.getPlayer().getMoney());
+			break;
+		default:
+			break;
 		}
 	}
 

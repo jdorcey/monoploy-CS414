@@ -64,6 +64,10 @@ public class Deed extends Square{
 		return null;
 	}
 	
+	public String toString() {
+		return this.getName();
+	}
+	
 	public int getPurchasePrice() {
 		return purchasePrice;
 	}

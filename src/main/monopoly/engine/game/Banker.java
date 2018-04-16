@@ -12,6 +12,7 @@ public class Banker {
 			return;
 		}
 		Deed deed = (Deed) tile;
+		deed.setOwner(player);
 		player.addDeed(deed);
 		player.deduct(deed.getPurchasePrice());
 		System.out.printf("player %s bought %s for $%d\n", player.getToken(), deed.getName(), deed.getPurchasePrice());
