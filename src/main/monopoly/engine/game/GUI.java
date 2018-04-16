@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -567,7 +566,6 @@ public class GUI implements Observer {
 				playerTurn.endTurn();
 				setPlayerBorder();
 				playersOwnedPropertiesBox();
-
 			}
 		});
 
@@ -742,15 +740,17 @@ public class GUI implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		//update money!
 		//do nothing else since the game is over!!!
 		if (game.gameOver()) { return; }
 		//update time
 		timer.setText("Time Remaining: " + (int) game.timeLeft() / 1000 + " seconds");
 		rollDiceButton.setEnabled(playerTurn.canRoll());
+		System.out.printf("canRoll = %b\n", playerTurn.canRoll());
 		finishTurnButton.setVisible(playerTurn.isTurnOver());
+		System.out.printf("isTurnOver = %b\n", playerTurn.isTurnOver());
 		auctionButton.setEnabled(playerTurn.inBuyState());
 		buyButton.setEnabled(playerTurn.inBuyState());
+		System.out.printf("inBuyState = %b\n", playerTurn.inBuyState());
 		updateMoney(playerTurn.getToken());
 		if(arg != null) {
 			if(playerTurn.isJailed()) {
