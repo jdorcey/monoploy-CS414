@@ -716,7 +716,6 @@ public class GUI implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		//arg here is null, we don't need it
 		//update money!
 		if (game.gameOver()) {
 			

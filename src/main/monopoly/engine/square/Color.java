@@ -23,6 +23,10 @@ public class Color {
 		return this.type;
 	}
 	
+	public ArrayList<Deed> getDeeds() {
+		return deeds;
+	}
+	
 	public void addDeeds(Collection<Deed> deeds) {
 		this.deeds.addAll(deeds);
 	}

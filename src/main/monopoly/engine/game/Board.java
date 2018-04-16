@@ -8,16 +8,16 @@ import monopoly.engine.square.*;
 public class Board {
 	
 	private Square[] squares;	
-	private Color purple = new Color(Color.Type.PURPLE, 50);
-	private Color lightblue = new Color(Color.Type.LIGHT_BLUE, 50);
-	private Color pink = new Color(Color.Type.PINK, 100);
-	private Color orange = new Color(Color.Type.ORANGE, 100);
-	private Color red = new Color(Color.Type.RED, 150);
-	private Color yellow = new Color(Color.Type.YELLOW, 150);
-	private Color green = new Color(Color.Type.GREEN, 200);
-	private Color blue = new Color(Color.Type.BLUE, 200);
-	private Color railroad = new Color(Color.Type.RAILROAD, null);
-	private Color utility = new Color(Color.Type.UTILITY, null);
+	public Color purple = new Color(Color.Type.PURPLE, 50);
+	public Color lightblue = new Color(Color.Type.LIGHT_BLUE, 50);
+	public Color pink = new Color(Color.Type.PINK, 100);
+	public Color orange = new Color(Color.Type.ORANGE, 100);
+	public Color red = new Color(Color.Type.RED, 150);
+	public Color yellow = new Color(Color.Type.YELLOW, 150);
+	public Color green = new Color(Color.Type.GREEN, 200);
+	public Color blue = new Color(Color.Type.BLUE, 200);
+	public Color railroad = new Color(Color.Type.RAILROAD, null);
+	public Color utility = new Color(Color.Type.UTILITY, null);
 	private Deed MediteranneanAvenue = new Deed(Deed.DeedName.MEDITERRANEAN_AVENUE, 60, new int[] {2, 10, 30, 90, 160, 250}, purple);
 	private Deed BalticAvenue = new Deed(Deed.DeedName.BALTIC_AVENUE, 60, new int[] {4, 20, 60, 180, 320, 450}, purple); 
 	private Deed OrientalAvenue = new Deed(Deed.DeedName.ORIENTAL_AVENUE, 100, new int[] {6, 30, 90, 270, 400, 550}, lightblue);

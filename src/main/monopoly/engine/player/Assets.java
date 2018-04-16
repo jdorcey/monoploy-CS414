@@ -69,5 +69,4 @@ public class Assets extends Observable {
 		money += amount;
 		System.out.printf("%s's new balance is $%d\n", owner.getToken(), money);
 	}
-
 }
