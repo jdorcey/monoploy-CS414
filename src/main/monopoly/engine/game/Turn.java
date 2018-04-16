@@ -67,13 +67,13 @@ public class Turn extends Observable {
 	}
 	
 	public boolean canRoll() {
-		return diceValues[0] == 0 || ((isDoubles()) && (numDoubles != 0) && (numDoubles < 3));
+		return diceValues[0] == 0 || (isDoubles() && numDoubles != 0 && numDoubles < 3);
 	}
 	
 	public void rollDice() {
 		Random r = new Random();
-		diceValues[0] = r.nextInt(6) +1; 
-		diceValues[1] = r.nextInt(6) +1;
+		diceValues[0] = r.nextInt(6) + 1; 
+		diceValues[1] = r.nextInt(6) + 1;
 	}
 
 	private void movePlayer() {
@@ -96,6 +96,9 @@ public class Turn extends Observable {
 				player.setJailed(false); 
 				isTurnOver = true;
 			}
+			setChanged();
+			notifyObservers();
+			clearChanged();
 			return diceValues;
 		}			
 		if(isDoubles()) { numDoubles++; }
@@ -103,7 +106,9 @@ public class Turn extends Observable {
 		if(numDoubles == 3) {
 			player.setJailed(true);
 			isTurnOver = true;
+			setChanged();
 			notifyObservers();
+			clearChanged();
 			return diceValues;
 		}	
 		return diceValues;

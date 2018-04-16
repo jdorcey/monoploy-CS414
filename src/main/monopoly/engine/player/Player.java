@@ -79,8 +79,7 @@ public class Player {
 		return assets.getNetWorth();
 	}
 	
-	// need to call trade on both players. only one player with money
-	// if deeds not transferred use null
+	//called only on player selling properties to other player
 	public void trade(Player other, int money, LinkedList<Deed> deeds) { 
 		transfer(other, money);
 		for (Deed deed: deeds) {
@@ -90,8 +89,8 @@ public class Player {
 	}
 	
 	public void transfer(Player other, int amount) {
-		deduct(amount);
-		other.deposit(amount);
+		other.deduct(amount);
+		deposit(amount);
 		System.out.printf("%s payed %s $%d\n", this.getToken(), other.getToken(), amount);
 	}
 	
