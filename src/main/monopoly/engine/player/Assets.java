@@ -31,11 +31,13 @@ public class Assets extends Observable {
 
 	public void addDeed(Deed deed) {
 		deeds.add(deed);
+		deed.setOwner(owner);
 		System.out.printf("%s now owns %s\n", owner.getToken(), deed.getName());
 	}
 
 	public void removeDeed(Deed deed) {
 		deeds.remove(deed);
+		deed.setOwner(null);
 		System.out.printf("%s no longer owns %s\n", owner.getToken(), deed.getName());
 	}
 	

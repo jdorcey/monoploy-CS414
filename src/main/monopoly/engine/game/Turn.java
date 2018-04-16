@@ -125,13 +125,13 @@ public class Turn extends Observable {
 	}
 
 	public void endTurn() {
-		setChanged();
 		//set next player as current player
 		player = monopoly.getNextPlayer(player);
 		//reset class variables
 		numDoubles = 0;
 		resetDiceValues();
 		isTurnOver = false;
+		setChanged();
 		notifyObservers();
 		clearChanged();
 	}

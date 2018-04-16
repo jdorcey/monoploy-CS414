@@ -1,6 +1,5 @@
 package monopoly.engine.square;
 
-import java.awt.List;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -34,10 +33,10 @@ public class Color {
 	public boolean isMonopoly() {
 		Player owner = null;
 		for (Deed current: deeds) {
-			if (owner == null)
-				owner = current.getOwner();
-			else if (current.getOwner() == null)
+			if (current.getOwner() == null)
 				return false;
+			else if (owner == null)
+				owner = current.getOwner();
 			else if (!current.getOwner().equals(owner))
 				return false;
 		}

@@ -14,29 +14,38 @@ import monopoly.engine.player.Player;
 public class TestColor {
 
 	private static Monopoly game = Monopoly.getInstance();
-	private static Player player = new Player(Player.TokenName.DOG);
-	private Deed ElectricCompany = new Deed(Deed.DeedName.ELECTRIC_COMPANY, 150, new int[] {4, 10}, game.getBoard().utility);
-	private Deed WaterWorks = new Deed(Deed.DeedName.WATER_WORKS, 150, new int[] {4, 10}, game.getBoard().utility);
+	private static Player player1 = new Player(Player.TokenName.DOG);
+	private static Player player2 = new Player(Player.TokenName.CAR);
+	private static Deed ElectricCompany = game.getBoard().utility.getDeeds().get(0);
+	private static Deed WaterWorks = game.getBoard().utility.getDeeds().get(1);
 	
 	@Before
 	public void setUp() throws Exception {
-		game.setPlayers(new ArrayList<>(Arrays.asList(new Player[] {player})));
-		player.addDeed(ElectricCompany);
-		player.addDeed(WaterWorks);
+		game.setPlayers(new ArrayList<>(Arrays.asList(new Player[] {player1, player2})));
 	}
 
-	@Test
+	/*@Test
 	public void testAddDeeds() {
 		
-	}
+	}*/
 
 	@Test
 	public void testIsMonopoly() {
-		
+		player1.addDeed(ElectricCompany);
+		player1.addDeed(WaterWorks);
+		assertEquals(player1, WaterWorks.getOwner());
+		assertEquals(player1, ElectricCompany.getOwner());
+		assertTrue(game.getBoard().utility.isMonopoly());
+		player1.removeDeed(ElectricCompany);
+		assertEquals(null, ElectricCompany.getOwner());
+		assertFalse(game.getBoard().utility.isMonopoly());
+		player2.addDeed(ElectricCompany);
+		assertEquals(player2, ElectricCompany.getOwner());
+		assertFalse(game.getBoard().utility.isMonopoly());
 	}
 	  
-	@Test
+	/*@Test
 	public void testNumRailroadsOrUtilties() {
 
-	}
+	}*/
 }
