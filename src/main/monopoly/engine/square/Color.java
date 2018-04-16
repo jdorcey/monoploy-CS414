@@ -36,7 +36,9 @@ public class Color {
 		for (Deed current: deeds) {
 			if (owner == null)
 				owner = current.getOwner();
-			else if(!current.getOwner().equals(owner))
+			else if (current.getOwner() == null)
+				return false;
+			else if (!current.getOwner().equals(owner))
 				return false;
 		}
 		return true;

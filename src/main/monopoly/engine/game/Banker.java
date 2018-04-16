@@ -7,12 +7,12 @@ import monopoly.engine.square.Square;
 public class Banker {
 
 	public static void buyProperty(Player player, Square tile) {
-    	System.out.printf("player %s bought %s for $%d\n", player.getToken(), deed.getName(), deed.getPurchasePrice());
-		if (!(tile instanceof Deed)) {
+    	if (!(tile instanceof Deed)) {
 			System.out.println("Trying to buy a non deed Tile " + tile.getName());
 			return;
 		}
 		Deed deed = (Deed) tile;
+		System.out.printf("player %s bought %s for $%d\n", player.getToken(), deed.getName(), deed.getPurchasePrice());
 		deed.setOwner(player);
 		player.addDeed(deed);
 		player.deduct(deed.getPurchasePrice());

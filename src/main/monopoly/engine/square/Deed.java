@@ -93,7 +93,7 @@ public class Deed extends Square{
 		if (owner == null) { player.setBuyState(true); }
 		else {
 			if(owner.equals(player)) { return; }
-			player.transfer(owner, calculateRent());
+			owner.transfer(player, calculateRent());
 		}
 	}
 	
