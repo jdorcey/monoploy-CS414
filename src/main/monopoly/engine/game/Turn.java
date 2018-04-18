@@ -47,7 +47,10 @@ public class Turn extends Observable {
 
 	public void doneBuying() { 
 		player.setBuyState(false);
-		if(!isDoubles()) isTurnOver = true;
+		if(!isDoubles()) { 
+			isTurnOver = true;
+			System.out.println("changing because not doubles");
+		}
 		setChanged();
 		notifyObservers();
 		clearChanged();
@@ -67,13 +70,14 @@ public class Turn extends Observable {
 	}
 	
 	public boolean canRoll() {
-		return diceValues[0] == 0 || (isDoubles() && numDoubles != 0 && numDoubles < 3);
+		return (diceValues[0] == 0 || (isDoubles() && numDoubles < 3)) && !isTurnOver();
 	}
 	
 	public void rollDice() {
 		Random r = new Random();
 		diceValues[0] = r.nextInt(6) + 1; 
 		diceValues[1] = r.nextInt(6) + 1;
+		System.out.printf("%s rolled %d and %d\n", player.getToken(), diceValues[0], diceValues[1]);
 	}
 
 	private void movePlayer() {
@@ -82,10 +86,18 @@ public class Turn extends Observable {
 		player.setCurrentIndex(player.getCurrentIndex() + getDiceSum());
 		isTurnOver = false;
 		board.getSquares()[player.getCurrentIndex()].performAction(player);
-		if (!player.inBuyState() && !isDoubles())
+//		if (!player.inBuyState() && !isDoubles()) {
+//			isTurnOver = true;
+//			System.out.println("changing in branch 1");
+//		}
+//		else if(player.isOnNonDeed() && !isDoubles()) {
+//			isTurnOver = true;
+//			System.out.println("changing in branch 2");
+//		}
+		if (!isDoubles()) {
 			isTurnOver = true;
-		else if(player.isOnNonDeed() && !isDoubles())
-			isTurnOver = true;
+			System.out.println("changing in branch 1");
+		}
 		setChanged();
 		notifyObservers(" ");
 		clearChanged();
@@ -95,11 +107,12 @@ public class Turn extends Observable {
 		if(!canRoll())
 			return diceValues;
 		rollDice();
-		if(player.isJailed()) {
+		if(player.isJailed()) { 
+			isTurnOver = true;
 			if(isDoubles()) { 
 				System.out.printf("%s is no longer jailed", player.getToken());
-				player.setJailed(false); 
-				isTurnOver = true;
+				player.setJailed(false);
+				System.out.println("changing in out of jail branch");
 			}
 			setChanged();
 			notifyObservers();
@@ -110,7 +123,9 @@ public class Turn extends Observable {
 		if(numDoubles == 3) {
 			System.out.printf("%s is now jailed", player.getToken());
 			player.setJailed(true);
+			player.setCurrentIndex(10);
 			isTurnOver = true;
+			System.out.println("changing in going to jail branch");
 			setChanged();
 			notifyObservers();
 			clearChanged();

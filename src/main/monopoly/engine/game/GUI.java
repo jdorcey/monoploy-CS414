@@ -736,6 +736,7 @@ public class GUI implements Observer {
 			playerToken.setBounds(3555, 1285, 326, 163);
 			break;
 		}		
+		frame.setComponentZOrder(playerToken, new Integer(0));
 	}
 
 	@Override
