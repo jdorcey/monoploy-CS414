@@ -192,24 +192,21 @@ public class GUI implements Observer {
 	/**
 	 * display properties owned by each player
 	 */
-	private void playersOwnedPropertiesBox() {
-		
+	private void playersOwnedPropertiesBox() {	
 		String propsStr = "";
 		int count = 0;
-
 		for(Deed d : playerTurn.getPlayer().getDeeds()) {
 			if(count == 4)  {
-				propsStr += "\n" + d + ", ";
-				count = 0;
+				propsStr +=  "<br> " + d + ", ";
+				count = 1;
+			}else {
+				propsStr += d + ", ";
+				count++;
 			}
-			propsStr += d + ", ";
-			count++;
 		}
-				
-		propertiesLabel.setText(playerTurn.getToken() + "'s Owned Properties: \n" + propsStr);
+		propertiesLabel.setText("<html> " + playerTurn.getToken() + "'s Owned Properties: " + "<br> " + propsStr + "</html>");
 	}
 	
-
 	/**
 	 * Initializes the game frame
 	 */
@@ -287,7 +284,7 @@ public class GUI implements Observer {
 		propertiesBox.setBorder(BorderFactory.createLineBorder(Color.blue, 4));
 
 		propertiesLabel.setFont(new Font("Arial", Font.BOLD, 30));
-		propertiesLabel.setBounds(150, 1400, 1500, 500);
+		propertiesLabel.setBounds(150, 1425, 1500, 500);
 		propertiesBox.setVisible(false);
 		propertiesLabel.setVisible(false);
 
@@ -583,6 +580,7 @@ public class GUI implements Observer {
 				System.out.println("Buy Property!");
 				Banker.buyProperty(playerTurn.getPlayer(), game.getBoard().getDeed(playerTurn.getCurrentIndex()));
 				playerTurn.doneBuying();
+				playersOwnedPropertiesBox();
 			}
 		});
 	}
