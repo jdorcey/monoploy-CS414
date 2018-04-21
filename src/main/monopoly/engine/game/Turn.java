@@ -94,7 +94,7 @@ public class Turn extends Observable {
 //			isTurnOver = true;
 //			System.out.println("changing in branch 2");
 //		}
-		if (!isDoubles()) {
+		if (!isDoubles() && !player.inBuyState()) {
 			isTurnOver = true;
 			System.out.println("changing in branch 1");
 		}

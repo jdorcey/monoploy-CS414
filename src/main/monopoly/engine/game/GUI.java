@@ -21,6 +21,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.border.Border;
+
 import monopoly.engine.player.Player;
 import monopoly.engine.square.Deed;
 
@@ -32,6 +37,7 @@ public class GUI implements Observer {
 	private JLayeredPane p3 = new JLayeredPane();
 	private JLayeredPane p4 = new JLayeredPane();
 	private JLayeredPane propertiesBox = new JLayeredPane();
+	private JLayeredPane test = new JLayeredPane();
 	private JLabel propertiesLabel = new JLabel();
 	private JLabel timer = new JLabel();
 	private JLabel player1Money = new JLabel();
@@ -67,11 +73,16 @@ public class GUI implements Observer {
 	private ArrayList<Player> players;
 	private ArrayList<JLayeredPane> playersPanels;
 	private ArrayList<JLayeredPane> boardPanels;
+	
+	private JTextArea gameDialog = new JTextArea();
+	private JScrollPane dialogBox = new JScrollPane(gameDialog);
+	private String gameDialogText;
 
 	private int[] rollVal;
 	private Monopoly game = Monopoly.getInstance();
 	private Turn playerTurn;
 	private String lastToken = "";
+	
 	/**
 	 * GUI constructor to create the main frame
 	 */
@@ -125,10 +136,6 @@ public class GUI implements Observer {
 	 * Set squares on left side of board
 	 */
 	private void setLeftSquares() {
-		//		for (in range of 1 to 4)
-		//		for (in range of 1 to 10)
-		//			if i == 1 
-		//			  //is corner space
 		tiles.set(19, new GuiHelper(10, 184, 4700, 163, boardPanels, "newYorkAvenue"));
 		tiles.set(18, new GuiHelper(0, 316, 4720, 163, boardPanels, "tennesseeAvenue"));
 		tiles.set(17, new GuiHelper(0, 449, 4720, 163, boardPanels, "communityChestL"));
@@ -211,17 +218,16 @@ public class GUI implements Observer {
 	 * Initializes the game frame
 	 */
 	private void initialize() {
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		FlowLayout flow = new FlowLayout();
 		flow.setHgap(0);
 		flow.setVgap(0);
 		frame = new JFrame("T13 Monopoly Game CS414");
 		frame.setLayout(flow);
 		frame.getContentPane().setBackground(new Color(212, 252, 228));
-		//frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		frame.setSize(screenSize);
+		frame.setPreferredSize(new Dimension(3840, 2160));
+	    frame.pack();
+	    frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
-		//frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -230,7 +236,6 @@ public class GUI implements Observer {
 		setUpperSquares();
 		setRightSquares();
 		setBottomSquares();
-
 		for (int i = 0; i < 40 ; i++) 
 			tiles.get(i).setLayout(flow);
 
@@ -257,7 +262,6 @@ public class GUI implements Observer {
 		setButton(tradeButton, 153, 153, 255);
 		setButton(startGameButton, 255, 0, 128);
 		setButton(finishTurnButton, 99, 177, 177);
-
 		startGameButton.setVisible(false);
 		finishTurnButton.setVisible(false);
 		communityChestButton.setEnabled(false);
@@ -276,18 +280,18 @@ public class GUI implements Observer {
 		dice1.setVisible(false);
 		dice2.setVisible(false);
 
+		//set timer on board
 		timer.setBounds(50, 50, 1000, 200);
 		timer.setFont(new Font("Arial", Font.BOLD, 60));
 		timer.setVisible(false);
-		//set players section of board	
+		
+		//set properties box and players section of board	
 		propertiesBox.setBounds(100, 1600, 1600, 424);
 		propertiesBox.setBorder(BorderFactory.createLineBorder(Color.blue, 4));
-
-		propertiesLabel.setFont(new Font("Arial", Font.BOLD, 30));
+		propertiesLabel.setFont(new Font("Arial", Font.BOLD, 32));
 		propertiesLabel.setBounds(150, 1425, 1500, 500);
 		propertiesBox.setVisible(false);
 		propertiesLabel.setVisible(false);
-
 		p1.setBounds(2265, 1600, 385, 424);
 		p1.setBorder(BorderFactory.createLineBorder(Color.black, 4));
 		p2.setBounds(2650, 1600, 385, 424);
@@ -300,6 +304,12 @@ public class GUI implements Observer {
 		playersPanels.add(p2);
 		playersPanels.add(p3);
 		playersPanels.add(p4);
+		
+		//set dialog box
+		gameDialog.setFont(new Font("Arial", Font.BOLD, 32));
+		dialogBox.setBounds(50, 250, 1200, 1000);
+		dialogBox.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		dialogBox.setVisible(false);
 
 		//button to add player 1 
 		addPlayer1Button.setBounds(2335, 1800, 250, 110);
@@ -311,17 +321,18 @@ public class GUI implements Observer {
 				//add a new player
 				players.add(new Player(Player.TokenName.DOG));
 
-				//add player1 token and info to board
+				//add player1 token to board
 				player1Token.setBounds(3550, 1430, 255, 110);
-
 				setButton(player1Token, "dogToken");
-				player1.setBounds(2420, 1600, 255, 110);
+				
+				//add player1 info/money to player area
+				player1.setBounds(2420, 1420, 200, 500);
 				setLabel(player1, "dogToken");
-
-				//add player1 initial starting money to board
 				player1Money.setText("Money: $" + String.valueOf(players.get(0).getMoney()));
 				player1Money.setFont(new Font("Arial", Font.ITALIC, 30));
 				player1Money.setBounds(2350, 1685, 250, 110);
+				p1.add(player1);
+				p1.add(player1Money);
 				
 				frame.getContentPane().add(player1);
 				frame.setComponentZOrder(player1Token, new Integer(0));
@@ -350,6 +361,8 @@ public class GUI implements Observer {
 				player2Money.setText("Money: $" + String.valueOf(players.get(0).getMoney()));
 				player2Money.setFont(new Font("Arial", Font.ITALIC, 30));
 				player2Money.setBounds(2750, 1685, 250, 110);
+				p1.add(player2);
+				p1.add(player2Money);
 
 				frame.getContentPane().add(player2);
 				frame.setComponentZOrder(player2Token, new Integer(0));
@@ -382,6 +395,8 @@ public class GUI implements Observer {
 				player3Money.setText("Money: $" + String.valueOf(players.get(0).getMoney()));
 				player3Money.setFont(new Font("Arial", Font.ITALIC, 30));
 				player3Money.setBounds(3130, 1685, 250, 110);
+				p1.add(player3);
+				p1.add(player3Money);
 
 				frame.getContentPane().add(player3);
 				frame.setComponentZOrder(player3Token, new Integer(0));
@@ -411,6 +426,8 @@ public class GUI implements Observer {
 				player4Money.setText("Money: $" + String.valueOf(players.get(0).getMoney()));
 				player4Money.setFont(new Font("Arial", Font.ITALIC, 30));
 				player4Money.setBounds(3520, 1685, 250, 110);
+				p1.add(player4);
+				p1.add(player4Money);
 
 				frame.getContentPane().add(player4);
 				frame.setComponentZOrder(player4Token, new Integer(0));
@@ -420,6 +437,8 @@ public class GUI implements Observer {
 
 		startGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				gameDialogText = "- Game Started!\n";
+				gameDialog.append(gameDialogText);
 				addPlayer3Button.setVisible(false);
 				addPlayer4Button.setVisible(false);
 				startGame();
@@ -456,6 +475,7 @@ public class GUI implements Observer {
 		frame.getContentPane().add(tradeButton);
 		frame.getContentPane().add(startGameButton);
 		frame.getContentPane().add(finishTurnButton);
+		frame.getContentPane().add(dialogBox);
 	}
 
 	/**
@@ -534,6 +554,7 @@ public class GUI implements Observer {
 		playerTurn = game.getTurn();
 		setPlayerBorder();
 		timer.setVisible(true);
+		dialogBox.setVisible(true);
 		propertiesBox.setVisible(true);
 		propertiesLabel.setVisible(true);
 		playersOwnedPropertiesBox();
@@ -546,21 +567,36 @@ public class GUI implements Observer {
 		//Only handles displaying the dice
 		rollDiceButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				//player takes turn
 				rollVal = playerTurn.takeTurn();
+				//update roll to dialog box
+				gameDialogText = "- " + playerTurn.getToken() + " rolled " + (rollVal[0] + rollVal[1]) + ".\n";
+				gameDialog.append(gameDialogText);
+				if(rollVal[0] == rollVal[1]) {
+					gameDialogText = "- " + playerTurn.getToken() + " rolled doubles!\n";
+					gameDialog.append(gameDialogText);	
+				}
 				//set dice label to value rolled
 				updateDice(dice1, 0);
 				updateDice(dice2, 1);
-
-				//move players token after roll
-				movePlayerOnBoard(playerTurn.getToken(), game.getCurrentPlayer().getCurrentIndex());	
+				//move player token after roll and update dialog box
+				movePlayerOnBoard(playerTurn.getToken(), game.getCurrentPlayer().getCurrentIndex());
+				gameDialogText = "- " + playerTurn.getToken() + " moved to " + game.getBoard().getDeed(playerTurn.getCurrentIndex()) + ".\n";
+				gameDialog.append(gameDialogText);
 			}
 		});
 
 		//end turn
 		finishTurnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				//update dialog box that player finished their turn
+				gameDialogText = "- " + playerTurn.getToken() + " finished turn. \n";
+				gameDialog.append(gameDialogText);
 				System.out.println("Finish Turn!\n");
 				playerTurn.endTurn();
+				//update dialog box with next players turn
+				gameDialogText = "- " + playerTurn.getToken() + "'s turn. \n";
+				gameDialog.append(gameDialogText);
 				setPlayerBorder();
 				playersOwnedPropertiesBox();
 			}
@@ -577,8 +613,12 @@ public class GUI implements Observer {
 		//need money check on this
 		buyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				//update dialof box with property player bought
+				gameDialogText = "- " + playerTurn.getToken() + " bought " + game.getBoard().getDeed(playerTurn.getCurrentIndex()) + ".\n";
+				gameDialog.append(gameDialogText);
 				System.out.println("Buy Property!");
 				Banker.buyProperty(playerTurn.getPlayer(), game.getBoard().getDeed(playerTurn.getCurrentIndex()));
+				finishTurnButton.setVisible(true);
 				playerTurn.doneBuying();
 				playersOwnedPropertiesBox();
 			}
@@ -590,7 +630,6 @@ public class GUI implements Observer {
 	 */
 	private void movePlayerOnBoard(String token, int index) {
 		JButton playerToken = new JButton();
-
 		switch(token) {
 		case "Dog": 			
 			playerToken = player1Token;
@@ -607,7 +646,6 @@ public class GUI implements Observer {
 		default:
 			break;
 		}
-
 		switch (index) {
 		case 0:
 			playerToken.setBounds(3557, 1375, 326, 326);
@@ -737,6 +775,9 @@ public class GUI implements Observer {
 		frame.setComponentZOrder(playerToken, new Integer(0));
 	}
 
+	/**
+	 * update observer
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		//do nothing else since the game is over!!!
@@ -762,12 +803,11 @@ public class GUI implements Observer {
 			}
 		}
 	}
+	
 	/**
 	 * moves the players token on the board
 	 */
 	private void updateMoney(String token) {
-		JButton playerToken = new JButton();
-
 		switch(token) {
 		case "Dog": 			
 			player1Money.setText("Money: $" + playerTurn.getPlayer().getMoney());
