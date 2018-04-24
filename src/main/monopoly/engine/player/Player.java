@@ -95,6 +95,9 @@ public class Player {
 		for (Deed deed: deeds) {
 			removeDeed(deed);
 			other.addDeed(deed);
+			if(deed.isMortgaged()) { 
+				//allow player to choose to unmortgage or keep it mortgaged (must pay 10%)
+			}
 		}
 	}
 	

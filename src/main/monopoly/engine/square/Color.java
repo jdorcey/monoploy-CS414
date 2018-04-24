@@ -22,6 +22,10 @@ public class Color {
 		return this.type;
 	}
 	
+	public Integer getHouseCost() {
+		return houseCost;
+	}
+	
 	public ArrayList<Deed> getDeeds() {
 		return deeds;
 	}

@@ -136,64 +136,64 @@ public class GUI implements Observer {
 	 * Set squares on left side of board
 	 */
 	private void setLeftSquares() {
-		tiles.set(19, new GuiHelper(10, 184, 4700, 163, boardPanels, "newYorkAvenue"));
-		tiles.set(18, new GuiHelper(0, 316, 4720, 163, boardPanels, "tennesseeAvenue"));
-		tiles.set(17, new GuiHelper(0, 449, 4720, 163, boardPanels, "communityChestL"));
-		tiles.set(16, new GuiHelper(0, 580, 4720, 163, boardPanels, "stJamesPlace"));
-		tiles.set(15, new GuiHelper(0, 706, 4720, 163, boardPanels, "pennRailroad"));
-		tiles.set(14, new GuiHelper(0, 841, 4720, 163, boardPanels, "virginiaAvenue"));
-		tiles.set(13, new GuiHelper(0, 975, 4720, 163, boardPanels, "statesAvenue"));
-		tiles.set(12, new GuiHelper(0, 1109, 4720, 163, boardPanels, "electricCompanyUtil"));
-		tiles.set(11, new GuiHelper(0, 1243, 4720, 163, boardPanels, "stCharlesPlace"));
-		tiles.set(10, new GuiHelper(0, 1376, 4720, 200, boardPanels, "justVisiting"));
+		tiles.set(19, new GuiHelper((int) Math.floor(10 * (1280.0/3840)), (int) Math.floor( 184 * (720.0/2160)), 4700, 163, boardPanels, "newYorkAvenue"));
+		tiles.set(18, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 316 * (720.0/2160)), 4720, 163, boardPanels, "tennesseeAvenue"));
+		tiles.set(17, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 449 * (720.0/2160)), 4720, 163, boardPanels, "communityChestL"));
+		tiles.set(16, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 580 * (720.0/2160)), 4720, 163, boardPanels, "stJamesPlace"));
+		tiles.set(15, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 706 * (720.0/2160)), 4720, 163, boardPanels, "pennRailroad"));
+		tiles.set(14, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 841 * (720.0/2160)), 4720, 163, boardPanels, "virginiaAvenue"));
+		tiles.set(13, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 975 * (720.0/2160)), 4720, 163, boardPanels, "statesAvenue"));
+		tiles.set(12, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 1109 * (720.0/2160)), 4720, 163, boardPanels, "electricCompanyUtil"));
+		tiles.set(11, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 1243 * (720.0/2160)), 4720, 163, boardPanels, "stCharlesPlace"));
+		tiles.set(10, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 1376 * (720.0/2160)), 4720, 200, boardPanels, "justVisiting"));
 	}
 
 	/**
 	 * Set squares on upper side of board
 	 */
 	private void setUpperSquares() {
-		tiles.set(20, new GuiHelper(5, 3, 4711, 326, boardPanels, "freeParking"));
-		tiles.set(21, new GuiHelper(326, 0, 4380, 326, boardPanels, "KentuckyAvenue"));
-		tiles.set(22, new GuiHelper(489, 0, 4308, 326, boardPanels, "chanceUp"));
-		tiles.set(23, new GuiHelper(652, 0, 4240, 326, boardPanels, "IndianaAvenue"));
-		tiles.set(24, new GuiHelper(815, 0, 4173, 326, boardPanels, "illinoisAvenue"));
-		tiles.set(25, new GuiHelper(978, 0, 4108, 326, boardPanels, "boRailroad"));
-		tiles.set(26, new GuiHelper(1141, 0, 4045, 326, boardPanels, "AtlanticAvenue"));
-		tiles.set(27, new GuiHelper(1304, 0, 3984, 326, boardPanels, "VentnorAvenue"));
-		tiles.set(28, new GuiHelper(1467, 0, 3925, 326, boardPanels, "waterWorksUtil"));
-		tiles.set(29, new GuiHelper(1630, 0, 3868, 326, boardPanels, "MarvinGardens"));
+		tiles.set(20, new GuiHelper((int) Math.floor(5 * (1280.0/3840)), (int) Math.floor( 3 * (720.0/2160)), 4711, 326, boardPanels, "freeParking"));
+		tiles.set(21, new GuiHelper((int) Math.floor(326 * (1280.0/3840)), (int) Math.floor( 0 * (720.0/2160)), 4380, 326, boardPanels, "KentuckyAvenue"));
+		tiles.set(22, new GuiHelper((int) Math.floor(489 * (1280.0/3840)), (int) Math.floor( 0 * (720.0/2160)), 4308, 326, boardPanels, "chanceUp"));
+		tiles.set(23, new GuiHelper((int) Math.floor(652 * (1280.0/3840)), (int) Math.floor( 0 * (720.0/2160)), 4240, 326, boardPanels, "IndianaAvenue"));
+		tiles.set(24, new GuiHelper((int) Math.floor(815 * (1280.0/3840)), (int) Math.floor( 0 * (720.0/2160)), 4173, 326, boardPanels, "illinoisAvenue"));
+		tiles.set(25, new GuiHelper((int) Math.floor(978 * (1280.0/3840)), (int) Math.floor( 0 * (720.0/2160)), 4108, 326, boardPanels, "boRailroad"));
+		tiles.set(26, new GuiHelper((int) Math.floor(1141 * (1280.0/3840)), (int) Math.floor( 0 * (720.0/2160)), 4045, 326, boardPanels, "AtlanticAvenue"));
+		tiles.set(27, new GuiHelper((int) Math.floor(1304 * (1280.0/3840)), (int) Math.floor( 0 * (720.0/2160)), 3984, 326, boardPanels, "VentnorAvenue"));
+		tiles.set(28, new GuiHelper((int) Math.floor(1467 * (1280.0/3840)), (int) Math.floor( 0 * (720.0/2160)), 3925, 326, boardPanels, "waterWorksUtil"));
+		tiles.set(29, new GuiHelper((int) Math.floor(1630 * (1280.0/3840)), (int) Math.floor( 0 * (720.0/2160)), 3868, 326, boardPanels, "MarvinGardens"));
 	}
 
 	/**
 	 * Set squares on right side of board
 	 */
 	private void setRightSquares() {
-		tiles.set(30, new GuiHelper(3555, 0, 326, 326, boardPanels, "gotoJail"));
-		tiles.set(31, new GuiHelper(3555, 179, 326, 163, boardPanels, "PacificAvenue"));
-		tiles.set(32, new GuiHelper(3555, 314, 326, 163, boardPanels, "northCarolinaAvenue"));
-		tiles.set(33, new GuiHelper(3555, 446, 326, 163, boardPanels, "communityChestR"));
-		tiles.set(34, new GuiHelper(3555, 580, 326, 163, boardPanels, "PennsylvaniaAvenue"));
-		tiles.set(35, new GuiHelper(3555, 711, 326, 163, boardPanels, "shortLine"));
-		tiles.set(36, new GuiHelper(3555, 844, 326, 163, boardPanels, "chanceRi"));
-		tiles.set(37, new GuiHelper(3555, 976, 326, 163, boardPanels, "parkPlace"));
-		tiles.set(38, new GuiHelper(3555, 1109, 326, 163, boardPanels, "luxuryTax"));
-		tiles.set(39, new GuiHelper(3555, 1239, 326, 163, boardPanels, "boardwalk"));
+		tiles.set(30, new GuiHelper((int) Math.floor(3555 * (1280.0/3840)), (int) Math.floor( 0 * (720.0/2160)), 326, 326, boardPanels, "goToJail"));
+		tiles.set(31, new GuiHelper((int) Math.floor(3555 * (1280.0/3840)), (int) Math.floor( 179 * (720.0/2160)), 326, 163, boardPanels, "PacificAvenue"));
+		tiles.set(32, new GuiHelper((int) Math.floor(3555 * (1280.0/3840)), (int) Math.floor( 314 * (720.0/2160)), 326, 163, boardPanels, "northCarolinaAvenue"));
+		tiles.set(33, new GuiHelper((int) Math.floor(3555 * (1280.0/3840)), (int) Math.floor( 446 * (720.0/2160)), 326, 163, boardPanels, "communityChestR"));
+		tiles.set(34, new GuiHelper((int) Math.floor(3555 * (1280.0/3840)), (int) Math.floor( 580 * (720.0/2160)), 326, 163, boardPanels, "PennsylvaniaAvenue"));
+		tiles.set(35, new GuiHelper((int) Math.floor(3555 * (1280.0/3840)), (int) Math.floor( 711 * (720.0/2160)), 326, 163, boardPanels, "shortLine"));
+		tiles.set(36, new GuiHelper((int) Math.floor(3555 * (1280.0/3840)), (int) Math.floor( 844 * (720.0/2160)), 326, 163, boardPanels, "chanceRi"));
+		tiles.set(37, new GuiHelper((int) Math.floor(3555 * (1280.0/3840)), (int) Math.floor( 976 * (720.0/2160)), 326, 163, boardPanels, "parkPlace"));
+		tiles.set(38, new GuiHelper((int) Math.floor(3555 * (1280.0/3840)), (int) Math.floor( 1109 * (720.0/2160)), 326, 163, boardPanels, "luxuryTax"));
+		tiles.set(39, new GuiHelper((int) Math.floor(3555 * (1280.0/3840)), (int) Math.floor( 1239 * (720.0/2160)), 326, 163, boardPanels, "boardwalk"));
 	}
 
 	/**
 	 * Set squares on bottom side of board
 	 */
 	private void setBottomSquares() {
-		tiles.set(9, new GuiHelper(2436, 1373, 163, 326, boardPanels, "connecticutAvenue"));
-		tiles.set(8, new GuiHelper(2570, 1373, 163, 326, boardPanels, "vermontAvenue"));
-		tiles.set(7, new GuiHelper(2705, 1373, 163, 326, boardPanels, "chanceBot"));
-		tiles.set(6, new GuiHelper(2841, 1373, 163, 326, boardPanels, "orientalAvenue"));
-		tiles.set(5, new GuiHelper(2965, 1373, 163, 326, boardPanels, "readingRailroad"));
-		tiles.set(4, new GuiHelper(3094, 1373, 163, 326, boardPanels, "incomeTax"));
-		tiles.set(3, new GuiHelper(3192, 1373, 212, 326, boardPanels, "balticAvenue"));
-		tiles.set(2, new GuiHelper(3347, 1373, 163, 326, boardPanels, "communityChestBot"));
-		tiles.set(1, new GuiHelper(3456, 1373, 212, 326, boardPanels, "mediterraneanAvenue"));
-		tiles.set(0, new GuiHelper(3557, 1373, 326, 326, boardPanels, "passGo"));
+		tiles.set(9, new GuiHelper((int) Math.floor(2436 * (1280.0/3840)), (int) Math.floor( 1373 * (720.0/2160)), 163, 326, boardPanels, "connecticutAvenue"));
+		tiles.set(8, new GuiHelper((int) Math.floor(2570 * (1280.0/3840)), (int) Math.floor( 1373 * (720.0/2160)), 163, 326, boardPanels, "vermontAvenue"));
+		tiles.set(7, new GuiHelper((int) Math.floor(2705 * (1280.0/3840)), (int) Math.floor( 1373 * (720.0/2160)), 163, 326, boardPanels, "chanceBot"));
+		tiles.set(6, new GuiHelper((int) Math.floor(2841 * (1280.0/3840)), (int) Math.floor( 1373 * (720.0/2160)), 163, 326, boardPanels, "orientalAvenue"));
+		tiles.set(5, new GuiHelper((int) Math.floor(2965 * (1280.0/3840)), (int) Math.floor( 1373 * (720.0/2160)), 163, 326, boardPanels, "readingRailroad"));
+		tiles.set(4, new GuiHelper((int) Math.floor(3094 * (1280.0/3840)), (int) Math.floor( 1373 * (720.0/2160)), 163, 326, boardPanels, "incomeTax"));
+		tiles.set(3, new GuiHelper((int) Math.floor(3192 * (1280.0/3840)), (int) Math.floor( 1373 * (720.0/2160)), 212, 326, boardPanels, "balticAvenue"));
+		tiles.set(2, new GuiHelper((int) Math.floor(3347 * (1280.0/3840)), (int) Math.floor( 1373 * (720.0/2160)), 163, 326, boardPanels, "communityChestBot"));
+		tiles.set(1, new GuiHelper((int) Math.floor(3456 * (1280.0/3840)), (int) Math.floor( 1373 * (720.0/2160)), 212, 326, boardPanels, "mediterraneanAvenue"));
+		tiles.set(0, new GuiHelper((int) Math.floor(3557 * (1280.0/3840)), (int) Math.floor( 1373 * (720.0/2160)), 326, 326, boardPanels, "passGo"));
 	}
 
 	/**
@@ -222,14 +222,14 @@ public class GUI implements Observer {
 		flow.setHgap(0);
 		flow.setVgap(0);
 		frame = new JFrame("T13 Monopoly Game CS414");
-		frame.setLayout(flow);
+		//frame.setLayout(flow);
 		frame.getContentPane().setBackground(new Color(212, 252, 228));
-		frame.setPreferredSize(new Dimension(3840, 2160));
+		frame.setPreferredSize(new Dimension(1280, 720));
 	    frame.pack();
 	    frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		//frame.getContentPane().setLayout(null);
 
 		//put all squares on board
 		setLeftSquares();
@@ -240,19 +240,19 @@ public class GUI implements Observer {
 			tiles.get(i).setLayout(flow);
 
 		//set monopoly logo on board
-		logo.setBounds(2555, 650, 1000, 200);
+		logo.setBounds((int) Math.floor(2555 * (1280.0/3840)), (int) Math.floor( 650 * (720.0/2160)), 1000, 200);
 		setLabel(logo, "logo");
 
 		//set buttons on board		
-		communityChestButton.setBounds(2575, 300, 400, 200);
-		chanceButton.setBounds(3100, 1050, 400, 200);
-		rollDiceButton.setBounds(1413, 250, 300, 130);
-		buyButton.setBounds(1413, 450, 300, 130);
-		mortgageButton.setBounds(1413, 650, 300, 130);
-		auctionButton.setBounds(1413, 850, 300, 130);
-		tradeButton.setBounds(1413, 1050, 300, 130);
-		startGameButton.setBounds(1800, 1750, 350, 170);
-		finishTurnButton.setBounds(1900, 1750, 300, 130);
+		communityChestButton.setBounds((int) Math.floor(2575 * (1280.0/3840)), (int) Math.floor( 300 * (720.0/2160)), 400, 200);
+		chanceButton.setBounds((int) Math.floor(3100 * (1280.0/3840)), (int) Math.floor( 1050 * (720.0/2160)), 400, 200);
+		rollDiceButton.setBounds((int) Math.floor(1413 * (1280.0/3840)), (int) Math.floor( 250 * (720.0/2160)), 300, 130);
+		buyButton.setBounds( (int) Math.floor(1413 * (1280.0/3840)), (int) Math.floor( 450 * (720.0/2160)), 300, 130);
+		mortgageButton.setBounds( (int) Math.floor(1413 * (1280.0/3840)), (int) Math.floor( 650 * (720.0/2160)), 300, 130);
+		auctionButton.setBounds( (int) Math.floor(1413 * (1280.0/3840)), (int) Math.floor( 850 * (720.0/2160)), 300, 130);
+		tradeButton.setBounds( (int) Math.floor(1413 * (1280.0/3840)), (int) Math.floor( 1050 * (720.0/2160)), 300, 130);
+		startGameButton.setBounds( (int) Math.floor(1800 * (1280.0/3840)), (int) Math.floor( 1750 * (720.0/2160)), 350, 170);
+		finishTurnButton.setBounds( (int) Math.floor(1900 * (1280.0/3840)), (int) Math.floor( 1750 * (720.0/2160)), 300, 130);
 		setButton(communityChestButton, 212, 252, 228);
 		setButton(chanceButton, 212, 252, 228);
 		setButton(rollDiceButton, 255, 100, 100);
@@ -273,32 +273,32 @@ public class GUI implements Observer {
 		tradeButton.setEnabled(false);
 
 		//set the dice on the board
-		dice1.setBounds(1475, 50, 100, 100);
-		dice2.setBounds(1575, 125, 100, 100);
+		dice1.setBounds( (int) Math.floor(1475 * (1280.0/3840)), (int) Math.floor( 50 * (720.0/2160)), 100, 100);
+		dice2.setBounds( (int) Math.floor(1575 * (1280.0/3840)), (int) Math.floor( 125 * (720.0/2160)), 100, 100);
 		setLabel(dice1, "dice1");
 		setLabel(dice2, "dice2");
 		dice1.setVisible(false);
 		dice2.setVisible(false);
 
 		//set timer on board
-		timer.setBounds(50, 50, 1000, 200);
+		timer.setBounds( (int) Math.floor(50 * (1280.0/3840)), (int) Math.floor( 50 * (720.0/2160)), 1000, 200);
 		timer.setFont(new Font("Arial", Font.BOLD, 60));
 		timer.setVisible(false);
 		
 		//set properties box and players section of board	
-		propertiesBox.setBounds(100, 1600, 1600, 424);
+		propertiesBox.setBounds( (int) Math.floor(100 * (1280.0/3840)), (int) Math.floor( 1600 * (720.0/2160)), 1600, 424);
 		propertiesBox.setBorder(BorderFactory.createLineBorder(Color.blue, 4));
 		propertiesLabel.setFont(new Font("Arial", Font.BOLD, 32));
-		propertiesLabel.setBounds(150, 1425, 1500, 500);
+		propertiesLabel.setBounds( (int) Math.floor(150 * (1280.0/3840)), (int) Math.floor( 1425 * (720.0/2160)), 1500, 500);
 		propertiesBox.setVisible(false);
 		propertiesLabel.setVisible(false);
-		p1.setBounds(2265, 1600, 385, 424);
+		p1.setBounds( (int) Math.floor(2265 * (1280.0/3840)), (int) Math.floor( 1600 * (720.0/2160)), 385, 424);
 		p1.setBorder(BorderFactory.createLineBorder(Color.black, 4));
-		p2.setBounds(2650, 1600, 385, 424);
+		p2.setBounds( (int) Math.floor(2650 * (1280.0/3840)), (int) Math.floor( 1600 * (720.0/2160)), 385, 424);
 		p2.setBorder(BorderFactory.createLineBorder(Color.black, 4));
-		p3.setBounds(3035, 1600, 385, 424);
+		p3.setBounds( (int) Math.floor(3035 * (1280.0/3840)), (int) Math.floor( 1600 * (720.0/2160)), 385, 424);
 		p3.setBorder(BorderFactory.createLineBorder(Color.black, 4));
-		p4.setBounds(3420, 1600, 385, 424);
+		p4.setBounds( (int) Math.floor(3420 * (1280.0/3840)), (int) Math.floor( 1600 * (720.0/2160)), 385, 424);
 		p4.setBorder(BorderFactory.createLineBorder(Color.black, 4));
 		playersPanels.add(p1);
 		playersPanels.add(p2);
@@ -307,12 +307,12 @@ public class GUI implements Observer {
 		
 		//set dialog box
 		gameDialog.setFont(new Font("Arial", Font.BOLD, 32));
-		dialogBox.setBounds(50, 250, 1200, 1000);
+		dialogBox.setBounds( (int) Math.floor(50 * (1280.0/3840)), (int) Math.floor( 250 * (720.0/2160)), 1200, 1000);
 		dialogBox.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		dialogBox.setVisible(false);
 
 		//button to add player 1 
-		addPlayer1Button.setBounds(2335, 1800, 250, 110);
+		addPlayer1Button.setBounds( (int) Math.floor(2335 * (1280.0/3840)), (int) Math.floor( 1800 * (720.0/2160)), 250, 110);
 		setButton(addPlayer1Button, 0, 255, 128);
 
 		addPlayer1Button.addActionListener(new ActionListener() {
@@ -322,15 +322,15 @@ public class GUI implements Observer {
 				players.add(new Player(Player.TokenName.DOG));
 
 				//add player1 token to board
-				player1Token.setBounds(3550, 1430, 255, 110);
+				player1Token.setBounds( (int) Math.floor(3550 * (1280.0/3840)), (int) Math.floor( 1430 * (720.0/2160)), 255, 110);
 				setButton(player1Token, "dogToken");
 				
 				//add player1 info/money to player area
-				player1.setBounds(2420, 1420, 200, 500);
+				player1.setBounds( (int) Math.floor(2420 * (1280.0/3840)), (int) Math.floor( 1420 * (720.0/2160)), 200, 500);
 				setLabel(player1, "dogToken");
 				player1Money.setText("Money: $" + String.valueOf(players.get(0).getMoney()));
 				player1Money.setFont(new Font("Arial", Font.ITALIC, 30));
-				player1Money.setBounds(2350, 1685, 250, 110);
+				player1Money.setBounds( (int) Math.floor(2350 * (1280.0/3840)), (int) Math.floor( 1685 * (720.0/2160)), 250, 110);
 				p1.add(player1);
 				p1.add(player1Money);
 				
@@ -339,7 +339,7 @@ public class GUI implements Observer {
 				frame.getContentPane().add(player1Money);
 
 				//button to add player2
-				addPlayer2Button.setBounds(2720, 1800, 250, 110);
+				addPlayer2Button.setBounds( (int) Math.floor(2720 * (1280.0/3840)), (int) Math.floor( 1800 * (720.0/2160)), 250, 110);
 				setButton(addPlayer2Button, 0, 255, 128);	
 			}
 
@@ -352,15 +352,15 @@ public class GUI implements Observer {
 				players.add(new Player(Player.TokenName.BATTLESHIP));
 
 				//add player2 token and info to board
-				player2Token.setBounds(3635, 1430, 255, 110);
+				player2Token.setBounds( (int) Math.floor(3635 * (1280.0/3840)), (int) Math.floor( 1430 * (720.0/2160)), 255, 110);
 				setButton(player2Token, "battleShipToken");
-				player2.setBounds(2810, 1605, 100, 110);
+				player2.setBounds( (int) Math.floor(2810 * (1280.0/3840)), (int) Math.floor(1605 * (720.0/2160)), 100, 110);
 				setLabel(player2, "battleShipToken");
 
 				//add player2 initial starting money to board
 				player2Money.setText("Money: $" + String.valueOf(players.get(0).getMoney()));
 				player2Money.setFont(new Font("Arial", Font.ITALIC, 30));
-				player2Money.setBounds(2750, 1685, 250, 110);
+				player2Money.setBounds( (int) Math.floor(2750 * (1280.0/3840)), (int) Math.floor( 1685 * (720.0/2160)), 250, 110);
 				p1.add(player2);
 				p1.add(player2Money);
 
@@ -369,7 +369,7 @@ public class GUI implements Observer {
 				frame.getContentPane().add(player2Money);
 
 				//button to add player3
-				addPlayer3Button.setBounds(3105, 1800, 250, 110);
+				addPlayer3Button.setBounds( (int) Math.floor(3105 * (1280.0/3840)), (int) Math.floor( 1800 * (720.0/2160)), 250, 110);
 				setButton(addPlayer3Button, 0, 255, 128);
 
 				//Game can be started since 2 players have been added
@@ -386,15 +386,15 @@ public class GUI implements Observer {
 				players.add(new Player(Player.TokenName.CAR));
 
 				//add player3 token and info to board
-				player3Token.setBounds(3550, 1520, 255, 110);
+				player3Token.setBounds( (int) Math.floor(3550 * (1280.0/3840)), (int) Math.floor( 1520 * (720.0/2160)), 255, 110);
 				setButton(player3Token, "carToken");
-				player3.setBounds(3190, 1615, 255, 110);
+				player3.setBounds( (int) Math.floor(3190 * (1280.0/3840)), (int) Math.floor( 1615 * (720.0/2160)), 255, 110);
 				setLabel(player3, "carToken");
 
 				//add player3 initial starting money to board
 				player3Money.setText("Money: $" + String.valueOf(players.get(0).getMoney()));
 				player3Money.setFont(new Font("Arial", Font.ITALIC, 30));
-				player3Money.setBounds(3130, 1685, 250, 110);
+				player3Money.setBounds( (int) Math.floor(3130 * (1280.0/3840)), (int) Math.floor( 1685 * (720.0/2160)), 250, 110);
 				p1.add(player3);
 				p1.add(player3Money);
 
@@ -403,7 +403,7 @@ public class GUI implements Observer {
 				frame.getContentPane().add(player3Money);
 
 				//button to add player3
-				addPlayer4Button.setBounds(3490, 1800, 250, 110);
+				addPlayer4Button.setBounds( (int) Math.floor(3490 * (1280.0/3840)), (int) Math.floor( 1800 * (720.0/2160)), 250, 110);
 				setButton(addPlayer4Button, 0, 255, 128);
 
 			}
@@ -417,15 +417,15 @@ public class GUI implements Observer {
 				players.add(new Player(Player.TokenName.HAT));
 
 				//add player4 token and info to board
-				player4Token.setBounds(3640, 1520, 255, 110);
+				player4Token.setBounds( (int) Math.floor(3640 * (1280.0/3840)), (int) Math.floor( 1520 * (720.0/2160)), 255, 110);
 				setButton(player4Token, "hatToken");
-				player4.setBounds(3570, 1615, 255, 110);
+				player4.setBounds( (int) Math.floor(3570 * (1280.0/3840)), (int) Math.floor( 1615 * (720.0/2160)), 255, 110);
 				setLabel(player4, "hatToken");
 
 				//add player4 initial starting money to board
 				player4Money.setText("Money: $" + String.valueOf(players.get(0).getMoney()));
 				player4Money.setFont(new Font("Arial", Font.ITALIC, 30));
-				player4Money.setBounds(3520, 1685, 250, 110);
+				player4Money.setBounds( (int) Math.floor(3520 * (1280.0/3840)), (int) Math.floor( 1685 * (720.0/2160)), 250, 110);
 				p1.add(player4);
 				p1.add(player4Money);
 
@@ -581,7 +581,7 @@ public class GUI implements Observer {
 				updateDice(dice2, 1);
 				//move player token after roll and update dialog box
 				movePlayerOnBoard(playerTurn.getToken(), game.getCurrentPlayer().getCurrentIndex());
-				gameDialogText = "- " + playerTurn.getToken() + " moved to " + game.getBoard().getDeed(playerTurn.getCurrentIndex()) + ".\n";
+				gameDialogText = "- " + playerTurn.getToken() + " moved to " + game.getBoard().getSquares()[playerTurn.getCurrentIndex()].getName() + ".\n";
 				gameDialog.append(gameDialogText);
 			}
 		});
@@ -613,12 +613,12 @@ public class GUI implements Observer {
 		//need money check on this
 		buyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//update dialof box with property player bought
+				//update dialog box with property player bought
 				gameDialogText = "- " + playerTurn.getToken() + " bought " + game.getBoard().getDeed(playerTurn.getCurrentIndex()) + ".\n";
 				gameDialog.append(gameDialogText);
 				System.out.println("Buy Property!");
 				Banker.buyProperty(playerTurn.getPlayer(), game.getBoard().getDeed(playerTurn.getCurrentIndex()));
-				finishTurnButton.setVisible(true);
+				//finishTurnButton.setVisible(true);
 				playerTurn.doneBuying();
 				playersOwnedPropertiesBox();
 			}
@@ -648,128 +648,129 @@ public class GUI implements Observer {
 		}
 		switch (index) {
 		case 0:
-			playerToken.setBounds(3557, 1375, 326, 326);
+			playerToken.setBounds( (int) Math.floor(3557 * (1280.0/3840)), (int) Math.floor( 1375 * (720.0/2160)), 326, 326);
 			break;
 		case 1:
-			playerToken.setBounds(3456, 1375, 212, 326);
+			playerToken.setBounds( (int) Math.floor(3456 * (1280.0/3840)), (int) Math.floor( 1375 * (720.0/2160)), 212, 326);
 			break;
 		case 2:
-			playerToken.setBounds(3347, 1375, 163, 326);
+			playerToken.setBounds( (int) Math.floor(3347 * (1280.0/3840)), (int) Math.floor( 1375 * (720.0/2160)), 163, 326);
 			break;
 		case 3:
-			playerToken.setBounds(3192, 1375, 212, 326);
+			playerToken.setBounds( (int) Math.floor(3192 * (1280.0/3840)), (int) Math.floor( 1375 * (720.0/2160)), 212, 326);
 			break;
 		case 4:
-			playerToken.setBounds(3094, 1375, 163, 326);
+			playerToken.setBounds( (int) Math.floor(3094 * (1280.0/3840)), (int) Math.floor( 1375 * (720.0/2160)), 163, 326);
 			break;
 		case 5:
-			playerToken.setBounds(2965, 1375, 163, 326);
+			playerToken.setBounds( (int) Math.floor(2965 * (1280.0/3840)), (int) Math.floor( 1375 * (720.0/2160)), 163, 326);
 			break;
 		case 6:
-			playerToken.setBounds(2841, 1375, 163, 326);
+			playerToken.setBounds( (int) Math.floor(2841 * (1280.0/3840)), (int) Math.floor( 1375 * (720.0/2160)), 163, 326);
 			break;
 		case 7:
-			playerToken.setBounds(2705, 1375, 163, 326);
+			playerToken.setBounds( (int) Math.floor(2705 * (1280.0/3840)), (int) Math.floor( 1375 * (720.0/2160)), 163, 326);
 			break;
 		case 8:
-			playerToken.setBounds(2570, 1375, 163, 326);
+			playerToken.setBounds( (int) Math.floor(2570 * (1280.0/3840)), (int) Math.floor( 1375 * (720.0/2160)), 163, 326);
 			break;
 		case 9:
-			playerToken.setBounds(2436, 1375, 163, 326);
+			playerToken.setBounds( (int) Math.floor(2436 * (1280.0/3840)), (int) Math.floor( 1375 * (720.0/2160)), 163, 326);
 			break;	
 		case 10:
 			if(playerTurn.isJailed()) {
-				playerToken.setBounds(0, 1450, 4770, 200);	
+				System.out.printf("Moving %s to Jail\n", playerTurn.getPlayer().getToken());
+				playerToken.setBounds( (int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 1450 * (720.0/2160)), 4770, 200);	
 			}else {
-			playerToken.setBounds(0, 1475, 4720, 200);
+			playerToken.setBounds( (int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 1475 * (720.0/2160)), 4720, 200);
 			}
 			break;
 		case 11:
-			playerToken.setBounds(5, 1290, 4720, 163);
+			playerToken.setBounds( (int) Math.floor(5 * (1280.0/3840)), (int) Math.floor( 1290 * (720.0/2160)), 4720, 163);
 			break;
 		case 12:
-			playerToken.setBounds(5, 1160, 4720, 163);
+			playerToken.setBounds( (int) Math.floor(5 * (1280.0/3840)), (int) Math.floor( 1160 * (720.0/2160)), 4720, 163);
 			break;
 		case 13:
-			playerToken.setBounds(5, 1022, 4720, 163);
+			playerToken.setBounds( (int) Math.floor(5 * (1280.0/3840)), (int) Math.floor( 1022 * (720.0/2160)), 4720, 163);
 			break;
 		case 14:
-			playerToken.setBounds(5, 890, 4720, 163);
+			playerToken.setBounds( (int) Math.floor(5 * (1280.0/3840)), (int) Math.floor( 890 * (720.0/2160)), 4720, 163);
 			break;
 		case 15:
-			playerToken.setBounds(5, 750, 4720, 163);
+			playerToken.setBounds( (int) Math.floor(5 * (1280.0/3840)), (int) Math.floor( 750 * (720.0/2160)), 4720, 163);
 			break;
 		case 16:
-			playerToken.setBounds(5, 620, 4720, 163);
+			playerToken.setBounds( (int) Math.floor(5 * (1280.0/3840)), (int) Math.floor( 620 * (720.0/2160)), 4720, 163);
 			break;
 		case 17:
-			playerToken.setBounds(5, 490, 4720, 163);
+			playerToken.setBounds( (int) Math.floor(5 * (1280.0/3840)), (int) Math.floor( 490 * (720.0/2160)), 4720, 163);
 			break;
 		case 18:
-			playerToken.setBounds(5, 365, 4720, 163);
+			playerToken.setBounds( (int) Math.floor(5 * (1280.0/3840)), (int) Math.floor( 365 * (720.0/2160)), 4720, 163);
 			break;
 		case 19:
-			playerToken.setBounds(5, 230, 4700, 163);
+			playerToken.setBounds( (int) Math.floor(5 * (1280.0/3840)), (int) Math.floor( 230 * (720.0/2160)), 4700, 163);
 			break;
 		case 20:
-			playerToken.setBounds(5, 3, 4711, 326);
+			playerToken.setBounds( (int) Math.floor(5 * (1280.0/3840)), (int) Math.floor( 3 * (720.0/2160)), 4711, 326);
 			break;
 		case 21:
-			playerToken.setBounds(326, 2, 4380, 295);
+			playerToken.setBounds( (int) Math.floor(326 * (1280.0/3840)), (int) Math.floor( 2 * (720.0/2160)), 4380, 295);
 			break;
 		case 22:
-			playerToken.setBounds(489, 2, 4308, 295);
+			playerToken.setBounds( (int) Math.floor(489 * (1280.0/3840)), (int) Math.floor( 2 * (720.0/2160)), 4308, 295);
 			break;
 		case 23:
-			playerToken.setBounds(652, 2, 4240, 295);
+			playerToken.setBounds( (int) Math.floor(652 * (1280.0/3840)), (int) Math.floor( 2 * (720.0/2160)), 4240, 295);
 			break;
 		case 24:
-			playerToken.setBounds(815, 2, 4173, 295);
+			playerToken.setBounds( (int) Math.floor(815 * (1280.0/3840)), (int) Math.floor( 2 * (720.0/2160)), 4173, 295);
 			break;
 		case 25:
-			playerToken.setBounds(978, 2, 4108, 295);
+			playerToken.setBounds( (int) Math.floor(978 * (1280.0/3840)), (int) Math.floor( 2 * (720.0/2160)), 4108, 295);
 			break;
 		case 26:
-			playerToken.setBounds(1141, 2, 4045, 295);
+			playerToken.setBounds( (int) Math.floor(1141 * (1280.0/3840)), (int) Math.floor( 2 * (720.0/2160)), 4045, 295);
 			break;
 		case 27:
-			playerToken.setBounds(1304, 2, 3984, 295);
+			playerToken.setBounds( (int) Math.floor(1304 * (1280.0/3840)), (int) Math.floor( 2 * (720.0/2160)), 3984, 295);
 			break;
 		case 28:
-			playerToken.setBounds(1467, 5, 3925, 295);
+			playerToken.setBounds( (int) Math.floor(1467 * (1280.0/3840)), (int) Math.floor( 5 * (720.0/2160)), 3925, 295);
 			break;
 		case 29:
-			playerToken.setBounds(1630, 5, 3868, 295);
+			playerToken.setBounds( (int) Math.floor(1630 * (1280.0/3840)), (int) Math.floor( 5 * (720.0/2160)), 3868, 295);
 			break;			
 		case 30:
-			playerToken.setBounds(0, 1450, 4770, 200);
+			playerToken.setBounds( (int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 1450 * (720.0/2160)), 4770, 200);
 			break;
 		case 31:
-			playerToken.setBounds(3555, 225, 326, 163);
+			playerToken.setBounds( (int) Math.floor(3555 * (1280.0/3840)), (int) Math.floor( 225 * (720.0/2160)), 326, 163);
 			break;
 		case 32:
-			playerToken.setBounds(3555, 360, 326, 163);
+			playerToken.setBounds( (int) Math.floor(3555 * (1280.0/3840)), (int) Math.floor( 360 * (720.0/2160)), 326, 163);
 			break;
 		case 33:
-			playerToken.setBounds(3555, 490, 326, 163);
+			playerToken.setBounds( (int) Math.floor(3555 * (1280.0/3840)), (int) Math.floor( 490 * (720.0/2160)), 326, 163);
 			break;
 		case 34:
-			playerToken.setBounds(3555, 625, 326, 163);
+			playerToken.setBounds( (int) Math.floor(3555 * (1280.0/3840)), (int) Math.floor( 625 * (720.0/2160)), 326, 163);
 			break;
 		case 35:
-			playerToken.setBounds(3555, 760, 326, 163);
+			playerToken.setBounds( (int) Math.floor(3555 * (1280.0/3840)), (int) Math.floor( 760 * (720.0/2160)), 326, 163);
 			break;
 		case 36:
-			playerToken.setBounds(3555, 890, 326, 163);
+			playerToken.setBounds( (int) Math.floor(3555 * (1280.0/3840)), (int) Math.floor( 890 * (720.0/2160)), 326, 163);
 			break;
 		case 37:
-			playerToken.setBounds(3555, 1025, 326, 163);
+			playerToken.setBounds( (int) Math.floor(3555 * (1280.0/3840)), (int) Math.floor( 1025 * (720.0/2160)), 326, 163);
 			break;
 		case 38:
-			playerToken.setBounds(3555, 1155, 326, 163);
+			playerToken.setBounds( (int) Math.floor(3555 * (1280.0/3840)), (int) Math.floor( 1155 * (720.0/2160)), 326, 163);
 			break;
 		case 39:
-			playerToken.setBounds(3555, 1285, 326, 163);
+			playerToken.setBounds( (int) Math.floor(3555 * (1280.0/3840)), (int) Math.floor( 1285 * (720.0/2160)), 326, 163);
 			break;
 		}		
 		frame.setComponentZOrder(playerToken, new Integer(0));
@@ -784,24 +785,18 @@ public class GUI implements Observer {
 		if (game.gameOver()) { return; }
 		//update time
 		timer.setText("Time Remaining: " + (int) game.timeLeft() / 1000 + " seconds");
-		rollDiceButton.setEnabled(playerTurn.canRoll());
-		System.out.printf("canRoll = %b\n", playerTurn.canRoll());
-		finishTurnButton.setVisible(playerTurn.isTurnOver());
-		System.out.printf("isTurnOver = %b\n", playerTurn.isTurnOver());
+		updateMoney(playerTurn.getToken());
 		auctionButton.setEnabled(playerTurn.inBuyState());
 		buyButton.setEnabled(playerTurn.inBuyState());
-		System.out.printf("inBuyState = %b\n", playerTurn.inBuyState());
-		updateMoney(playerTurn.getToken());
-		if(arg != null) {
-			if(playerTurn.isJailed()) {
-				//move to Jail square
-				System.out.printf("Moving %s to Jail\n", playerTurn.getPlayer().getToken());
-			}
-			else { 
-				System.out.printf("Moving %s to %s\n", playerTurn.getToken(), 
-						game.getBoard().getSquares()[playerTurn.getCurrentIndex() % 40].getName());
-			}
-		}
+		String argument = (String) arg;
+		if(argument.contains("turn")) {	finishTurnButton.setVisible(true); }
+		else { finishTurnButton.setVisible(false); }
+		if(argument.contains("roll")) { rollDiceButton.setEnabled(true); }
+		else { rollDiceButton.setEnabled(false); }
+		
+		//System.out.printf("canRoll = %b\n", playerTurn.canRoll());
+		//System.out.printf("isTurnOver = %b\n", playerTurn.isTurnOver());
+		//System.out.printf("inBuyState = %b\n", playerTurn.inBuyState());
 	}
 	
 	/**

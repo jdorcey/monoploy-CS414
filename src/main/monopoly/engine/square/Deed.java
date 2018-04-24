@@ -17,6 +17,7 @@ public class Deed extends Square{
 	private Player owner;
 	private int numHouses;
 	private boolean hasHotel;
+	private boolean mortgaged;
 
 	public Deed(DeedName name, int purchasePrice, int[] rent, Color color) {
 		this.name = name;
@@ -88,16 +89,22 @@ public class Deed extends Square{
 		this.owner = owner;
 	}
 	
+	public boolean isMortgaged() {
+		return mortgaged;
+	}
+	
 	@Override
 	public void performAction(Player player) {
 		if (owner == null) { player.setBuyState(true); }
 		else {
 			if(owner.equals(player)) { return; }
 			owner.transfer(player, calculateRent());
+			player.setOnNonDeed(true);
 		}
 	}
 	
 	public int calculateRent() {
+		if(mortgaged) { return 0; }
 		if(this.color.getType() == Color.Type.RAILROAD) { return rent[color.numRailroadsorUtilitiesOwned(this)]; }
 		if(this.color.getType() == Color.Type.UTILITY) {
 			return rent[color.numRailroadsorUtilitiesOwned(this)] * Monopoly.getInstance().getTurn().getDiceSum();
@@ -107,7 +114,36 @@ public class Deed extends Square{
 		return rent[numHouses];
 	}
 	
-	public boolean isMortgaged() {
-		return false;
+	public void buyHouseOrHotel() {
+		if(numHouses == 4) {
+			numHouses = 0;
+			hasHotel = true;
+			owner.deduct(color.getHouseCost());
+		}
+		else {
+			numHouses++;
+			owner.deduct(color.getHouseCost());
+		}
+	}
+	
+	public void sellHouseOrHotel() {
+		if(hasHotel) {
+			hasHotel = false;
+			owner.deposit((color.getHouseCost() / 2) * 5);
+		}
+		else {
+			numHouses--;
+			owner.deposit(color.getHouseCost() / 2);
+		}
+	}
+	
+	public void mortgage() {
+		mortgaged = true;
+		owner.deposit(mortgageValue);
+	}
+	
+	public void unmortgage() {
+		mortgaged = false;
+		owner.deduct(mortgageValue + (mortgageValue / 10));
 	}
 }
