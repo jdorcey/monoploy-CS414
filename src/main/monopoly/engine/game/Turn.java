@@ -12,23 +12,17 @@ public class Turn extends Observable {
 	private Player player;
 	private Board board;
 	private Monopoly monopoly = Monopoly.getInstance();
-	private boolean isTurnOver;
 
 	public Turn(Player player) {
 		this.player = player;
 		diceValues = new int[2];
 		resetDiceValues();
 		board = monopoly.getBoard();
-		//isTurnOver = false;
 	}
 
 	public Player getPlayer() { 
 		return player;	
 	}
-
-	/*public boolean isTurnOver() { 
-		return isTurnOver; 
-	}*/
 
 	public int getDiceSum() { 
 		return diceValues[0] + diceValues[1]; 
@@ -48,7 +42,6 @@ public class Turn extends Observable {
 
 	public void doneBuying() { 
 		player.setBuyState(false);
-		System.out.println("done buying");
 		if(isDoubles()) { 
 			//call update to enable the roll button
 			setChanged();
@@ -76,33 +69,25 @@ public class Turn extends Observable {
 		diceValues[1] = 0;
 	}
 
-	/*public boolean canRoll() {
-		return diceValues[0] == 0 || (isDoubles() && numDoubles != 0 && numDoubles <= 3);
-	}*/
-
 	public void rollDice() {
 		Random r = new Random();
 		diceValues[0] = r.nextInt(6) + 1; 
-		diceValues[1] = r.nextInt(6) + 1; //diceValues[0];
+		diceValues[1] = r.nextInt(6) + 1; //diceValues[0]; option to force doubles
 		System.out.printf("%s rolled %d and %d\n", player.getToken(), diceValues[0], diceValues[1]);
 	}
 
 	private void movePlayer() {
-
-		/*if (!player.inBuyState() && !isDoubles())
-			isTurnOver = true;
-		else if(player.isOnNonDeed() && !isDoubles())
-			isTurnOver = true;*/
-
+		player.setCurrentIndex(player.getCurrentIndex() + getDiceSum());
+		System.out.printf("Moving %s to %s\n", player.getToken(), board.getSquares()[player.getCurrentIndex() % 40].getName());
+		//perform the square's appropriate action
+		board.getSquares()[player.getCurrentIndex()].performAction(player);
 	} 
 
 	public int[] takeTurn() {
-		//if(!canRoll()) { return diceValues; }
 		rollDice();
 		//check if this roll is doubles and increment count of doubles
 		if(isDoubles()) {
 			numDoubles++; 
-			System.out.println("numDoubles: " + numDoubles);
 			System.out.printf("%s rolled doubles\n", player.getToken());
 		}
 		//call update to disable roll dice button
@@ -119,7 +104,7 @@ public class Turn extends Observable {
 			}
 			//call update to end turn for jailed player
 			setChanged();
-			notifyObservers("turn");
+			notifyObservers("jailbuyout turn");
 			clearChanged();
 			return diceValues;
 		}			
@@ -135,22 +120,17 @@ public class Turn extends Observable {
 			return diceValues;
 		}	
 		//move the number of spaces the dice roll allows
-		player.setCurrentIndex(player.getCurrentIndex() + getDiceSum());
-		System.out.printf("Moving %s to %s\n", player.getToken(), board.getSquares()[player.getCurrentIndex() % 40].getName());
-		//perform the square's appropriate action
-		board.getSquares()[player.getCurrentIndex()].performAction(player);
+		movePlayer();
 		//call update to potentially enable buy/auction buttons
 		setChanged();
 		notifyObservers("");
 		clearChanged();
 		//check if roll dice button needs to be re-enabled
-		//while(player.inBuyState()) {  }
 		if(player.isOnNonDeed()) {
 			if(isDoubles()) { 
 				//call update to enable the roll button
 				setChanged();
 				notifyObservers("roll");
-				System.out.println("not here");
 				clearChanged();
 			}
 			//call update to finish this turn
@@ -161,6 +141,14 @@ public class Turn extends Observable {
 			}
 		}
 		return diceValues;
+	}
+	
+	public void jailBuyOut(Player player) {
+		player.setJailed(false);
+		player.deduct(50);
+		setChanged();
+		notifyObservers("turn");
+		clearChanged();
 	}
 
 	public void buyHouseOrHotel(Deed deed) {

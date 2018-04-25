@@ -6,7 +6,6 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -24,8 +23,6 @@ import javax.swing.JLayeredPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.border.Border;
-
 import monopoly.engine.player.Player;
 import monopoly.engine.square.Deed;
 
@@ -55,6 +52,7 @@ public class GUI implements Observer {
 	private JButton communityChestButton = new JButton("Community Chest");
 	private JButton chanceButton = new JButton("Chance");
 	private JButton rollDiceButton = new JButton("Roll Dice");
+	private JButton jailBuyOutButton = new JButton("Pay Bail");
 	private JButton buyButton = new JButton("Buy Properties");
 	private JButton mortgageButton = new JButton("Mortgage");
 	private JButton tradeButton = new JButton("Trade");
@@ -127,7 +125,7 @@ public class GUI implements Observer {
 	 * Set buttons on board, overloaded method
 	 */
 	private void setButton(JButton button, int r, int b, int g) {
-		button.setFont(new Font("Arial", Font.BOLD, 34));
+		button.setFont(new Font("Arial", Font.BOLD, 17));
 		button.setBackground(new Color(r, b, g));
 		button.setBorder(BorderFactory.createLineBorder(Color.black, 3));	
 	}
@@ -136,16 +134,16 @@ public class GUI implements Observer {
 	 * Set squares on left side of board
 	 */
 	private void setLeftSquares() {
-		tiles.set(19, new GuiHelper((int) Math.floor(10 * (1280.0/3840)), (int) Math.floor( 184 * (720.0/2160)), 4700, 163, boardPanels, "newYorkAvenue"));
-		tiles.set(18, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 316 * (720.0/2160)), 4720, 163, boardPanels, "tennesseeAvenue"));
-		tiles.set(17, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 449 * (720.0/2160)), 4720, 163, boardPanels, "communityChestL"));
-		tiles.set(16, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 580 * (720.0/2160)), 4720, 163, boardPanels, "stJamesPlace"));
-		tiles.set(15, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 706 * (720.0/2160)), 4720, 163, boardPanels, "pennRailroad"));
-		tiles.set(14, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 841 * (720.0/2160)), 4720, 163, boardPanels, "virginiaAvenue"));
-		tiles.set(13, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 975 * (720.0/2160)), 4720, 163, boardPanels, "statesAvenue"));
-		tiles.set(12, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 1109 * (720.0/2160)), 4720, 163, boardPanels, "electricCompanyUtil"));
-		tiles.set(11, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 1243 * (720.0/2160)), 4720, 163, boardPanels, "stCharlesPlace"));
-		tiles.set(10, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 1376 * (720.0/2160)), 4720, 200, boardPanels, "justVisiting"));
+		tiles.set(19, new GuiHelper((int) Math.floor(10 * (1280.0/3840)), (int) Math.floor( 184 * (720.0/2160)), 1500, 163, boardPanels, "newYorkAvenue"));
+		tiles.set(18, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 316 * (720.0/2160)), 1520, 163, boardPanels, "tennesseeAvenue"));
+		tiles.set(17, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 449 * (720.0/2160)), 1520, 163, boardPanels, "communityChestL"));
+		tiles.set(16, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 580 * (720.0/2160)), 1520, 163, boardPanels, "stJamesPlace"));
+		tiles.set(15, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 706 * (720.0/2160)), 1520, 163, boardPanels, "pennRailroad"));
+		tiles.set(14, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 841 * (720.0/2160)), 1520, 163, boardPanels, "virginiaAvenue"));
+		tiles.set(13, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 975 * (720.0/2160)), 1520, 163, boardPanels, "statesAvenue"));
+		tiles.set(12, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 1109 * (720.0/2160)), 1520, 163, boardPanels, "electricCompanyUtil"));
+		tiles.set(11, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 1243 * (720.0/2160)), 1520, 163, boardPanels, "stCharlesPlace"));
+		tiles.set(10, new GuiHelper((int) Math.floor(0 * (1280.0/3840)), (int) Math.floor( 1376 * (720.0/2160)), 1520, 200, boardPanels, "justVisiting"));
 	}
 
 	/**
@@ -246,13 +244,14 @@ public class GUI implements Observer {
 		//set buttons on board		
 		communityChestButton.setBounds((int) Math.floor(2575 * (1280.0/3840)), (int) Math.floor( 300 * (720.0/2160)), 400, 200);
 		chanceButton.setBounds((int) Math.floor(3100 * (1280.0/3840)), (int) Math.floor( 1050 * (720.0/2160)), 400, 200);
-		rollDiceButton.setBounds((int) Math.floor(1413 * (1280.0/3840)), (int) Math.floor( 250 * (720.0/2160)), 300, 130);
-		buyButton.setBounds( (int) Math.floor(1413 * (1280.0/3840)), (int) Math.floor( 450 * (720.0/2160)), 300, 130);
-		mortgageButton.setBounds( (int) Math.floor(1413 * (1280.0/3840)), (int) Math.floor( 650 * (720.0/2160)), 300, 130);
-		auctionButton.setBounds( (int) Math.floor(1413 * (1280.0/3840)), (int) Math.floor( 850 * (720.0/2160)), 300, 130);
-		tradeButton.setBounds( (int) Math.floor(1413 * (1280.0/3840)), (int) Math.floor( 1050 * (720.0/2160)), 300, 130);
-		startGameButton.setBounds( (int) Math.floor(1800 * (1280.0/3840)), (int) Math.floor( 1750 * (720.0/2160)), 350, 170);
-		finishTurnButton.setBounds( (int) Math.floor(1900 * (1280.0/3840)), (int) Math.floor( 1750 * (720.0/2160)), 300, 130);
+		rollDiceButton.setBounds((int) Math.floor(1413 * (1280.0/3840)), (int) Math.floor( 250 * (720.0/2160)), 150, 65);
+		buyButton.setBounds( (int) Math.floor(1413 * (1280.0/3840)), (int) Math.floor( 450 * (720.0/2160)), 150, 65);
+		mortgageButton.setBounds( (int) Math.floor(1413 * (1280.0/3840)), (int) Math.floor( 650 * (720.0/2160)), 150, 65);
+		auctionButton.setBounds( (int) Math.floor(1413 * (1280.0/3840)), (int) Math.floor( 850 * (720.0/2160)), 150, 65);
+		tradeButton.setBounds( (int) Math.floor(1413 * (1280.0/3840)), (int) Math.floor( 1050 * (720.0/2160)), 150, 65);
+		jailBuyOutButton.setBounds( (int) Math.floor(1413 * (1280.0/3840)), (int) Math.floor( 1250 * (720.0/2160)), 150, 65);
+		startGameButton.setBounds( (int) Math.floor(1800 * (1280.0/3840)), (int) Math.floor( 1750 * (720.0/2160)), 150, 65);
+		finishTurnButton.setBounds( (int) Math.floor(1900 * (1280.0/3840)), (int) Math.floor( 1750 * (720.0/2160)), 150, 65);
 		setButton(communityChestButton, 212, 252, 228);
 		setButton(chanceButton, 212, 252, 228);
 		setButton(rollDiceButton, 255, 100, 100);
@@ -260,6 +259,7 @@ public class GUI implements Observer {
 		setButton(mortgageButton, 255, 172, 89);
 		setButton(auctionButton, 255, 255, 172);
 		setButton(tradeButton, 153, 153, 255);
+		setButton(jailBuyOutButton, 255, 100, 100);
 		setButton(startGameButton, 255, 0, 128);
 		setButton(finishTurnButton, 99, 177, 177);
 		startGameButton.setVisible(false);
@@ -271,6 +271,7 @@ public class GUI implements Observer {
 		mortgageButton.setEnabled(false);
 		auctionButton.setEnabled(false);
 		tradeButton.setEnabled(false);
+		jailBuyOutButton.setEnabled(false);
 
 		//set the dice on the board
 		dice1.setBounds( (int) Math.floor(1475 * (1280.0/3840)), (int) Math.floor( 50 * (720.0/2160)), 100, 100);
@@ -281,8 +282,8 @@ public class GUI implements Observer {
 		dice2.setVisible(false);
 
 		//set timer on board
-		timer.setBounds( (int) Math.floor(50 * (1280.0/3840)), (int) Math.floor( 50 * (720.0/2160)), 1000, 200);
-		timer.setFont(new Font("Arial", Font.BOLD, 60));
+		timer.setBounds( (int) Math.floor(50 * (1280.0/3840)), (int) Math.floor( 10 * (720.0/2160)), 1000, 40);
+		timer.setFont(new Font("Arial", Font.BOLD, 20));
 		timer.setVisible(false);
 		
 		//set properties box and players section of board	
@@ -306,13 +307,13 @@ public class GUI implements Observer {
 		playersPanels.add(p4);
 		
 		//set dialog box
-		gameDialog.setFont(new Font("Arial", Font.BOLD, 32));
-		dialogBox.setBounds( (int) Math.floor(50 * (1280.0/3840)), (int) Math.floor( 250 * (720.0/2160)), 1200, 1000);
+		gameDialog.setFont(new Font("Arial", Font.BOLD, 20));
+		dialogBox.setBounds( (int) Math.floor(50 * (1280.0/3840)), (int) Math.floor( 100 * (720.0/2160)), 500, 500);
 		dialogBox.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		dialogBox.setVisible(false);
 
 		//button to add player 1 
-		addPlayer1Button.setBounds( (int) Math.floor(2335 * (1280.0/3840)), (int) Math.floor( 1800 * (720.0/2160)), 250, 110);
+		addPlayer1Button.setBounds( (int) Math.floor(2335 * (1280.0/3840)), (int) Math.floor( 1800 * (720.0/2160)), 150, 65);
 		setButton(addPlayer1Button, 0, 255, 128);
 
 		addPlayer1Button.addActionListener(new ActionListener() {
@@ -339,7 +340,7 @@ public class GUI implements Observer {
 				frame.getContentPane().add(player1Money);
 
 				//button to add player2
-				addPlayer2Button.setBounds( (int) Math.floor(2720 * (1280.0/3840)), (int) Math.floor( 1800 * (720.0/2160)), 250, 110);
+				addPlayer2Button.setBounds( (int) Math.floor(2720 * (1280.0/3840)), (int) Math.floor( 1800 * (720.0/2160)), 150, 65);
 				setButton(addPlayer2Button, 0, 255, 128);	
 			}
 
@@ -369,7 +370,7 @@ public class GUI implements Observer {
 				frame.getContentPane().add(player2Money);
 
 				//button to add player3
-				addPlayer3Button.setBounds( (int) Math.floor(3105 * (1280.0/3840)), (int) Math.floor( 1800 * (720.0/2160)), 250, 110);
+				addPlayer3Button.setBounds( (int) Math.floor(3105 * (1280.0/3840)), (int) Math.floor( 1800 * (720.0/2160)), 150, 65);
 				setButton(addPlayer3Button, 0, 255, 128);
 
 				//Game can be started since 2 players have been added
@@ -403,7 +404,7 @@ public class GUI implements Observer {
 				frame.getContentPane().add(player3Money);
 
 				//button to add player3
-				addPlayer4Button.setBounds( (int) Math.floor(3490 * (1280.0/3840)), (int) Math.floor( 1800 * (720.0/2160)), 250, 110);
+				addPlayer4Button.setBounds( (int) Math.floor(3490 * (1280.0/3840)), (int) Math.floor( 1800 * (720.0/2160)), 150, 65);
 				setButton(addPlayer4Button, 0, 255, 128);
 
 			}
@@ -473,6 +474,7 @@ public class GUI implements Observer {
 		frame.getContentPane().add(mortgageButton);
 		frame.getContentPane().add(auctionButton);
 		frame.getContentPane().add(tradeButton);
+		frame.getContentPane().add(jailBuyOutButton);
 		frame.getContentPane().add(startGameButton);
 		frame.getContentPane().add(finishTurnButton);
 		frame.getContentPane().add(dialogBox);
@@ -614,13 +616,23 @@ public class GUI implements Observer {
 		buyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//update dialog box with property player bought
-				gameDialogText = "- " + playerTurn.getToken() + " bought " + game.getBoard().getDeed(playerTurn.getCurrentIndex()) + ".\n";
+				gameDialogText = "- " + playerTurn.getToken() + " bought " + game.getBoard().getDeed(playerTurn.getCurrentIndex()).getName() + ".\n";
 				gameDialog.append(gameDialogText);
 				System.out.println("Buy Property!");
 				Banker.buyProperty(playerTurn.getPlayer(), game.getBoard().getDeed(playerTurn.getCurrentIndex()));
 				//finishTurnButton.setVisible(true);
 				playerTurn.doneBuying();
 				playersOwnedPropertiesBox();
+			}
+		});
+		
+		jailBuyOutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//update dialog box with property player bought
+				gameDialogText = "- " + playerTurn.getToken() + " bailed themselves out of jail.\n";
+				gameDialog.append(gameDialogText);
+				System.out.printf("%s bailed themselves out of jail.\n", playerTurn.getToken());
+				playerTurn.jailBuyOut(playerTurn.getPlayer());
 			}
 		});
 	}
@@ -793,6 +805,8 @@ public class GUI implements Observer {
 		else { finishTurnButton.setVisible(false); }
 		if(argument.contains("roll")) { rollDiceButton.setEnabled(true); }
 		else { rollDiceButton.setEnabled(false); }
+		if(argument.contains("jailbuyout")) { jailBuyOutButton.setEnabled(true); }
+		else { jailBuyOutButton.setEnabled(false); }
 		
 		//System.out.printf("canRoll = %b\n", playerTurn.canRoll());
 		//System.out.printf("isTurnOver = %b\n", playerTurn.isTurnOver());
