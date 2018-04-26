@@ -1,7 +1,9 @@
 package monopoly.engine.player;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
+import monopoly.engine.square.Color;
 import monopoly.engine.square.Deed;
 
 public class Player {
@@ -13,6 +15,8 @@ public class Player {
 	private boolean buyState;
 	private boolean onNonDeed;
 	private int currentIndex;
+	private int numGetOutOfJailCards;
+	private ArrayList<Color> monopolies;
 	
 	public Player(TokenName name) {
 		assets = new Assets(this);
@@ -21,6 +25,8 @@ public class Player {
 		buyState = false;
 		onNonDeed = false;
 		currentIndex = 0;
+		numGetOutOfJailCards = 0;
+		monopolies = new ArrayList<Color>();
 	}
 	
 	public Assets getAssets() {
@@ -71,6 +77,22 @@ public class Player {
 	
 	public int getMoney() {
 		return assets.getMoney();
+	}
+	
+	public int getNumGetOutOfJailCards() {
+		return this.numGetOutOfJailCards;
+	}
+	
+	public void setNumGetOutOfJailCards(int n) {
+		this.numGetOutOfJailCards = this.numGetOutOfJailCards + n;
+	}
+	
+	public ArrayList<Color> getMonopolies() {
+		return this.monopolies;
+	}
+	
+	public void addMonopolies(Color monColor) { 
+		this.monopolies.add(monColor);
 	}
 	
 	public LinkedList<Deed> getDeeds() {

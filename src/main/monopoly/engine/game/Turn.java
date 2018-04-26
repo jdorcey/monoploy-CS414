@@ -12,6 +12,7 @@ public class Turn extends Observable {
 	private Player player;
 	private Board board;
 	private Monopoly monopoly = Monopoly.getInstance();
+	private boolean doubles;
 
 	public Turn(Player player) {
 		this.player = player;
