@@ -852,8 +852,11 @@ public class GUI implements Observer {
 		GUI window = new GUI();
 		window.frame.setVisible(true);
 		if(args.length > 0) {
-			if(args[0].equals("doubles")) {							
-				window.playerTurn.setDoubles(true);
+			if(args[0].contains("doubles")) {							
+				window.game.setDoubles(true);
+			}
+			if(args[0].contains("monopolies")) {
+				//window.game.
 			}
 		}
 	}

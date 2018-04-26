@@ -12,7 +12,6 @@ public class Turn extends Observable {
 	private Player player;
 	private Board board;
 	private Monopoly monopoly = Monopoly.getInstance();
-	private boolean doubles;
 
 	public Turn(Player player) {
 		this.player = player;
@@ -78,7 +77,7 @@ public class Turn extends Observable {
 	public void rollDice() {
 		Random r = new Random();
 		diceValues[0] = r.nextInt(6) + 1; 
-		if(doubles) { diceValues[1] = diceValues[0]; }
+		if(Monopoly.getInstance().getDoubles()) { diceValues[1] = diceValues[0]; }
 		else { diceValues[1] = r.nextInt(6) + 1; }
 		System.out.printf("%s rolled %d and %d\n", player.getToken(), diceValues[0], diceValues[1]);
 	}
@@ -181,8 +180,15 @@ public class Turn extends Observable {
 		numDoubles = 0;
 		resetDiceValues();
 		//enable roll dice button for next player
-		setChanged();
-		notifyObservers("roll");
-		clearChanged();
+		if(player.isJailed()) {
+			setChanged();
+			notifyObservers("roll jailbuyout");
+			clearChanged();
+		}
+		else {
+			setChanged();
+			notifyObservers("roll");
+			clearChanged();
+		}
 	}
 }

@@ -17,6 +17,7 @@ public class Monopoly implements Observer {
 	private Clock clock;
 	private long time; 
 	private long gameLength;
+	private boolean doubles;
 
 	private Monopoly() { 
 		INSTANCE = this;
@@ -24,6 +25,7 @@ public class Monopoly implements Observer {
 		clock = Clock.systemDefaultZone();
 		time = clock.millis();
 		gameLength = 300; //one minute
+		doubles = false;
 	}
 
 	public static Monopoly getInstance() {
@@ -56,6 +58,14 @@ public class Monopoly implements Observer {
 		return players.get((players.indexOf(player) + 1) % players.size());
 	}
 
+	public boolean getDoubles() {
+		return doubles;
+	}
+	
+	public void setDoubles(boolean doubles) {
+		this.doubles = doubles;
+	}
+	
 	public Player playGame() {
 		for(Player p : players) { 
 			p.getAssets().addObserver(this); 
