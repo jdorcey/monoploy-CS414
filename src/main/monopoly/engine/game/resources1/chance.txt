@@ -1,0 +1,4 @@
+Advance to Go,0,0,0
+Bank pays you dividend of $50,50,+0,0
+Get out of Jail Free,0,+0,1
+Go To Jail,0,30,0

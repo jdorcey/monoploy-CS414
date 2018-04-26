@@ -1,0 +1,4 @@
+Advance to Go,0,0,0
+Bank error in your favor – Collect $200,200,+0,0
+Get Out of Jail Free,0,+0,1
+Go to Jail,0,30,0
