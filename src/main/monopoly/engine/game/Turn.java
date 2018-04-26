@@ -12,14 +12,20 @@ public class Turn extends Observable {
 	private Player player;
 	private Board board;
 	private Monopoly monopoly = Monopoly.getInstance();
+	private boolean doubles;
 
 	public Turn(Player player) {
 		this.player = player;
 		diceValues = new int[2];
 		resetDiceValues();
 		board = monopoly.getBoard();
+		doubles = false;
 	}
 
+	public void setDoubles(boolean doubles) {
+		this.doubles = doubles;
+	}
+	
 	public Player getPlayer() { 
 		return player;	
 	}
@@ -72,7 +78,8 @@ public class Turn extends Observable {
 	public void rollDice() {
 		Random r = new Random();
 		diceValues[0] = r.nextInt(6) + 1; 
-		diceValues[1] = r.nextInt(6) + 1; //diceValues[0]; option to force doubles
+		if(doubles) { diceValues[1] = diceValues[0]; }
+		else { diceValues[1] = r.nextInt(6) + 1; }
 		System.out.printf("%s rolled %d and %d\n", player.getToken(), diceValues[0], diceValues[1]);
 	}
 
