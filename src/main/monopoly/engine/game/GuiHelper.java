@@ -10,9 +10,7 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.border.Border;
 
 public class GuiHelper {
 	private JLayeredPane pane;

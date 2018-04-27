@@ -16,6 +16,8 @@ public class Player {
 	private boolean onNonDeed;
 	private int currentIndex;
 	private int numGetOutOfJailCards;
+	private int houses;
+	private int hotels;
 	private ArrayList<Color> monopolies;
 	
 	public Player(TokenName name) {
@@ -26,6 +28,8 @@ public class Player {
 		onNonDeed = false;
 		currentIndex = 0;
 		numGetOutOfJailCards = 0;
+		houses = 0;
+		hotels = 0;
 		monopolies = new ArrayList<Color>();
 	}
 	
@@ -85,6 +89,14 @@ public class Player {
 	
 	public void setNumGetOutOfJailCards(int n) {
 		this.numGetOutOfJailCards = this.numGetOutOfJailCards + n;
+	}
+	
+	public int getNumHouses() {
+		return this.houses;
+	}
+	
+	public int getNumHotels() {
+		return this.hotels;
 	}
 	
 	public ArrayList<Color> getMonopolies() {

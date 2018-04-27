@@ -151,4 +151,16 @@ public class Deed extends Square{
 		owner.deduct(mortgageValue + (mortgageValue / 10));
 		System.out.printf("%s unmortgaged %s for %d\n", owner, getName(), mortgageValue + (mortgageValue / 10));
 	}
+	
+	public int getNumHouses() {
+		return this.numHouses;
+	}
+	
+	public int getHotels() {
+		if(this.hasHotel == true) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
 }
