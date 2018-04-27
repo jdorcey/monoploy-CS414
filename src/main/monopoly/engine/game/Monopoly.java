@@ -6,6 +6,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import monopoly.engine.player.Player;
+import monopoly.engine.square.*;
 
 public class Monopoly implements Observer { 
 
@@ -17,7 +18,9 @@ public class Monopoly implements Observer {
 	private Clock clock;
 	private long time; 
 	private long gameLength;
+	//system test variables
 	private boolean doubles;
+	private boolean monopolies;
 
 	private Monopoly() { 
 		INSTANCE = this;
@@ -26,11 +29,16 @@ public class Monopoly implements Observer {
 		time = clock.millis();
 		gameLength = 300; //one minute
 		doubles = false;
+		monopolies = false;
 	}
 
 	public static Monopoly getInstance() {
 		if (INSTANCE != null) return INSTANCE;
 		else return new Monopoly();
+	}
+	
+	public void setGameLength(long gameLength) {
+		this.gameLength = gameLength;
 	}
 
 	public Board getBoard() {
@@ -48,6 +56,44 @@ public class Monopoly implements Observer {
 	public void setPlayers(ArrayList<Player> players) {
 		this.players = players;
 		this.turn = new Turn(this.players.get(0));
+		if(monopolies) {
+			if(this.players.size() == 2) {
+				for(Deed deed : board.blue.getDeeds()) { this.players.get(0).addDeed(deed);	}
+				for(Deed deed : board.pink.getDeeds()) { this.players.get(0).addDeed(deed);	}
+				for(Deed deed : board.purple.getDeeds()) { this.players.get(0).addDeed(deed); }
+				for(Deed deed : board.railroad.getDeeds()) { this.players.get(0).addDeed(deed);	}
+				for(Deed deed : board.orange.getDeeds()) { this.players.get(0).addDeed(deed); }
+				for(Deed deed : board.red.getDeeds()) { this.players.get(1).addDeed(deed); }
+				for(Deed deed : board.yellow.getDeeds()) { this.players.get(1).addDeed(deed); }
+				for(Deed deed : board.lightblue.getDeeds()) { this.players.get(1).addDeed(deed); }
+				for(Deed deed : board.utility.getDeeds()) { this.players.get(1).addDeed(deed); }
+				for(Deed deed : board.green.getDeeds()) { this.players.get(1).addDeed(deed); }
+			}
+			else if(this.players.size() == 3) {
+				for(Deed deed : board.blue.getDeeds()) { this.players.get(0).addDeed(deed);	}
+				for(Deed deed : board.pink.getDeeds()) { this.players.get(0).addDeed(deed);	}
+				for(Deed deed : board.purple.getDeeds()) { this.players.get(0).addDeed(deed); }
+				for(Deed deed : board.railroad.getDeeds()) { this.players.get(1).addDeed(deed);	}
+				for(Deed deed : board.orange.getDeeds()) { this.players.get(1).addDeed(deed); }
+				for(Deed deed : board.red.getDeeds()) { this.players.get(1).addDeed(deed); }
+				for(Deed deed : board.yellow.getDeeds()) { this.players.get(2).addDeed(deed); }
+				for(Deed deed : board.lightblue.getDeeds()) { this.players.get(2).addDeed(deed); }
+				for(Deed deed : board.utility.getDeeds()) { this.players.get(2).addDeed(deed); }
+				for(Deed deed : board.green.getDeeds()) { this.players.get(2).addDeed(deed); }
+			}
+			else {
+				for(Deed deed : board.blue.getDeeds()) { this.players.get(0).addDeed(deed);	}
+				for(Deed deed : board.pink.getDeeds()) { this.players.get(0).addDeed(deed);	}
+				for(Deed deed : board.purple.getDeeds()) { this.players.get(0).addDeed(deed); }
+				for(Deed deed : board.railroad.getDeeds()) { this.players.get(1).addDeed(deed);	}
+				for(Deed deed : board.orange.getDeeds()) { this.players.get(1).addDeed(deed); }
+				for(Deed deed : board.red.getDeeds()) { this.players.get(1).addDeed(deed); }
+				for(Deed deed : board.yellow.getDeeds()) { this.players.get(2).addDeed(deed); }
+				for(Deed deed : board.lightblue.getDeeds()) { this.players.get(2).addDeed(deed); }
+				for(Deed deed : board.utility.getDeeds()) { this.players.get(3).addDeed(deed); }
+				for(Deed deed : board.green.getDeeds()) { this.players.get(3).addDeed(deed); }
+			}
+		}
 	}   
 
 	public Player getCurrentPlayer() { 
@@ -66,56 +112,19 @@ public class Monopoly implements Observer {
 		this.doubles = doubles;
 	}
 	
-	public Player playGame() {
-		for(Player p : players) { 
-			p.getAssets().addObserver(this); 
-		}
-		while(!gameOver()) {
-			for(Player player : players) {
-				Turn turn = new Turn(player);
-				turn.takeTurn();
-			}
-		}
-		return winner();
+	public void setMonopolies(boolean monopolies) {
+		this.monopolies = monopolies;
 	}
-
-	/*
-	private void determineOrder() {
-		TreeMap<Integer, Player> order = new TreeMap<>();
-		Random r = new Random();
-		for(Player p : players) {
-			Integer roll = r.nextInt(6) + r.nextInt(6);
-			while(order.containsKey(roll)) {
-				Player otherPlayer = order.get(roll);
-				order.remove(roll);
-				order.put(r.nextInt(6) + r.nextInt(6), otherPlayer);
-				roll = r.nextInt(6) + r.nextInt(6);
-			}
-			order.put(roll, p);
-		}
-		players.clear();
-		players.addAll(order.values());
-	}
-
-	private void setUpGame() {
-		//prompt user to input number of players and choose tokens
-		//Banker.initializePlayers(players);
-		determineOrder();
-		for(Player p : players) { 
-			p.getAssets().addObserver(this); 
-		}
-	}
-	 */
+	
 	public double timeLeft() {
 		return (gameLength * 1000) - (clock.millis() - time);
 	}
-	
 	
 	public boolean gameOver() {
 		return players.size() == 1 || (clock.millis() - time) >= (gameLength * 1000);
 	}
 	
-	private Player winner() {
+	public Player winner() {
 		int highest = 0;
 		for (Player player: players) {
 			if(player.getNetWorth() > highest)

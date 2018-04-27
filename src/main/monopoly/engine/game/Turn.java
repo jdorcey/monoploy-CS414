@@ -19,11 +19,6 @@ public class Turn extends Observable {
 		diceValues = new int[2];
 		resetDiceValues();
 		board = monopoly.getBoard();
-		doubles = false;
-	}
-
-	public void setDoubles(boolean doubles) {
-		this.doubles = doubles;
 	}
 	
 	public Player getPlayer() { 
@@ -80,7 +75,7 @@ public class Turn extends Observable {
 		diceValues[0] = r.nextInt(6) + 1; 
 		if(Monopoly.getInstance().getDoubles()) { diceValues[1] = diceValues[0]; }
 		else { diceValues[1] = r.nextInt(6) + 1; }
-		System.out.printf("%s rolled %d and %d\n", player.getToken(), diceValues[0], diceValues[1]);
+		if(monopoly.timeLeft() > 0) { System.out.printf("%s rolled %d and %d\n", player.getToken(), diceValues[0], diceValues[1]); }
 	}
 
 	private void movePlayer() {
@@ -91,22 +86,23 @@ public class Turn extends Observable {
 	} 
 
 	public int[] takeTurn() {
+		setChanged();
+		notifyObservers("");
+		clearChanged();
 		rollDice();
 		//check if this roll is doubles and increment count of doubles
 		if(isDoubles()) {
 			numDoubles++; 
-			System.out.printf("%s rolled doubles\n", player.getToken());
+			if(monopoly.timeLeft() > 0) { System.out.printf("%s rolled doubles\n", player.getToken()); }
 		}
 		//call update to disable roll dice button
-		setChanged();
-		notifyObservers("");
-		clearChanged();
+		
 		//check if player will pass Go
 		if ((player.getCurrentIndex() + getDiceSum()) >= 40) { Banker.go(player); }
 		//check if player is jailed
 		if(player.isJailed()) {
 			if(isDoubles()) { 
-				System.out.printf("%s is no longer jailed", player.getToken());
+				if (monopoly.timeLeft() > 0) { System.out.printf("%s is no longer jailed\n", player.getToken()); }
 				player.setJailed(false); 
 			}
 			//call update to end turn for jailed player
@@ -117,7 +113,7 @@ public class Turn extends Observable {
 		}			
 		//check if this roll was 3rd double (can't move anywhere but jail)
 		if(numDoubles == 3) {
-			System.out.printf("%s is now jailed\n", player.getToken());
+			if(monopoly.timeLeft() > 0) { System.out.printf("%s is now jailed\n", player.getToken()); }
 			player.setJailed(true);
 			player.setCurrentIndex(10);
 			//call update to end turn

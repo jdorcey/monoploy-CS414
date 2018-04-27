@@ -117,16 +117,14 @@ public class Player {
 		for (Deed deed: deeds) {
 			removeDeed(deed);
 			other.addDeed(deed);
-			if(deed.isMortgaged()) { 
-				//allow player to choose to unmortgage or keep it mortgaged (must pay 10%)
-			}
+			if(deed.isMortgaged()) { deed.unmortgage(); }
 		}
 	}
 	
 	public void transfer(Player other, int amount) {
 		other.deduct(amount);
 		deposit(amount);
-		System.out.printf("%s payed %s $%d\n", this.getToken(), other.getToken(), amount);
+		System.out.printf("%s paid %s $%d\n", other.getToken(), this.getToken(), amount);
 	}
 	
 	public void deduct(int amount) {

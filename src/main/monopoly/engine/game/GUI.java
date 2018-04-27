@@ -9,8 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -300,7 +302,7 @@ public class GUI implements Observer {
 		dice2.setVisible(false);
 
 		//set timer on board
-		timer.setBounds( (int) Math.floor(5 * (1280.0/3840)), (int) Math.floor( 5 * (720.0/2160)), 300, 25);
+		timer.setBounds( (int) Math.floor(5 * (1280.0/3840)), (int) Math.floor( 5 * (720.0/2160)), 500, 50);
 		timer.setFont(new Font("Arial", Font.BOLD, 20));
 		timer.setVisible(false);
 		
@@ -343,8 +345,7 @@ public class GUI implements Observer {
 		
 		oreHouses.setBounds( (int) Math.floor(3000 * (1280.0/3840)), (int) Math.floor( 1362 * (720.0/2160)), 20, 20);
 		oreHouses.setBorder(BorderFactory.createLineBorder(Color.green, 2));
-		
-		
+	
 
 		//button to add player 1 
 		addPlayer1Button.setBounds( (int) Math.floor(2230 * (1280.0/3840)), (int) Math.floor( 1825 * (720.0/2160)), 100, 25);
@@ -623,11 +624,15 @@ public class GUI implements Observer {
 				//player takes turn
 				rollVal = playerTurn.takeTurn();
 				//update roll to dialog box
-				gameDialogText = "- " + playerTurn.getToken() + " rolled " + (rollVal[0] + rollVal[1]) + ".\n";
-				gameDialog.append(gameDialogText);
+				if(game.timeLeft() > 0) { 
+					gameDialogText = "- " + playerTurn.getToken() + " rolled " + (rollVal[0] + rollVal[1]) + ".\n"; 
+					gameDialog.append(gameDialogText); 
+				}
 				if(rollVal[0] == rollVal[1]) {
-					gameDialogText = "- " + playerTurn.getToken() + " rolled doubles!\n";
-					gameDialog.append(gameDialogText);	
+					if(game.timeLeft() > 0) { 
+						gameDialogText = "- " + playerTurn.getToken() + " rolled doubles!\n"; 
+						gameDialog.append(gameDialogText);	
+					}
 				}
 				//set dice label to value rolled
 				updateDice(dice1, 0);
@@ -635,7 +640,7 @@ public class GUI implements Observer {
 				//move player token after roll and update dialog box
 				movePlayerOnBoard(playerTurn.getToken(), game.getCurrentPlayer().getCurrentIndex());
 				gameDialogText = "- " + playerTurn.getToken() + " moved to " + game.getBoard().getSquares()[playerTurn.getCurrentIndex()].getName() + ".\n";
-				gameDialog.append(gameDialogText);
+				if(game.timeLeft() > 0) { gameDialog.append(gameDialogText); }
 			}
 		});
 
@@ -742,8 +747,8 @@ public class GUI implements Observer {
 			break;	
 		case 10:
 			if(playerTurn.isJailed()) {
-				System.out.printf("Moving %s to Jail\n", playerTurn.getPlayer().getToken());
-				playerToken.setBounds( (int) Math.floor(2200 * (1280.0/3840)), (int) Math.floor( 1490 * (720.0/2160)), 50, 50);	
+				if(game.timeLeft() > 0) { System.out.printf("Moving %s to Jail\n", playerTurn.getPlayer().getToken()); }
+				playerToken.setBounds( (int) Math.floor(2250 * (1280.0/3840)), (int) Math.floor( 1435 * (720.0/2160)), 50, 50);	
 			}else {
 			playerToken.setBounds( (int) Math.floor(2120 * (1280.0/3840)), (int) Math.floor( 1565 * (720.0/2160)), 50, 50);
 			}
@@ -844,10 +849,19 @@ public class GUI implements Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		//do nothing else since the game is over!!!
-		if (game.gameOver()) { return; }
 		//update time
-		timer.setText("Time Remaining: " + (int) game.timeLeft() / 1000 + " seconds");
+		timer.setText("Time Remaining: " + (int)(((int) game.timeLeft() / 1000) / 60) + " minutes, " + (int)(((int) game.timeLeft() / 1000) % 60) + " seconds");
+		if(game.timeLeft() <= 0) {
+			//System.out.println("GAME OVER");
+			finishTurnButton.setEnabled(false);
+			rollDiceButton.setEnabled(false);
+			jailBuyOutButton.setEnabled(false);
+			buyButton.setEnabled(false);
+			auctionButton.setEnabled(false);
+			gameDialogText = String.format("- Game Over! Winner is %s\n", game.winner().getToken());
+			gameDialog.append(gameDialogText);
+			return;
+		} 
 		updateMoney(playerTurn.getToken());
 		auctionButton.setEnabled(playerTurn.inBuyState());
 		buyButton.setEnabled(playerTurn.inBuyState());
@@ -868,21 +882,13 @@ public class GUI implements Observer {
 	 * moves the players token on the board
 	 */
 	private void updateMoney(String token) {
-		switch(token) {
-		case "Dog": 			
-			player1Money.setText("Money: $" + playerTurn.getPlayer().getMoney());
-			break;
-		case "Battleship": 	
-			player2Money.setText("Money: $" + playerTurn.getPlayer().getMoney());
-			break;
-		case "Car": 			 	
-			player3Money.setText("Money: $" + playerTurn.getPlayer().getMoney());
-			break;
-		case "Hat": 
-			player4Money.setText("Money: $" + playerTurn.getPlayer().getMoney());
-			break;
-		default:
-			break;
+		for(int i = 0; i < game.getPlayers().size(); i++) {
+			switch(i) {
+			case 0: player1Money.setText("Money: $" + game.getPlayers().get(0).getMoney()); break;
+			case 1: player2Money.setText("Money: $" + game.getPlayers().get(1).getMoney()); break;
+			case 2: player3Money.setText("Money: $" + game.getPlayers().get(2).getMoney()); break;
+			case 3: player4Money.setText("Money: $" + game.getPlayers().get(3).getMoney()); break;
+			}
 		}
 	}
 
@@ -892,12 +898,15 @@ public class GUI implements Observer {
 	public static void main(String[] args) {
 		GUI window = new GUI();
 		window.frame.setVisible(true);
-		if(args.length > 0) {
-			if(args[0].contains("doubles")) {							
-				window.game.setDoubles(true);
-			}
-			if(args[0].contains("monopolies")) {
-				//window.game.
+		Pattern p = Pattern.compile("[0-9]{2,}");
+		ArrayList<String> arguments = new ArrayList<>(Arrays.asList(args));
+		if(arguments.size() > 0) {
+			for(String s : arguments) {
+				if (p.matcher(s).matches()) { 
+					System.out.println(s);
+					window.game.setGameLength(Long.parseLong(s)); }
+				if (s.equals("doubles")) { window.game.setDoubles(true); }
+				if (s.equals("monopolies")) { window.game.setMonopolies(true); }
 			}
 		}
 	}
