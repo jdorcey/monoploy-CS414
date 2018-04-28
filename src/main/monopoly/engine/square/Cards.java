@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import monopoly.engine.game.Monopoly;
+import monopoly.engine.game.Turn;
+import monopoly.engine.player.Player;
+
 public class Cards {
 	public enum Type {COMM_CHEST, CHANCE};
 	
@@ -80,6 +84,21 @@ public class Cards {
 		}
 		public boolean isGetOutOfJail() {
 			return getOutOfJail;
+		}
+		public void performAction(Player player) {
+			Turn turn = Monopoly.getInstance().getTurn();
+			System.out.println(player.getToken() + " drew a card!");
+			System.out.println("Card Text: " + text);
+			if (money != 0) {
+				player.deposit(money);
+			}else if(moveWith != 0) {
+				turn.movePlayer(moveWith, true);
+			}else if(moveTo != -1) {
+				turn.movePlayer(moveWith, false);
+			}else if (getOutOfJail) {
+				int jailfree = turn.getPlayer().getNumGetOutOfJailFreeCards();
+				turn.getPlayer().setNumGetOutOfJailFreeCards(jailfree + 1);
+			}
 		}
 	}
 }

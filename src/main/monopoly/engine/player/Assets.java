@@ -8,15 +8,25 @@ import monopoly.engine.square.Deed;
 
 public class Assets extends Observable {
 	private int money;
+	private int numGetOutOfJailFreeCards;
 	private LinkedList<Deed> deeds;
 	private Player owner;
 
 	public Assets(Player owner) {
+		numGetOutOfJailFreeCards = 0;
 		money = 1500;
 		deeds = new LinkedList<>();
 		this.owner = owner;
 	}
 	
+	public int getNumGetOutOfJailFreeCards() {
+		return numGetOutOfJailFreeCards;
+	}
+
+	public void setNumGetOutOfJailFreeCards(int numGetOutOfJailFreeCards) {
+		this.numGetOutOfJailFreeCards = numGetOutOfJailFreeCards;
+	}
+
 	public int getMoney() {
 		return money;
 	}

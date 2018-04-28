@@ -15,7 +15,6 @@ public class Player {
 	private boolean buyState;
 	private boolean onNonDeed;
 	private int currentIndex;
-	private int numGetOutOfJailCards;
 	private int houses;
 	private int hotels;
 	private ArrayList<Color> monopolies;
@@ -27,7 +26,6 @@ public class Player {
 		buyState = false;
 		onNonDeed = false;
 		currentIndex = 0;
-		numGetOutOfJailCards = 0;
 		houses = 0;
 		hotels = 0;
 		monopolies = new ArrayList<Color>();
@@ -81,14 +79,6 @@ public class Player {
 	
 	public int getMoney() {
 		return assets.getMoney();
-	}
-	
-	public int getNumGetOutOfJailCards() {
-		return this.numGetOutOfJailCards;
-	}
-	
-	public void setNumGetOutOfJailCards(int n) {
-		this.numGetOutOfJailCards = this.numGetOutOfJailCards + n;
 	}
 	
 	public int getNumHouses() {
@@ -145,5 +135,13 @@ public class Player {
 	
 	public void deposit(int amount) {
 		assets.deposit(amount);
+	}
+	
+	public int getNumGetOutOfJailFreeCards() {
+		return assets.getNumGetOutOfJailFreeCards();
+	}
+
+	public void setNumGetOutOfJailFreeCards(int numGetOutOfJailFreeCards) {
+		assets.setNumGetOutOfJailFreeCards(numGetOutOfJailFreeCards);
 	}
 }
