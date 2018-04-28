@@ -15,8 +15,6 @@ public class Player {
 	private boolean buyState;
 	private boolean onNonDeed;
 	private int currentIndex;
-	private int houses;
-	private int hotels;
 	private ArrayList<Color> monopolies;
 	
 	public Player(TokenName name) {
@@ -26,8 +24,6 @@ public class Player {
 		buyState = false;
 		onNonDeed = false;
 		currentIndex = 0;
-		houses = 0;
-		hotels = 0;
 		monopolies = new ArrayList<Color>();
 	}
 	
@@ -79,14 +75,6 @@ public class Player {
 	
 	public int getMoney() {
 		return assets.getMoney();
-	}
-	
-	public int getNumHouses() {
-		return this.houses;
-	}
-	
-	public int getNumHotels() {
-		return this.hotels;
 	}
 	
 	public ArrayList<Color> getMonopolies() {

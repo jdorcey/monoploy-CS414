@@ -159,7 +159,7 @@ public class Turn extends Observable {
 	public void jailBuyOut(Player player) {
 		player.setJailed(false);
 		if(player.getNumGetOutOfJailFreeCards() > 0) { 
-			player.setNumGetOutOfJailFreeCards(--player.getNumGetOutOfJailFreeCards());
+			player.setNumGetOutOfJailFreeCards(player.getNumGetOutOfJailFreeCards()-1);
 		} 
 		else { player.deduct(50); }
 		setChanged();
