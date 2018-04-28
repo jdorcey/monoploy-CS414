@@ -32,6 +32,10 @@ public class Cards {
 		scan.close();
 	}
 	
+	public void useCard(Card card, Player player) {
+		card.performAction(player);
+	}
+	
 	public Card getCard() {
 		int index = rand.nextInt(cards.size());
 		return cards.get(index);
@@ -87,8 +91,9 @@ public class Cards {
 		}
 		public void performAction(Player player) {
 			Turn turn = Monopoly.getInstance().getTurn();
-			System.out.println(player.getToken() + " drew a card!");
-			System.out.println("Card Text: " + text);
+			String out = player.getToken() + " drew a card! \n" + "Card Text: " + text + "\n";
+			System.out.print(out);
+			Monopoly.getInstance().printToDialog(out);
 			if (money != 0) {
 				player.deposit(money);
 			}else if(moveWith != 0) {

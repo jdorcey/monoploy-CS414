@@ -193,6 +193,7 @@ public class GUI implements Observer {
 		for (int i = 0; i < 40 ; i++)
 			tiles.add(null);
 		initialize();
+		Monopoly.getInstance().setgameDialog(gameDialog);
 	}
 
 	/**

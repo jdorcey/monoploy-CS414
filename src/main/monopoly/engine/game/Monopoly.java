@@ -1,12 +1,16 @@
 package monopoly.engine.game;
 
+import java.io.FileNotFoundException;
 import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JTextArea;
+
 import monopoly.engine.player.Player;
-import monopoly.engine.square.*;
+import monopoly.engine.square.Cards;
+import monopoly.engine.square.Deed;
 
 public class Monopoly implements Observer { 
 
@@ -21,6 +25,9 @@ public class Monopoly implements Observer {
 	//system test variables
 	private boolean doubles;
 	private boolean monopolies;
+	private Cards chance;
+	private Cards commChest;
+	private JTextArea gameDialog;
 
 	private Monopoly() { 
 		INSTANCE = this;
@@ -30,6 +37,12 @@ public class Monopoly implements Observer {
 		gameLength = 300; //one minute
 		doubles = false;
 		monopolies = false;
+		try {
+			chance = new Cards(Cards.Type.CHANCE);
+			commChest = new Cards(Cards.Type.COMM_CHEST);
+		} catch (FileNotFoundException e) {
+			System.out.println("ERROR reading in cards");
+		}
 	}
 
 	public static Monopoly getInstance() {
@@ -132,7 +145,22 @@ public class Monopoly implements Observer {
 		}
 		return winner;
 	}
+	
+	public void chance(Player player) {
+		chance.useCard(chance.getCard(), player);
+	}
+	
+	public void commChest(Player player) {
+		commChest.useCard(commChest.getCard(), player);
+	}
+	
+	public void setgameDialog(JTextArea pane) {
+		this.gameDialog = pane;
+	}
 
+	public void printToDialog(String out) {
+		gameDialog.append(out);
+	}
 	//@Override
 	public void update(Observable o, Object arg) {
 		switch(o.getClass().getName()) {
