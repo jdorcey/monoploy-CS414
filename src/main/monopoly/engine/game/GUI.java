@@ -548,7 +548,7 @@ public class GUI implements Observer {
 				//add player1 info/money, get out of jail cards, and monopolies to player area
 				setLabel(player1, "dogToken", (int) Math.floor(2340 * (1280.0/3840)), (int) Math.floor( 1625 * (720.0/2160)), 50, 50);
 				setPlayersMoney(player1Money,  players.get(0).getMoney(), (int) Math.floor(2255 * (1280.0/3840)), (int) Math.floor( 1750 * (720.0/2160)), 100, 20);
-				setPlayersJailCards(player1GOFJ, players.get(0).getNumGetOutOfJailCards(), (int) Math.floor(2255 * (1280.0/3840)), (int) Math.floor( 1810 * (720.0/2160)), 100, 20);
+				setPlayersJailCards(player1GOFJ, players.get(0).getNumGetOutOfJailFreeCards(), (int) Math.floor(2255 * (1280.0/3840)), (int) Math.floor( 1810 * (720.0/2160)), 100, 20);
 				//setPlayersMonopolies(player1Monops, players.get(0).getMonopolies(), (int) Math.floor(2255 * (1280.0/3840)), (int) Math.floor( 1865 * (720.0/2160)), 100, 20);
 				player1Monops.setText("Monopolies: " + players.get(0).getMonopolies());
 				player1Monops.setFont(new Font("Arial", Font.BOLD, 12));
@@ -574,7 +574,7 @@ public class GUI implements Observer {
 				//add player2 info/money, get out of jail cards, and monopolies to board to player area
 				setLabel(player2, "battleShipToken", (int) Math.floor(2735 * (1280.0/3840)), (int) Math.floor(1625 * (720.0/2160)), 50, 50);
 				setPlayersMoney(player2Money, players.get(1).getMoney(), (int) Math.floor(2640 * (1280.0/3840)), (int) Math.floor( 1750 * (720.0/2160)), 100, 20);
-				setPlayersJailCards(player2GOFJ, players.get(1).getNumGetOutOfJailCards(), (int) Math.floor(2640 * (1280.0/3840)), (int) Math.floor( 1810 * (720.0/2160)), 100, 20);
+				setPlayersJailCards(player2GOFJ, players.get(1).getNumGetOutOfJailFreeCards(), (int) Math.floor(2640 * (1280.0/3840)), (int) Math.floor( 1810 * (720.0/2160)), 100, 20);
 				player2Monops.setText("Monopolies: " + players.get(1).getMonopolies());
 				player2Monops.setFont(new Font("Arial", Font.BOLD, 12));
 				player2Monops.setBounds( (int) Math.floor(2640 * (1280.0/3840)), (int) Math.floor( 1860 * (720.0/2160)), 100, 20);
@@ -602,7 +602,7 @@ public class GUI implements Observer {
 				//add player3 info/money, get out of jail cards, and monopolies to board to player area
 				setLabel(player3, "carToken", (int) Math.floor(3120 * (1280.0/3840)), (int) Math.floor( 1625 * (720.0/2160)), 50, 50);
 				setPlayersMoney(player3Money, players.get(2).getMoney(), (int) Math.floor(3030 * (1280.0/3840)), (int) Math.floor( 1750 * (720.0/2160)), 100, 25);
-				setPlayersJailCards(player3GOFJ, players.get(2).getNumGetOutOfJailCards(), (int) Math.floor(3030 * (1280.0/3840)), (int) Math.floor( 1810 * (720.0/2160)), 100, 20);
+				setPlayersJailCards(player3GOFJ, players.get(2).getNumGetOutOfJailFreeCards(), (int) Math.floor(3030 * (1280.0/3840)), (int) Math.floor( 1810 * (720.0/2160)), 100, 20);
 				player3Monops.setText("Monopolies: " + players.get(2).getMonopolies());
 				player3Monops.setFont(new Font("Arial", Font.BOLD, 12));
 				player3Monops.setBounds( (int) Math.floor(3030 * (1280.0/3840)), (int) Math.floor( 1860 * (720.0/2160)), 100, 20);
@@ -627,7 +627,7 @@ public class GUI implements Observer {
 				//add player4 info/money, get out of jail cards, and monopolies to board to player area
 				setLabel(player4, "hatToken", (int) Math.floor(3500 * (1280.0/3840)), (int) Math.floor( 1625 * (720.0/2160)), 50, 50);
 				setPlayersMoney(player4Money, players.get(3).getMoney(), (int) Math.floor(3420 * (1280.0/3840)), (int) Math.floor( 1750 * (720.0/2160)), 100, 25);
-				setPlayersJailCards(player4GOFJ, players.get(3).getNumGetOutOfJailCards(), (int) Math.floor(3420 * (1280.0/3840)), (int) Math.floor( 1810 * (720.0/2160)), 100, 20);
+				setPlayersJailCards(player4GOFJ, players.get(3).getNumGetOutOfJailFreeCards(), (int) Math.floor(3420 * (1280.0/3840)), (int) Math.floor( 1810 * (720.0/2160)), 100, 20);
 				player4Monops.setText("Monopolies: " + players.get(3).getMonopolies());
 				player4Monops.setFont(new Font("Arial", Font.BOLD, 12));
 				player4Monops.setBounds( (int) Math.floor(3420 * (1280.0/3840)), (int) Math.floor( 1860 * (720.0/2160)), 100, 20);
