@@ -159,7 +159,7 @@ public class Monopoly implements Observer {
 	}
 
 	public void printToDialog(String out) {
-		gameDialog.append(out);
+		gameDialog.append("- " + out);
 	}
 	//@Override
 	public void update(Observable o, Object arg) {

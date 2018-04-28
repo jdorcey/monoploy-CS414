@@ -18,13 +18,17 @@ public class Cards {
 	private ArrayList<Card> cards;
 	
 	public Cards(Type type) throws FileNotFoundException {
+		cards = new ArrayList<Card>();
 		this.type = type;
 		rand = new Random();
 		Scanner scan;
 		if (type == Type.CHANCE) {
-			scan = new Scanner(new File("monopoly/engine/game/resources1/chance.txt"));
+			File chancefile = new File("chance.txt");
+			System.out.println(chancefile.exists());
+			System.out.println(chancefile.canRead());
+			scan = new Scanner(chancefile);
 		}else {
-			scan = new Scanner(new File("monopoly/engine/game/resources1/commchest.txt"));
+			scan = new Scanner(new File("commchest.txt"));
 		}
 		while(scan.hasNextLine()) {
 			parseLine(scan.nextLine());
@@ -52,9 +56,9 @@ public class Cards {
 		boolean getJail = false;
 		String[] tokens = line.split(",");
 		if (tokens[2].charAt(0) == '+') {
-			moveWith = Integer.parseInt(tokens[2]);
+			moveWith = Integer.parseInt(tokens[2].substring(1));
 		}else if (tokens[2].charAt(0) == '-') {
-			moveWith = Integer.parseInt(tokens[2]);
+			moveWith = Integer.parseInt(tokens[2].substring(1));
 		}else {
 			moveTo = Integer.parseInt(tokens[2]);
 		}
@@ -99,7 +103,7 @@ public class Cards {
 			}else if(moveWith != 0) {
 				turn.movePlayer(moveWith, true);
 			}else if(moveTo != -1) {
-				turn.movePlayer(moveWith, false);
+				turn.movePlayer(moveTo, false);
 			}else if (getOutOfJail) {
 				int jailfree = turn.getPlayer().getNumGetOutOfJailFreeCards();
 				turn.getPlayer().setNumGetOutOfJailFreeCards(jailfree + 1);
