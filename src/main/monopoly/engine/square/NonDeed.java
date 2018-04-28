@@ -3,6 +3,7 @@
 package monopoly.engine.square;
 
 import monopoly.engine.game.Banker;
+import monopoly.engine.game.Monopoly;
 import monopoly.engine.player.Player;
 
 public class NonDeed extends Square {
@@ -36,8 +37,12 @@ public class NonDeed extends Square {
 		case GO_TO_JAIL: 	  		player.setJailed(true);
 									player.setCurrentIndex(10); break;
         case FREE_PARKING: 										break; //do nothing
-		case COMMUNITY_CHEST: 									break;
-		case CHANCE: 											break;
+		case COMMUNITY_CHEST:
+			Monopoly.getInstance().commChest(player);
+			break;
+		case CHANCE:
+			Monopoly.getInstance().chance(player);
+			break;
 		case INCOME_TAX: 		   	Banker.incomeTax(player);	break;
 		case LUXURY_TAX:		   	Banker.luxuryTax(player);	break;
 		}
