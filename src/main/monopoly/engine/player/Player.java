@@ -3,6 +3,7 @@ package monopoly.engine.player;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import monopoly.engine.game.Monopoly;
 import monopoly.engine.square.Color;
 import monopoly.engine.square.Deed;
 
@@ -115,6 +116,7 @@ public class Player {
 		other.deduct(amount);
 		deposit(amount);
 		System.out.printf("%s paid %s $%d\n", other.getToken(), this.getToken(), amount);
+		Monopoly.getInstance().printToDialog(String.format("%s paid %s $%d\n", other.getToken(), this.getToken(), amount));
 	}
 	
 	public void deduct(int amount) {

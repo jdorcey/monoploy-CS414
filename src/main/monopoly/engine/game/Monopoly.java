@@ -23,12 +23,12 @@ public class Monopoly implements Observer {
 	private Clock clock;
 	private long time; 
 	private long gameLength;
-	//system test variables
-	private boolean doubles;
-	private boolean monopolies;
 	private Cards chance;
 	private Cards commChest;
 	private JTextArea gameDialog;
+	//system test variables
+	private boolean doubles;
+	private boolean monopolies;
 
 	private Monopoly() { 
 		INSTANCE = this;

@@ -80,7 +80,7 @@ public class GUI implements Observer {
 	private JLayeredPane parkHotels = new JLayeredPane();
 	private JLayeredPane bdwHotels = new JLayeredPane();
 	private JLayeredPane frameBorder = new JLayeredPane();
-	
+
 	private JLabel propertiesLabel = new JLabel();
 	private JLabel playerPropsLabel = new JLabel();
 	private JLabel timer = new JLabel();
@@ -172,6 +172,19 @@ public class GUI implements Observer {
 	private JTextArea gameDialog = new JTextArea();
 	private JScrollPane dialogBox = new JScrollPane(gameDialog);
 	private String gameDialogText;
+
+	private JTextArea player1Bid = new JTextArea();
+	private JScrollPane player1BidBox = new JScrollPane(player1Bid);
+	private JTextArea player2Bid = new JTextArea();
+	private JScrollPane player2BidBox = new JScrollPane(player2Bid);
+	private JTextArea player3Bid = new JTextArea();
+	private JScrollPane player3BidBox = new JScrollPane(player3Bid);
+	private JTextArea player4Bid = new JTextArea();
+	private JScrollPane player4BidBox = new JScrollPane(player4Bid);
+	private JButton player1BidButton = new JButton("Bid");
+	private JButton player2BidButton = new JButton("Bid");
+	private JButton player3BidButton = new JButton("Bid");
+	private JButton player4BidButton = new JButton("Bid");
 	
 	private ArrayList<Player> players;
 	private ArrayList<JLayeredPane> playersPanels;
@@ -181,7 +194,7 @@ public class GUI implements Observer {
 	private Monopoly game = Monopoly.getInstance();
 	private Turn playerTurn;
 	private String lastToken = "";
-	
+
 	/**
 	 * GUI constructor to create the main frame
 	 */
@@ -208,7 +221,7 @@ public class GUI implements Observer {
 			System.out.println("ERROR: Unable to set " + square + "image.");
 		}
 	}
-	
+
 	/**
 	 * Set labels on board, overloaded method
 	 */
@@ -246,7 +259,7 @@ public class GUI implements Observer {
 		button.setBounds(x, y, height, width);
 		button.setFont(new Font("Arial", Font.BOLD, 12));
 		button.setBackground(new Color(r, b, g));
-		button.setBorder(BorderFactory.createLineBorder(Color.black, 3));
+		button.setBorder(BorderFactory.createLineBorder(Color.black, 2));
 		button.setVisible(false);
 		button.setEnabled(false);
 	}
@@ -282,7 +295,7 @@ public class GUI implements Observer {
 		tiles.set(21, new GuiHelper((int) Math.floor(2313 * (1280.0/3840)), (int) Math.floor( 5 * (720.0/2160)), 50, 65, boardPanels, "KentuckyAvenue"));
 		tiles.set(20, new GuiHelper((int) Math.floor(2136 * (1280.0/3840)), (int) Math.floor( 5 * (720.0/2160)), 65, 65, boardPanels, "freeParking"));	
 	}
-	
+
 	/**
 	 * Set squares on left side of board
 	 */
@@ -333,7 +346,7 @@ public class GUI implements Observer {
 		}
 		propertiesLabel.setText("<html> " + propsStr + "</html>");
 	}
-	
+
 	/**
 	 * sets the green and red boxes for the number of houses and hotels for each square
 	 */
@@ -348,7 +361,7 @@ public class GUI implements Observer {
 		numHH.setFont(new Font("Arial", Font.BOLD, 12));
 		numHH.setBounds( x + 7, y + 4, height - 10, width - 10);
 	}
-	
+
 	/**
 	 * Set player area on board
 	 */
@@ -374,8 +387,9 @@ public class GUI implements Observer {
 		playersPanels.add(p2);
 		playersPanels.add(p3);
 		playersPanels.add(p4);
+		
 	}
-	
+
 	/**
 	 * Set players money on board
 	 */
@@ -384,7 +398,7 @@ public class GUI implements Observer {
 		pMoney.setFont(new Font("Arial", Font.BOLD, 12));
 		pMoney.setBounds(x, y, height, width);
 	}
-	
+
 	/**
 	 * Set players get out of jail cards number on board
 	 */
@@ -392,9 +406,9 @@ public class GUI implements Observer {
 		pGOFJ.setText("Jail Cards: " + gofj);
 		pGOFJ.setFont(new Font("Arial", Font.BOLD, 12));
 		pGOFJ.setBounds(x, y, height, width);
-		
+
 	}
-	
+
 	/**
 	 * Set players monopolies on board, need to fix this
 	 */
@@ -414,7 +428,7 @@ public class GUI implements Observer {
 		dice1.setVisible(false);
 		dice2.setVisible(false);
 		//set timer on board
-		timer.setBounds( (int) Math.floor(25 * (1280.0/3840)), (int) Math.floor( 75 * (720.0/2160)), 300, 25);
+		timer.setBounds( (int) Math.floor(25 * (1280.0/3840)), (int) Math.floor( 75 * (720.0/2160)), 500, 25);
 		timer.setFont(new Font("Arial", Font.BOLD, 20));
 		timer.setVisible(false);
 		//set dialog box
@@ -423,7 +437,7 @@ public class GUI implements Observer {
 		dialogBox.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		dialogBox.setVisible(false);
 	}
-	
+
 	/**
 	 * Set all the squares for houses and hotels on the board
 	 */
@@ -473,7 +487,7 @@ public class GUI implements Observer {
 		setHousesHotels(numBdwHouses, bdwHouses, (int) Math.floor(3747 * (1280.0/3840)), (int) Math.floor( 1355 * (720.0/2160)), 20, 20, "green");
 		setHousesHotels(numBdwHotels, bdwHotels, (int) Math.floor(3747 * (1280.0/3840)), (int) Math.floor( 1290 * (720.0/2160)), 20, 20, "red");
 	}
-	
+
 	/**
 	 * Initializes the game frame
 	 */
@@ -484,7 +498,7 @@ public class GUI implements Observer {
 		frame = new JFrame("T13 Monopoly Game CS414");
 		frame.getContentPane().setBackground(new Color(212, 252, 228));
 		frame.setPreferredSize(new Dimension(1280, 720));
-	    frame.pack();
+		frame.pack();
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 
@@ -521,7 +535,7 @@ public class GUI implements Observer {
 		jailBuyOutButton.setVisible(true);
 		buyHHButton.setVisible(true);
 		sellHHButton.setVisible(true);
-    
+
 		//set dice, timer, and dialog box
 		setOtherBoardInfo(); 
 		//set properties box and players section of board	
@@ -531,7 +545,7 @@ public class GUI implements Observer {
 		//need this so that all the other components size correctly
 		frameBorder.setBounds( (int) Math.floor(2500 * (1280.0/3840)), (int) Math.floor( 1362 * (720.0/2160)), 20, 20);
 		frameBorder.setBorder(BorderFactory.createLineBorder(Color.pink, 2));
-		
+
 		//add player 1 
 		setButton(addPlayer1Button, 113, 208, 255, (int) Math.floor(2230 * (1280.0/3840)), (int) Math.floor( 1825 * (720.0/2160)), 100, 25);
 		addPlayer1Button.setVisible(true);
@@ -644,7 +658,7 @@ public class GUI implements Observer {
 				startGame();
 			}
 		});
-		
+
 		//add everything to frame
 		for (int i = 0; i < 40 ; i++) {
 			frame.getContentPane().add(tiles.get(i).getPane());
@@ -682,6 +696,14 @@ public class GUI implements Observer {
 		frame.getContentPane().add(addPlayer2Button);
 		frame.getContentPane().add(addPlayer3Button);
 		frame.getContentPane().add(addPlayer4Button);
+		frame.getContentPane().add(player1BidButton);
+		frame.getContentPane().add(player2BidButton);
+		frame.getContentPane().add(player3BidButton);
+		frame.getContentPane().add(player4BidButton);
+		frame.getContentPane().add(player1BidBox);
+		frame.getContentPane().add(player2BidBox);
+		frame.getContentPane().add(player3BidBox);
+		frame.getContentPane().add(player4BidBox);
 		frame.getContentPane().add(communityChestButton);
 		frame.getContentPane().add(chanceButton);
 		frame.getContentPane().add(rollDiceButton);
@@ -789,7 +811,7 @@ public class GUI implements Observer {
 		for (GuiHelper h: tiles)
 			h.updateIndex(tiles);
 	}
-	
+
 	/**
 	 * Set player area
 	 */
@@ -876,7 +898,7 @@ public class GUI implements Observer {
 		rollDiceButton.setEnabled(true);
 		dice1.setVisible(true);
 		dice2.setVisible(true);
-    
+
 		//Only handles displaying the dice
 		rollDiceButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -898,7 +920,8 @@ public class GUI implements Observer {
 				updateDice(dice2, 1);
 				//move player token after roll and update dialog box
 				movePlayerOnBoard(playerTurn.getToken(), game.getCurrentPlayer().getCurrentIndex());
-				gameDialogText = "- " + playerTurn.getToken() + " moved to " + game.getBoard().getSquares()[playerTurn.getCurrentIndex()].getName() + ".\n";
+				if(playerTurn.getPlayer().isJailed()) { gameDialogText = "- " + playerTurn.getToken() + " moved to Jail.\n"; }
+				else { gameDialogText = "- " + playerTurn.getToken() + " moved to " + game.getBoard().getSquares()[playerTurn.getCurrentIndex()].getName() + ".\n"; }
 				if(game.timeLeft() > 0) { gameDialog.append(gameDialogText); }
 			}
 		});
@@ -922,8 +945,109 @@ public class GUI implements Observer {
 		//Yeah we need to talk about this one
 		auctionButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				ArrayList<Integer> bids = new ArrayList<>();
 				System.out.println("Auction!");
-				playerTurn.doneBuying();
+				player1Bid.setEditable(true);
+				player2Bid.setEditable(true);
+				player3Bid.setEditable(true);
+				player4Bid.setEditable(true);
+				player1BidBox.setFont(new Font("Arial", Font.BOLD, 12));
+				player2BidBox.setFont(new Font("Arial", Font.BOLD, 12));
+				player3BidBox.setFont(new Font("Arial", Font.BOLD, 12));
+				player4BidBox.setFont(new Font("Arial", Font.BOLD, 12));
+				player1BidBox.setBounds( (int) Math.floor(2220 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 70, 20);
+				player2BidBox.setBounds( (int) Math.floor(2610 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 70, 20);
+				player3BidBox.setBounds( (int) Math.floor(3000 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 70, 20);
+				player4BidBox.setBounds( (int) Math.floor(3385 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 70, 20);
+				player1BidBox.setVisible(true);
+				player2BidBox.setVisible(false);
+				player3BidBox.setVisible(false);
+				player4BidBox.setVisible(false);
+				setButton(player1BidButton, 113, 208, 255, (int) Math.floor(2450 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 30, 20);
+				setButton(player2BidButton, 113, 208, 255, (int) Math.floor(2840 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 30, 20);
+				setButton(player3BidButton, 113, 208, 255, (int) Math.floor(3230 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 30, 20);
+				setButton(player4BidButton, 113, 208, 255, (int) Math.floor(3610 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 30, 20);
+				player1BidButton.setVisible(true);
+				player1BidButton.setEnabled(true);
+				player1BidButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						bids.add(Integer.parseInt(player1Bid.getText()));
+						player1BidButton.setEnabled(false);
+						player1Bid.setEditable(false);
+						player2BidBox.setVisible(true);
+						player2BidButton.setVisible(true);
+						player2BidButton.setEnabled(true);
+					}
+				});
+				player2BidButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						bids.add(Integer.parseInt(player2Bid.getText()));
+						player2BidButton.setEnabled(false);
+						player2Bid.setEditable(false);
+						if(players.size() > 2) { 
+							player3BidBox.setVisible(true); 
+							player3BidButton.setVisible(true);
+							player3BidButton.setEnabled(true);					
+						}
+						else {
+							player1BidBox.setVisible(false);
+							player2BidBox.setVisible(false);
+							player3BidBox.setVisible(false);
+							player4BidBox.setVisible(false);
+							player1BidButton.setVisible(false);
+							player2BidButton.setVisible(false);
+							player3BidButton.setVisible(false);
+							player4BidButton.setVisible(false);
+							Banker.auctionProperty(game.getBoard().getDeed(playerTurn.getCurrentIndex()), bids);
+							playerTurn.doneBuying();
+						}
+					}
+				});
+				if(players.size() > 2) {
+					player3BidButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							bids.add(Integer.parseInt(player3Bid.getText()));
+							player3BidButton.setEnabled(false);
+							player3Bid.setEditable(false);
+							if(players.size() > 3) { 
+								player4BidBox.setVisible(true); 
+								player4BidButton.setVisible(true);
+								player4BidButton.setEnabled(true);					
+							}
+							else {
+								player1BidBox.setVisible(false);
+								player2BidBox.setVisible(false);
+								player3BidBox.setVisible(false);
+								player4BidBox.setVisible(false);
+								player1BidButton.setVisible(false);
+								player2BidButton.setVisible(false);
+								player3BidButton.setVisible(false);
+								player4BidButton.setVisible(false);
+								Banker.auctionProperty(game.getBoard().getDeed(playerTurn.getCurrentIndex()), bids);
+								playerTurn.doneBuying();
+							}
+						}
+					});
+				}
+				if(players.size() > 3) {
+					player4BidButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							bids.add(Integer.parseInt(player4Bid.getText()));
+							player4BidButton.setEnabled(false);
+							player4Bid.setEditable(false);
+							player1BidBox.setVisible(false);
+							player2BidBox.setVisible(false);
+							player3BidBox.setVisible(false);
+							player4BidBox.setVisible(false);
+							player1BidButton.setVisible(false);
+							player2BidButton.setVisible(false);
+							player3BidButton.setVisible(false);
+							player4BidButton.setVisible(false);
+							Banker.auctionProperty(game.getBoard().getDeed(playerTurn.getCurrentIndex()), bids);
+							playerTurn.doneBuying();
+						}
+					});
+				}
 			}
 		});
 
@@ -939,7 +1063,7 @@ public class GUI implements Observer {
 				playersOwnedPropertiesBox();
 			}
 		});
-		
+
 		jailBuyOutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//update dialog box with property player bought
@@ -1038,7 +1162,7 @@ public class GUI implements Observer {
 				if(game.timeLeft() > 0) { System.out.printf("Moving %s to Jail\n", playerTurn.getPlayer().getToken()); }
 				playerToken.setBounds( (int) Math.floor(2250 * (1280.0/3840)), (int) Math.floor( 1435 * (720.0/2160)), 50, 50);	
 			}else {
-			playerToken.setBounds( (int) Math.floor(2120 * (1280.0/3840)), (int) Math.floor( 1565 * (720.0/2160)), 50, 50);
+				playerToken.setBounds( (int) Math.floor(2120 * (1280.0/3840)), (int) Math.floor( 1565 * (720.0/2160)), 50, 50);
 			}
 			break;
 		case 11:
@@ -1139,7 +1263,7 @@ public class GUI implements Observer {
 	public void update(Observable o, Object arg) {
 		//update time
 		timer.setText("Time Remaining: " + (int)(((int) game.timeLeft() / 1000) / 60) + " minutes, " + (int)(((int) game.timeLeft() / 1000) % 60) + " seconds");
-		if(game.timeLeft() <= 0) {
+		if(game.timeLeft() <= 0 && !gameDialogText.contains(String.format("- Game Over! Winner is %s\n", game.winner().getToken()))) {
 			//System.out.println("GAME OVER");
 			finishTurnButton.setEnabled(false);
 			rollDiceButton.setEnabled(false);
@@ -1156,16 +1280,13 @@ public class GUI implements Observer {
 		String argument = (String) arg;
 		if(argument.contains("turn")) {	
 			finishTurnButton.setVisible(true); 
-			finishTurnButton.setEnabled(true);
-			}
-		else { 
-			finishTurnButton.setVisible(false); 
-			}
+			finishTurnButton.setEnabled(true); 
+		}
+		else { finishTurnButton.setVisible(false); }
 		if(argument.contains("roll")) { rollDiceButton.setEnabled(true); }
 		else { rollDiceButton.setEnabled(false); }
 		if(argument.contains("jailbuyout")) { jailBuyOutButton.setEnabled(true); }
 		else { jailBuyOutButton.setEnabled(false); }
-		
 		if (GuiStateTracker.getInstance().anySelected()) {
 			mortgageButton.setEnabled(true);
 			sellHHButton.setEnabled(true);
@@ -1174,13 +1295,9 @@ public class GUI implements Observer {
 			mortgageButton.setEnabled(false);
 			sellHHButton.setEnabled(false);
 			buyHHButton.setEnabled(false);
-		}
-		
-		//System.out.printf("canRoll = %b\n", playerTurn.canRoll());
-		//System.out.printf("isTurnOver = %b\n", playerTurn.isTurnOver());
-		//System.out.printf("inBuyState = %b\n", playerTurn.inBuyState());
+    }
 	}
-	
+
 	/**
 	 * moves the players token on the board
 	 */

@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
 
+import monopoly.engine.game.Monopoly;
 import monopoly.engine.square.Deed;
 
 public class Assets extends Observable {
@@ -60,9 +61,9 @@ public class Assets extends Observable {
 	}
 
 	public void deduct(int amount) {
-		money -= amount;
-		if (money < 0) {
+		if (money - amount < 0) {
 			//bankrupt?
+			Monopoly.getInstance().printToDialog(String.format("- %s does not have enough money and must mortgage property.", owner.getToken()));
 			boolean bankrupt = true;
 			for (Deed current: deeds)
 				if(!current.isMortgaged())
@@ -74,7 +75,10 @@ public class Assets extends Observable {
 			}
 			//GUI feedback
 		}
-		System.out.printf("%s's new balance is $%d\n", owner.getToken(), money);
+		else { 
+			money -= amount;
+			System.out.printf("%s's new balance is $%d\n", owner.getToken(), money);
+		}
 	}
 
 	public void deposit(int amount) {

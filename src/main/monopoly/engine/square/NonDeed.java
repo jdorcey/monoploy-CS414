@@ -19,7 +19,7 @@ public class NonDeed extends Square {
 	public String getName() {
 		switch(this.type) {
 		case GO: 					return "Go";	 
-		case JUST_VISITING_JAIL:	return "Just Visiting/Jail";
+		case JUST_VISITING_JAIL:	return "Just Visiting";
 		case GO_TO_JAIL: 			return "Go to Jail";				
 		case FREE_PARKING:			return "Free Parking";
 		case COMMUNITY_CHEST: 		return "Community Chest";

@@ -12,7 +12,6 @@ public class Turn extends Observable {
 	private Player player;
 	private Board board;
 	private Monopoly monopoly = Monopoly.getInstance();
-	private boolean doubles;
 
 	public Turn(Player player) {
 		this.player = player;
@@ -43,18 +42,8 @@ public class Turn extends Observable {
 
 	public void doneBuying() { 
 		player.setBuyState(false);
-		if(isDoubles()) { 
-			//call update to enable the roll button
-			setChanged();
-			notifyObservers("roll");
-			clearChanged();
-		}
-		//call update to finish this turn
-		else {
-			setChanged();
-			notifyObservers("turn");
-			clearChanged();
-		}
+		if(isDoubles()) { update("roll"); }
+		else { update("turn"); }
 	}
 
 	public boolean isJailed() { 
@@ -94,9 +83,7 @@ public class Turn extends Observable {
 	} 
 
 	public int[] takeTurn() {
-		setChanged();
-		notifyObservers("");
-		clearChanged();
+		update("");
 		rollDice();
 		//check if this roll is doubles and increment count of doubles
 		if(isDoubles()) {
@@ -113,10 +100,7 @@ public class Turn extends Observable {
 				if (monopoly.timeLeft() > 0) { System.out.printf("%s is no longer jailed\n", player.getToken()); }
 				player.setJailed(false); 
 			}
-			//call update to end turn for jailed player
-			setChanged();
-			notifyObservers("turn");
-			clearChanged();
+			update("turn");
 			return diceValues;
 		}			
 		//check if this roll was 3rd double (can't move anywhere but jail)
@@ -124,32 +108,21 @@ public class Turn extends Observable {
 			if(monopoly.timeLeft() > 0) { System.out.printf("%s is now jailed\n", player.getToken()); }
 			player.setJailed(true);
 			player.setCurrentIndex(10);
-			//call update to end turn
-			setChanged();
-			notifyObservers("turn");
-			clearChanged();
+			update("turn");
 			return diceValues;
 		}	
 		//move the number of spaces the dice roll allows
 		movePlayer();
 		//call update to potentially enable buy/auction buttons
-		setChanged();
-		notifyObservers("");
-		clearChanged();
+		update("");
 		//check if roll dice button needs to be re-enabled
 		if(player.isOnNonDeed()) {
 			if(isDoubles()) { 
 				//call update to enable the roll button
-				setChanged();
-				notifyObservers("roll");
-				clearChanged();
+				update("roll");
 			}
 			//call update to finish this turn
-			else {
-				setChanged();
-				notifyObservers("turn");
-				clearChanged();
-			}
+			else { update("turn"); }
 		}
 		return diceValues;
 	}
@@ -160,8 +133,12 @@ public class Turn extends Observable {
 			player.setNumGetOutOfJailFreeCards(player.getNumGetOutOfJailFreeCards() - 1);
 		} 
 		else { player.deduct(50); }
+		update("turn");
+	}
+
+	public void update(String arg) {
 		setChanged();
-		notifyObservers("turn");
+		notifyObservers(arg);
 		clearChanged();
 	}
 
@@ -188,15 +165,7 @@ public class Turn extends Observable {
 		numDoubles = 0;
 		resetDiceValues();
 		//enable roll dice button for next player
-		if(player.isJailed()) {
-			setChanged();
-			notifyObservers("roll jailbuyout");
-			clearChanged();
-		}
-		else {
-			setChanged();
-			notifyObservers("roll");
-			clearChanged();
-		}
+		if(player.isJailed()) { update("roll jailbuyout"); }
+		else { update("roll"); }
 	}
 }
