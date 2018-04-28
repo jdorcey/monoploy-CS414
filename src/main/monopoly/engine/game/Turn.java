@@ -107,7 +107,7 @@ public class Turn extends Observable {
 			}
 			//call update to end turn for jailed player
 			setChanged();
-			notifyObservers("jailbuyout turn");
+			notifyObservers("turn");
 			clearChanged();
 			return diceValues;
 		}			
@@ -148,7 +148,10 @@ public class Turn extends Observable {
 	
 	public void jailBuyOut(Player player) {
 		player.setJailed(false);
-		player.deduct(50);
+		if(player.getNumGetOutOfJailFreeCards() > 0) { 
+			player.setNumGetOutOfJailFreeCards(--player.getNumGetOutOfJailFreeCards());
+		} 
+		else { player.deduct(50); }
 		setChanged();
 		notifyObservers("turn");
 		clearChanged();

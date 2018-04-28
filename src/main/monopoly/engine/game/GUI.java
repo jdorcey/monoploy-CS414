@@ -863,7 +863,7 @@ public class GUI implements Observer {
 		playerTurn = game.getTurn();
 		setPlayerBorder();
 		timer.setVisible(true);
-		timer.setText("Time Remaining: " + (int) game.timeLeft() / 1000 + " seconds");
+		timer.setText("Time Remaining: " + (int)(((int) game.timeLeft() / 1000) / 60) + " minutes, " + (int)(((int) game.timeLeft() / 1000) % 60) + " seconds");
 		dialogBox.setVisible(true);
 		propertiesBox.setVisible(true);
 		propertiesLabel.setVisible(true);
