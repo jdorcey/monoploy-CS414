@@ -130,8 +130,9 @@ public class Deed extends Square{
 	public void sellHouseOrHotel() {
 		if(hasHotel) {
 			hasHotel = false;
-			owner.deposit((color.getHouseCost() / 2) * 5);
-			System.out.printf("%s sold the hotel on %s for %d\n", owner, getName(), (color.getHouseCost() / 2) * 5);
+			owner.deposit((color.getHouseCost() / 2));
+			numHouses = 4;
+			System.out.printf("%s sold the hotel on %s for %d\n", owner, getName(), (color.getHouseCost() / 2));
 		}
 		else {
 			numHouses--;

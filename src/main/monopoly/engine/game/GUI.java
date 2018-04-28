@@ -786,6 +786,8 @@ public class GUI implements Observer {
 		frame.getContentPane().add(numBdwHouses);
 		frame.getContentPane().add(numBdwHotels);
 		frame.getContentPane().add(frameBorder);	
+		for (GuiHelper h: tiles)
+			h.updateIndex(tiles);
 	}
 	
 	/**
@@ -945,6 +947,36 @@ public class GUI implements Observer {
 				gameDialog.append(gameDialogText);
 				System.out.printf("%s bailed themselves out of jail.\n", playerTurn.getToken());
 				playerTurn.jailBuyOut(playerTurn.getPlayer());
+			}
+		});
+		
+		mortgageButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				GuiStateTracker t = GuiStateTracker.getInstance();
+				ArrayList<Integer> indexes = t.getSelected();
+				for (Integer i : indexes) {
+					game.mortgageProperty(i);
+				}
+			}
+		});
+		
+		buyHHButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				GuiStateTracker t = GuiStateTracker.getInstance();
+				ArrayList<Integer> indexes = t.getSelected();
+				for (Integer i : indexes) {
+					game.buyHH(i);
+				}
+			}
+		});
+		
+		sellHHButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				GuiStateTracker t = GuiStateTracker.getInstance();
+				ArrayList<Integer> indexes = t.getSelected();
+				for (Integer i : indexes) {
+					game.sellHH(i);
+				}
 			}
 		});
 	}
@@ -1133,6 +1165,16 @@ public class GUI implements Observer {
 		else { rollDiceButton.setEnabled(false); }
 		if(argument.contains("jailbuyout")) { jailBuyOutButton.setEnabled(true); }
 		else { jailBuyOutButton.setEnabled(false); }
+		
+		if (GuiStateTracker.getInstance().anySelected()) {
+			mortgageButton.setEnabled(true);
+			sellHHButton.setEnabled(true);
+			buyHHButton.setEnabled(true);
+		}else {
+			mortgageButton.setEnabled(false);
+			sellHHButton.setEnabled(false);
+			buyHHButton.setEnabled(false);
+		}
 		
 		//System.out.printf("canRoll = %b\n", playerTurn.canRoll());
 		//System.out.printf("isTurnOver = %b\n", playerTurn.isTurnOver());

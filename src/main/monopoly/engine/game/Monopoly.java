@@ -11,6 +11,7 @@ import javax.swing.JTextArea;
 import monopoly.engine.player.Player;
 import monopoly.engine.square.Cards;
 import monopoly.engine.square.Deed;
+import monopoly.engine.square.Square;
 
 public class Monopoly implements Observer { 
 
@@ -161,6 +162,40 @@ public class Monopoly implements Observer {
 	public void printToDialog(String out) {
 		gameDialog.append("- " + out);
 	}
+	
+	public void mortgageProperty(int index) {
+		Square s = board.getDeed(index);
+		if (s instanceof Deed) {
+			Deed d = (Deed) s;
+			if (d.getOwner() == turn.getPlayer()) {
+				if (d.isMortgaged())
+					d.unmortgage();
+				else
+					d.mortgage();
+			}
+		}
+	}
+	
+	public void buyHH(int index) {
+		Square s = board.getDeed(index);
+		if (s instanceof Deed) {
+			Deed d = (Deed) s;
+			if (d.getOwner() == turn.getPlayer()) {
+				d.buyHouseOrHotel();
+			}
+		}
+	}
+	
+	public void sellHH(int index) {
+		Square s = board.getDeed(index);
+		if (s instanceof Deed) {
+			Deed d = (Deed) s;
+			if (d.getOwner() == turn.getPlayer()) {
+				d.sellHouseOrHotel();
+			}
+		}
+	}
+	
 	//@Override
 	public void update(Observable o, Object arg) {
 		switch(o.getClass().getName()) {

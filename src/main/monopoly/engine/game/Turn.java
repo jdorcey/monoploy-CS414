@@ -79,10 +79,8 @@ public class Turn extends Observable {
 	}
 
 	private void movePlayer() {
-		player.setCurrentIndex(player.getCurrentIndex() + getDiceSum());
-		System.out.printf("Moving %s to %s\n", player.getToken(), board.getSquares()[player.getCurrentIndex() % 40].getName());
-		//perform the square's appropriate action
-		board.getSquares()[player.getCurrentIndex()].performAction(player);
+		movePlayer(getDiceSum(), true);
+
 	} 
 
 	public void movePlayer(int distance, boolean toggle) { //toggle true if move with// toggle false if move to
