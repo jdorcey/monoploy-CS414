@@ -163,6 +163,24 @@ public class Monopoly implements Observer {
 		gameDialog.append("- " + out);
 	}
 	
+	public int getHouses(int index) {
+		Square s = board.getDeed(index);
+		if (s instanceof Deed) {
+			Deed d = (Deed) s;
+			return d.getNumHouses();
+		}
+		return 0;
+	}
+	
+	public int getHotels(int index) {
+		Square s = board.getDeed(index);
+		if (s instanceof Deed) {
+			Deed d = (Deed) s;
+			return d.getHotels();
+		}
+		return 0;
+	}
+	
 	public void mortgageProperty(int index) {
 		Square s = board.getDeed(index);
 		if (s instanceof Deed) {

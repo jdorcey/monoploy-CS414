@@ -13,12 +13,15 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-
-import monopoly.engine.player.Player;
 
 public class GuiHelper {
 	private JLayeredPane pane;
+	private JLayeredPane housesPane = null;
+	private JLabel numHouses = null;
+	private JLayeredPane hotelsPane = null;
+	private JLabel numHotels = null;
 	private JButton square;
 	private int index; 
 	
@@ -68,5 +71,37 @@ public class GuiHelper {
 
 	public void setIcon(ImageIcon imageIcon) {
 		square.setIcon(imageIcon);
+	}
+	
+	public void setHotel(int x, int y, int height, int width) {
+		hotelsPane = new JLayeredPane();
+		numHotels = new JLabel();
+		GUI.frame.add(hotelsPane);
+		GUI.frame.add(numHotels);
+		hotelsPane.setBounds(x, y, height, width);
+		hotelsPane.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+		numHotels.setText("" + Monopoly.getInstance().getHotels(index));
+		numHotels.setFont(new Font("Arial", Font.BOLD, 12));
+		numHotels.setBounds( x + 7, y + 4, height - 10, width - 10);
+	}
+	
+	public void setHouses(int x, int y, int height, int width) {
+		housesPane = new JLayeredPane();
+		numHouses = new JLabel();
+		GUI.frame.add(housesPane);
+		GUI.frame.add(numHouses);
+		housesPane.setBounds(x, y, height, width);
+		housesPane.setBorder(BorderFactory.createLineBorder(Color.green, 2));
+		numHouses.setText("" + Monopoly.getInstance().getHouses(index));
+		numHouses.setFont(new Font("Arial", Font.BOLD, 12));
+		numHouses.setBounds( x + 7, y + 4, height - 10, width - 10);
+	}
+	
+	public void updateCounts() {
+		if (hotelsPane == null) {
+			return;
+		}
+		numHouses.setText("" + Monopoly.getInstance().getHouses(index));
+		numHotels.setText("" + Monopoly.getInstance().getHotels(index));
 	}
 }
