@@ -29,6 +29,7 @@ public class Monopoly implements Observer {
 	//system test variables
 	private boolean doubles;
 	private boolean monopolies;
+	private boolean broke;
 
 	private Monopoly() { 
 		INSTANCE = this;
@@ -38,6 +39,7 @@ public class Monopoly implements Observer {
 		gameLength = 300; //one minute
 		doubles = false;
 		monopolies = false;
+		broke = false;
 		try {
 			chance = new Cards(Cards.Type.CHANCE);
 			commChest = new Cards(Cards.Type.COMM_CHEST);
@@ -108,6 +110,11 @@ public class Monopoly implements Observer {
 				for(Deed deed : board.green.getDeeds()) { this.players.get(3).addDeed(deed); }
 			}
 		}
+		if(broke) {
+			for(Player player : this.players) {
+				player.setMoney(0);
+			}
+		}
 	}   
 
 	public Player getCurrentPlayer() { 
@@ -128,6 +135,10 @@ public class Monopoly implements Observer {
 	
 	public void setMonopolies(boolean monopolies) {
 		this.monopolies = monopolies;
+	}
+	
+	public void setBroke(boolean broke) {
+		this.broke = broke;
 	}
 	
 	public double timeLeft() {

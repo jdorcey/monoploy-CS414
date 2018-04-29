@@ -14,6 +14,7 @@ public class Player {
 	private TokenName token; 
 	private boolean isJailed;
 	private boolean buyState;
+	private boolean sellState;
 	private boolean onNonDeed;
 	private int currentIndex;
 	private ArrayList<Color> monopolies;
@@ -23,6 +24,7 @@ public class Player {
 		token = name;
 		isJailed = false;
 		buyState = false;
+		sellState = false;
 		onNonDeed = false;
 		currentIndex = 0;
 		monopolies = new ArrayList<Color>();
@@ -53,6 +55,10 @@ public class Player {
 	public boolean inBuyState() {
 		return buyState;
 	}
+	
+	public boolean inSellState() {
+		return sellState;
+	}
 
 	public boolean isOnNonDeed() {
 		return onNonDeed;
@@ -66,6 +72,10 @@ public class Player {
 		this.buyState = buyState;
 	}
 	
+	public void setSellState(boolean sellState) {
+		this.sellState = sellState;
+	}
+	
 	public int getCurrentIndex() {
 		return this.currentIndex;
 	}
@@ -76,6 +86,10 @@ public class Player {
 	
 	public int getMoney() {
 		return assets.getMoney();
+	}
+	
+	public void setMoney(int money) {
+		assets.setMoney(money);
 	}
 	
 	public ArrayList<Color> getMonopolies() {
@@ -112,15 +126,17 @@ public class Player {
 		}
 	}
 	
-	public void transfer(Player other, int amount) {
-		other.deduct(amount);
-		deposit(amount);
-		System.out.printf("%s paid %s $%d\n", other.getToken(), this.getToken(), amount);
-		Monopoly.getInstance().printToDialog(String.format("%s paid %s $%d\n", other.getToken(), this.getToken(), amount));
+	public boolean transfer(Player other, int amount) {
+		if (other.deduct(amount)) {			
+			deposit(amount);
+			Monopoly.getInstance().printToDialog(String.format("%s paid %s $%d\n", other.getToken(), this.getToken(), amount));
+			return true;
+		}
+		return false;
 	}
 	
-	public void deduct(int amount) {
-		assets.deduct(amount);
+	public boolean deduct(int amount) {
+		return assets.deduct(amount);
 	}
 	
 	public void deposit(int amount) {

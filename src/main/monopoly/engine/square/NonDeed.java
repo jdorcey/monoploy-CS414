@@ -35,7 +35,9 @@ public class NonDeed extends Square {
 		case GO: 					Banker.go(player);			break;
         case JUST_VISITING_JAIL:    							break; //do nothing
 		case GO_TO_JAIL: 	  		player.setJailed(true);
-									player.setCurrentIndex(10); break;
+									player.setCurrentIndex(10); 
+									Monopoly.getInstance().printToDialog(String.format("Moving %s to Jail.\n", player.getToken()));
+									break;
         case FREE_PARKING: 										break; //do nothing
 		case COMMUNITY_CHEST:
 			Monopoly.getInstance().commChest(player);

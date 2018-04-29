@@ -50,7 +50,7 @@ public class Turn extends Observable {
 		return player.isJailed(); 
 	}
 
-	private boolean isDoubles() {
+	public boolean isDoubles() {
 		return diceValues[0] == diceValues[1];
 	}
 
@@ -64,31 +64,32 @@ public class Turn extends Observable {
 		diceValues[0] = r.nextInt(6) + 1; 
 		if(Monopoly.getInstance().getDoubles()) { diceValues[1] = diceValues[0]; }
 		else { diceValues[1] = r.nextInt(6) + 1; }
-		if(monopoly.timeLeft() > 0) { System.out.printf("%s rolled %d and %d\n", player.getToken(), diceValues[0], diceValues[1]); }
+		if(monopoly.timeLeft() > 0) { monopoly.printToDialog(String.format("%s rolled %d\n", player.getToken(), getDiceSum())); }
 	}
 
 	private void movePlayer() {
 		movePlayer(getDiceSum(), true);
-
 	} 
 
 	public void movePlayer(int distance, boolean toggle) { //toggle true if move with// toggle false if move to
-		if(toggle)
-			player.setCurrentIndex(player.getCurrentIndex() + distance);
-		else
-			player.setCurrentIndex(distance);
-		System.out.printf("Moving %s to %s\n", player.getToken(), board.getSquares()[player.getCurrentIndex() % 40].getName());
+		if(toggle) { player.setCurrentIndex(player.getCurrentIndex() + distance); }
+		else { player.setCurrentIndex(distance); }
+		if(player.isJailed()) { monopoly.printToDialog(String.format("Moving %s to Jail.\n", player.getToken())); }
+		else { monopoly.printToDialog(String.format("Moving %s to %s\n", player.getToken(), board.getSquares()[player.getCurrentIndex() % 40].getName())); }
 		//perform the square's appropriate action
 		board.getSquares()[player.getCurrentIndex()].performAction(player);
 	} 
 
 	public int[] takeTurn() {
-		update("");
+		if(monopoly.timeLeft() <= 0) { 
+			update(""); 
+			return diceValues; 
+		}
 		rollDice();
 		//check if this roll is doubles and increment count of doubles
 		if(isDoubles()) {
 			numDoubles++; 
-			if(monopoly.timeLeft() > 0) { System.out.printf("%s rolled doubles\n", player.getToken()); }
+			if(monopoly.timeLeft() > 0) { monopoly.printToDialog(String.format("%s rolled doubles\n", player.getToken())); }
 		}
 		//call update to disable roll dice button
 		
@@ -97,7 +98,7 @@ public class Turn extends Observable {
 		//check if player is jailed
 		if(player.isJailed()) {
 			if(isDoubles()) { 
-				if (monopoly.timeLeft() > 0) { System.out.printf("%s is no longer jailed\n", player.getToken()); }
+				if (monopoly.timeLeft() > 0) { monopoly.printToDialog(String.format("%s is no longer jailed\n", player.getToken())); }
 				player.setJailed(false); 
 			}
 			update("turn");
@@ -105,7 +106,7 @@ public class Turn extends Observable {
 		}			
 		//check if this roll was 3rd double (can't move anywhere but jail)
 		if(numDoubles == 3) {
-			if(monopoly.timeLeft() > 0) { System.out.printf("%s is now jailed\n", player.getToken()); }
+			if(monopoly.timeLeft() > 0) { monopoly.printToDialog(String.format("Moving %s to Jail.\n", player.getToken())); }
 			player.setJailed(true);
 			player.setCurrentIndex(10);
 			update("turn");
@@ -114,8 +115,9 @@ public class Turn extends Observable {
 		//move the number of spaces the dice roll allows
 		movePlayer();
 		//call update to potentially enable buy/auction buttons
-		update("");
+		//update("");
 		//check if roll dice button needs to be re-enabled
+		if(player.inSellState()) { update(""); }
 		if(player.isOnNonDeed()) {
 			if(isDoubles()) { 
 				//call update to enable the roll button

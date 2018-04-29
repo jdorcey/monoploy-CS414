@@ -24,8 +24,6 @@ public class Cards {
 		Scanner scan;
 		if (type == Type.CHANCE) {
 			File chancefile = new File("chance.txt");
-			System.out.println(chancefile.exists());
-			System.out.println(chancefile.canRead());
 			scan = new Scanner(chancefile);
 		}else {
 			scan = new Scanner(new File("commchest.txt"));
@@ -50,7 +48,6 @@ public class Cards {
 	}
 	
 	private void parseLine(String line) {
-		System.out.println(line);
 		int moveTo = -1;
 		int moveWith = 0;
 		boolean getJail = false;
@@ -95,12 +92,12 @@ public class Cards {
 		}
 		public void performAction(Player player) {
 			Turn turn = Monopoly.getInstance().getTurn();
-			String out = player.getToken() + " drew a card! \n" + "Card Text: " + text + "\n";
-			System.out.print(out);
+			String out = player.getToken() + " drew a card! \n" + "- Card Text: " + text + "\n";
 			Monopoly.getInstance().printToDialog(out);
 			if (money != 0) {
 				player.deposit(money);
 			}else if(moveWith != 0) {
+				if(moveWith == 10) { player.setJailed(true); }
 				turn.movePlayer(moveWith, true);
 			}else if(moveTo != -1) {
 				turn.movePlayer(moveTo, false);

@@ -14,7 +14,7 @@ public class Banker {
 			return;
 		}
 		Deed deed = (Deed) tile;
-		System.out.printf("player %s bought %s for $%d\n", player.getToken(), deed.getName(), deed.getPurchasePrice());
+		//System.out.printf("player %s bought %s for $%d\n", player.getToken(), deed.getName(), deed.getPurchasePrice());
 		player.addDeed(deed);
 		player.deduct(deed.getPurchasePrice());
 	}
@@ -38,12 +38,12 @@ public class Banker {
 	}
 	
 	public static void go(Player player) {
-		System.out.printf("%s received $200 for passing Go\n", player.getToken());
+		Monopoly.getInstance().printToDialog(String.format("%s received $200 for passing Go\n", player.getToken()));
 		player.deposit(200);
 	}
 	
 	public static void luxuryTax(Player player) {
-		System.out.printf("%s paid $100 in luxury tax\n", player.getToken());
+		Monopoly.getInstance().printToDialog(String.format("%s paid $100 in luxury tax.\n", player.getToken()));
 		player.deduct(100);
 	}
 	
@@ -51,10 +51,10 @@ public class Banker {
 		// deduct $200 or 10% from the player account
 		int money = player.getMoney();
 		if (money/10 < 200) {
-			System.out.printf("%s paid $%d in income tax\n", player.getToken(), money/10);
+			Monopoly.getInstance().printToDialog(String.format("%s paid $%d in income tax\n", player.getToken(), money/10));
 			player.deduct(money/10);
 		}else {
-			System.out.printf("%s paid $%d in income tax\n", player.getToken(), 200);
+			Monopoly.getInstance().printToDialog(String.format("%s paid $%d in income tax\n", player.getToken(), 200));
 			player.deduct(200);
 		}
 	}

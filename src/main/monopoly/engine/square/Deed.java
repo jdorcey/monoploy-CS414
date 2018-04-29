@@ -95,10 +95,19 @@ public class Deed extends Square{
 	
 	@Override
 	public void performAction(Player player) {
-		if (owner == null) { player.setBuyState(true); }
+		if (owner == null) { 
+			player.setBuyState(true); 
+			Monopoly.getInstance().getTurn().update("");
+		}
 		else {
-			if(!owner.equals(player)) { owner.transfer(player, calculateRent()); }
-			player.setOnNonDeed(true);
+			if(!owner.equals(player)) { 
+				if(!owner.transfer(player, calculateRent())) { 
+					player.setSellState(true);
+					player.getAssets().setOwes(calculateRent());
+					player.getAssets().setOwedTo(owner);
+				}
+			}
+			else { player.setOnNonDeed(true); }
 		}
 	}
 	
@@ -118,12 +127,12 @@ public class Deed extends Square{
 			numHouses = 0;
 			hasHotel = true;
 			owner.deduct(color.getHouseCost());
-			System.out.printf("%s bought a hotel on %s for %d and 4 houses\n", owner, getName(), color.getHouseCost());
+			Monopoly.getInstance().printToDialog(String.format("%s bought a hotel on %s for %d and 4 houses\n", owner, getName(), color.getHouseCost()));
 		}
 		else {
 			numHouses++;
 			owner.deduct(color.getHouseCost());
-			System.out.printf("%s bought a house on %s for %d\n", owner, getName(), color.getHouseCost());
+			Monopoly.getInstance().printToDialog(String.format("%s bought a house on %s for %d\n", owner, getName(), color.getHouseCost()));
 		}
 	}
 	
@@ -132,25 +141,23 @@ public class Deed extends Square{
 			hasHotel = false;
 			owner.deposit((color.getHouseCost() / 2));
 			numHouses = 4;
-			System.out.printf("%s sold the hotel on %s for %d\n", owner, getName(), (color.getHouseCost() / 2));
+			Monopoly.getInstance().printToDialog(String.format("%s sold the hotel on %s for %d\n", owner, getName(), (color.getHouseCost() / 2)));
 		}
 		else {
 			numHouses--;
 			owner.deposit(color.getHouseCost() / 2);
-			System.out.printf("%s sold a house on %s for %d\n", owner, getName(), color.getHouseCost() / 2);
+			Monopoly.getInstance().printToDialog(String.format("%s sold a house on %s for %d\n", owner, getName(), color.getHouseCost() / 2));
 		}
 	}
 	
 	public void mortgage() {
 		mortgaged = true;
 		owner.deposit(mortgageValue);
-		System.out.printf("%s mortgaged %s for %d\n", owner, getName(), mortgageValue);
 	}
 	
 	public void unmortgage() {
 		mortgaged = false;
 		owner.deduct(mortgageValue + (mortgageValue / 10));
-		System.out.printf("%s unmortgaged %s for %d\n", owner, getName(), mortgageValue + (mortgageValue / 10));
 	}
 	
 	public int getNumHouses() {

@@ -83,7 +83,7 @@ public class GUI implements Observer {
 
 	private JTextArea gameDialog = new JTextArea();
 	private JScrollPane dialogBox = new JScrollPane(gameDialog);
-	private String gameDialogText;
+	private String gameDialogText = "";
 
 	private JTextArea player1Bid = new JTextArea();
 	private JScrollPane player1BidBox = new JScrollPane(player1Bid);
@@ -563,8 +563,8 @@ public class GUI implements Observer {
 
 		startGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				gameDialogText = "- Game Started!\n";
-				gameDialog.append(gameDialogText);
+				//gameDialogText = "- Game Started!\n";
+				//gameDialog.append(gameDialogText);
 				addPlayer3Button.setVisible(false);
 				addPlayer4Button.setVisible(false);
 				startGame();
@@ -730,13 +730,13 @@ public class GUI implements Observer {
 				rollVal = playerTurn.takeTurn();
 				//update roll to dialog box
 				if(game.timeLeft() > 0) { 
-					gameDialogText = "- " + playerTurn.getToken() + " rolled " + (rollVal[0] + rollVal[1]) + ".\n"; 
-					gameDialog.append(gameDialogText); 
+					//gameDialogText = "- " + playerTurn.getToken() + " rolled " + (rollVal[0] + rollVal[1]) + ".\n"; 
+					//gameDialog.append(gameDialogText); 
 				}
 				if(rollVal[0] == rollVal[1]) {
 					if(game.timeLeft() > 0) { 
-						gameDialogText = "- " + playerTurn.getToken() + " rolled doubles!\n"; 
-						gameDialog.append(gameDialogText);	
+						//gameDialogText = "- " + playerTurn.getToken() + " rolled doubles!\n"; 
+						//gameDialog.append(gameDialogText);	
 					}
 				}
 				//set dice label to value rolled
@@ -744,9 +744,9 @@ public class GUI implements Observer {
 				updateDice(dice2, 1);
 				//move player token after roll and update dialog box
 				movePlayerOnBoard(playerTurn.getToken(), game.getCurrentPlayer().getCurrentIndex());
-				if(playerTurn.getPlayer().isJailed()) { gameDialogText = "- " + playerTurn.getToken() + " moved to Jail.\n"; }
-				else { gameDialogText = "- " + playerTurn.getToken() + " moved to " + game.getBoard().getSquares()[playerTurn.getCurrentIndex()].getName() + ".\n"; }
-				if(game.timeLeft() > 0) { gameDialog.append(gameDialogText); }
+				//if(playerTurn.getPlayer().isJailed()) { gameDialogText = "- " + playerTurn.getToken() + " moved to Jail.\n"; }
+				//else { gameDialogText = "- " + playerTurn.getToken() + " moved to " + game.getBoard().getSquares()[playerTurn.getCurrentIndex()].getName() + ".\n"; }
+				//if(game.timeLeft() > 0) { gameDialog.append(gameDialogText); }
 			}
 		});
 
@@ -754,13 +754,11 @@ public class GUI implements Observer {
 		finishTurnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//update dialog box that player finished their turn
-				gameDialogText = "- " + playerTurn.getToken() + " finished turn. \n";
-				gameDialog.append(gameDialogText);
-				System.out.println("Finish Turn!\n");
+				gameDialog.append("- " + playerTurn.getToken() + " finished turn. \n");
+				//System.out.println("Finish Turn!\n");
 				playerTurn.endTurn();
 				//update dialog box with next players turn
-				gameDialogText = "- " + playerTurn.getToken() + "'s turn. \n";
-				gameDialog.append(gameDialogText);
+				gameDialog.append("- " + playerTurn.getToken() + "'s turn.\n");
 				setPlayerBorder();
 				playersOwnedPropertiesBox();
 			}
@@ -769,8 +767,9 @@ public class GUI implements Observer {
 		//Yeah we need to talk about this one
 		auctionButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				gameDialog.append(String.format("- An auction has begun for %s\n", game.getBoard().getSquares()[playerTurn.getCurrentIndex()].getName()));
 				ArrayList<Integer> bids = new ArrayList<>();
-				System.out.println("Auction!");
+				//System.out.println("Auction!");
 				player1Bid.setEditable(true);
 				player2Bid.setEditable(true);
 				player3Bid.setEditable(true);
@@ -879,9 +878,8 @@ public class GUI implements Observer {
 		buyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//update dialog box with property player bought
-				gameDialogText = "- " + playerTurn.getToken() + " bought " + game.getBoard().getDeed(playerTurn.getCurrentIndex()).getName() + ".\n";
-				gameDialog.append(gameDialogText);
-				System.out.println("Buy Property!");
+				Deed deed = (Deed) game.getBoard().getDeed(playerTurn.getCurrentIndex()); 
+				gameDialog.append(String.format("- %s bought %s for $%d\n", playerTurn.getToken(), deed.getName(), deed.getPurchasePrice()));
 				Banker.buyProperty(playerTurn.getPlayer(), game.getBoard().getDeed(playerTurn.getCurrentIndex()));
 				playerTurn.doneBuying();
 				playersOwnedPropertiesBox();
@@ -891,9 +889,8 @@ public class GUI implements Observer {
 		jailBuyOutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//update dialog box with property player bought
-				gameDialogText = "- " + playerTurn.getToken() + " bailed themselves out of jail.\n";
-				gameDialog.append(gameDialogText);
-				System.out.printf("%s bailed themselves out of jail.\n", playerTurn.getToken());
+				gameDialog.append("- " + playerTurn.getToken() + " bailed themselves out of jail.\n");
+				//System.out.printf("%s bailed themselves out of jail.\n", playerTurn.getToken());
 				playerTurn.jailBuyOut(playerTurn.getPlayer());
 			}
 		});
@@ -904,7 +901,22 @@ public class GUI implements Observer {
 				ArrayList<Integer> indexes = t.getSelected();
 				for (Integer i : indexes) {
 					game.mortgageProperty(i);
+					Deed deed = (Deed) game.getBoard().getDeed(i);
+					gameDialog.append(String.format("- %s mortgaged %s for $%d\n", playerTurn.getPlayer().getToken(), deed.getName(), deed.getMortgageValue()));
 				}
+				if(playerTurn.getPlayer().getAssets().getOwes() > 0) {
+					playerTurn.getPlayer().getAssets().getOwedTo().transfer(playerTurn.getPlayer(), playerTurn.getPlayer().getAssets().getOwes());
+				}
+				t.reset();
+				mortgageButton.setEnabled(false);
+				buyHHButton.setEnabled(false);
+				sellHHButton.setEnabled(false);
+				if(playerTurn.isDoubles()) { rollDiceButton.setEnabled(true); }
+				else { 
+					finishTurnButton.setVisible(true);
+					finishTurnButton.setEnabled(true);
+				}
+				playerTurn.getPlayer().setBuyState(false);
 			}
 		});
 		
@@ -983,7 +995,7 @@ public class GUI implements Observer {
 			break;	
 		case 10:
 			if(playerTurn.isJailed()) {
-				if(game.timeLeft() > 0) { System.out.printf("Moving %s to Jail\n", playerTurn.getPlayer().getToken()); }
+				//if(game.timeLeft() > 0) { System.out.printf("Moving %s to Jail\n", playerTurn.getPlayer().getToken()); }
 				playerToken.setBounds( (int) Math.floor(2250 * (1280.0/3840)), (int) Math.floor( 1435 * (720.0/2160)), 50, 50);	
 			}else {
 				playerToken.setBounds( (int) Math.floor(2120 * (1280.0/3840)), (int) Math.floor( 1565 * (720.0/2160)), 50, 50);
@@ -1088,17 +1100,14 @@ public class GUI implements Observer {
 		//update time
 		timer.setText("Time Remaining: " + (int)(((int) game.timeLeft() / 1000) / 60) + " minutes, " + (int)(((int) game.timeLeft() / 1000) % 60) + " seconds");
 		if(game.timeLeft() <= 0 && !gameDialogText.contains(String.format("- Game Over! Winner is %s\n", game.winner().getToken()))) {
-			//System.out.println("GAME OVER");
-			finishTurnButton.setEnabled(false);
-			rollDiceButton.setEnabled(false);
-			jailBuyOutButton.setEnabled(false);
-			buyButton.setEnabled(false);
-			auctionButton.setEnabled(false);
-			gameDialogText = String.format("- Game Over! Winner is %s\n", game.winner().getToken());
-			gameDialog.append(gameDialogText);
+			endGame();
 			return;
 		} 
 		updateMoney(playerTurn.getToken());
+		if(playerTurn.inBuyState()) {
+			Deed deed = (Deed) game.getBoard().getDeed(playerTurn.getCurrentIndex());
+			gameDialog.append(String.format("- %s may buy %s for $%d or start an auction.\n", playerTurn.getToken(), deed.getName(), deed.getPurchasePrice()));
+		}
 		auctionButton.setEnabled(playerTurn.inBuyState());
 		buyButton.setEnabled(playerTurn.inBuyState());
 		String argument = (String) arg;
@@ -1128,6 +1137,25 @@ public class GUI implements Observer {
 		//System.out.printf("inBuyState = %b\n", playerTurn.inBuyState());
 	}
 
+	private void endGame() {
+		finishTurnButton.setVisible(false);
+		rollDiceButton.setVisible(false);
+		jailBuyOutButton.setVisible(false);
+		buyButton.setVisible(false);
+		auctionButton.setVisible(false);
+		sellHHButton.setVisible(false);
+		buyHHButton.setVisible(false);
+		mortgageButton.setVisible(false);
+		tradeButton.setVisible(false);
+		propertiesBox.setVisible(false);
+		propertiesLabel.setVisible(false);
+		playerPropsLabel.setVisible(false);
+		dice1.setVisible(false);
+		dice2.setVisible(false);
+		gameDialogText = String.format("- Game Over! Winner is %s\n", game.winner().getToken());
+		gameDialog.append(gameDialogText);
+	}
+	
 	/**
 	 * moves the players token on the board
 	 */
@@ -1153,10 +1181,10 @@ public class GUI implements Observer {
 		if(arguments.size() > 0) {
 			for(String s : arguments) {
 				if (p.matcher(s).matches()) { 
-					System.out.println(s);
 					window.game.setGameLength(Long.parseLong(s)); }
 				if (s.equals("doubles")) { window.game.setDoubles(true); }
 				if (s.equals("monopolies")) { window.game.setMonopolies(true); }
+				if (s.equals("broke")) { window.game.setBroke(true); }
 			}
 		}
 	}

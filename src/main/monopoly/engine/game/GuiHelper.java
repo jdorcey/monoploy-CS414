@@ -45,6 +45,7 @@ public class GuiHelper {
 				GuiStateTracker t = GuiStateTracker.getInstance();
 				t.toggleIndex(index);
 				toggleBorder(t.stateAtIndex(index));
+				Monopoly.getInstance().getTurn().update("");
 			}
 		});
 	}

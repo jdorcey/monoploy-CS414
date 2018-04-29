@@ -12,6 +12,8 @@ public class Assets extends Observable {
 	private int numGetOutOfJailFreeCards;
 	private LinkedList<Deed> deeds;
 	private Player owner;
+	private int owes = 0;
+	private Player owedTo = null;
 
 	public Assets(Player owner) {
 		numGetOutOfJailFreeCards = 0;
@@ -32,6 +34,26 @@ public class Assets extends Observable {
 		return money;
 	}
 	
+	public void setMoney(int money) {
+		this.money = money;
+	}
+	
+	public Player getOwedTo() {
+		return owedTo;
+	}
+	
+	public int getOwes() {
+		return owes;
+	}
+	
+	public void setOwes(int owes) {
+		this.owes = owes;
+	}
+	
+	public void setOwedTo(Player owedTo) {
+		this.owedTo = owedTo;
+	}
+	
 	public LinkedList<Deed> getDeeds() {
 		return deeds;
 	}
@@ -43,13 +65,13 @@ public class Assets extends Observable {
 	public void addDeed(Deed deed) {
 		deeds.add(deed);
 		deed.setOwner(owner);
-		System.out.printf("%s now owns %s\n", owner.getToken(), deed.getName());
+		//System.out.printf("%s now owns %s\n", owner.getToken(), deed.getName());
 	}
 
 	public void removeDeed(Deed deed) {
 		deeds.remove(deed);
 		deed.setOwner(null);
-		System.out.printf("%s no longer owns %s\n", owner.getToken(), deed.getName());
+		//System.out.printf("%s no longer owns %s\n", owner.getToken(), deed.getName());
 	}
 	
 	public int getNetWorth() {
@@ -60,10 +82,10 @@ public class Assets extends Observable {
 		return money + mortgageValues;
 	}
 
-	public void deduct(int amount) {
+	public boolean deduct(int amount) {
 		if (money - amount < 0) {
 			//bankrupt?
-			Monopoly.getInstance().printToDialog(String.format("- %s does not have enough money and must mortgage property.", owner.getToken()));
+			Monopoly.getInstance().printToDialog(String.format("%s does not have enough money & must sell assets.\n- Select one or more of %s's properties.\n", owner.getToken(), owner.getToken()));
 			boolean bankrupt = true;
 			for (Deed current: deeds)
 				if(!current.isMortgaged())
@@ -73,16 +95,18 @@ public class Assets extends Observable {
 				notifyObservers();
 				clearChanged();
 			}
+			return false;
 			//GUI feedback
 		}
 		else { 
 			money -= amount;
-			System.out.printf("%s's new balance is $%d\n", owner.getToken(), money);
+			return true;
+			//System.out.printf("%s's new balance is $%d\n", owner.getToken(), money);
 		}
 	}
 
 	public void deposit(int amount) {
 		money += amount;
-		System.out.printf("%s's new balance is $%d\n", owner.getToken(), money);
+		//System.out.printf("%s's new balance is $%d\n", owner.getToken(), money);
 	}
 }
