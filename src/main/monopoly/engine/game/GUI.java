@@ -861,10 +861,23 @@ public class GUI implements Observer {
 						player2BidButton.setVisible(true);
 						player2BidButton.setEnabled(true);
 					}
-					else {
+					else if(game.getPlayers().size() > 2) {
 						player3BidBox.setVisible(true); 
 						player3BidButton.setVisible(true);
 						player3BidButton.setEnabled(true);
+					}
+					else {
+						player1BidBox.setVisible(false);
+						player2BidBox.setVisible(false);
+						player3BidBox.setVisible(false);
+						player4BidBox.setVisible(false);
+						player1BidButton.setVisible(false);
+						player2BidButton.setVisible(false);
+						player3BidButton.setVisible(false);
+						player4BidButton.setVisible(false);
+						Banker.auctionProperty(game.getBoard().getDeed(index), bids, trade);
+						playersOwnedPropertiesBox();
+						updateMoney();
 					}
 				}
 				else {
@@ -886,10 +899,23 @@ public class GUI implements Observer {
 							player3BidButton.setVisible(true);
 							player3BidButton.setEnabled(true);	
 						}
-						else {
+						else if(game.getPlayers().size() > 3) {
 							player4BidBox.setVisible(true); 
 							player4BidButton.setVisible(true);
 							player4BidButton.setEnabled(true);		
+						}
+						else {
+							player1BidBox.setVisible(false);
+							player2BidBox.setVisible(false);
+							player3BidBox.setVisible(false);
+							player4BidBox.setVisible(false);
+							player1BidButton.setVisible(false);
+							player2BidButton.setVisible(false);
+							player3BidButton.setVisible(false);
+							player4BidButton.setVisible(false);
+							Banker.auctionProperty(game.getBoard().getDeed(index), bids, trade);
+							playersOwnedPropertiesBox();
+							updateMoney();
 						}
 					}
 					else {

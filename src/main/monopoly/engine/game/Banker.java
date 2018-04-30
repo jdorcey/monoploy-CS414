@@ -26,8 +26,35 @@ public class Banker {
 			int winner = -1;
 			for(Integer i = 0; i < bids.size(); i++) {
 				if(bids.get(i) > max) {
-					winner = i;
 					max = bids.get(i);
+					if(trade) {
+						//owner is 0, add 1 to everything
+						if(Monopoly.getInstance().getPlayers().indexOf(deed.getOwner()) == 0) {
+							if(bids.size() == 1) { winner = 1; }
+							else if(bids.size() == 2) {
+								if(i == 0) { winner = 1; }
+								else if(i == 1) { winner = 2; }
+							}
+							else if(bids.size() == 3) {
+								if(i == 0) { winner = 1; }
+								else if(i == 1) { winner = 2; }
+								else if(i == 2) { winner = 3; }
+							}
+						}
+						//owner is 1, add 1 to index 1 and 2
+						else if(Monopoly.getInstance().getPlayers().indexOf(deed.getOwner()) == 1) {
+							if(i == 1) { winner = 2; }
+							else if(i == 2) { winner = 3; }
+							else { winner = i; }
+						}
+						//owner is 2, add 1 to index 2
+						else if(Monopoly.getInstance().getPlayers().indexOf(deed.getOwner()) == 2) {
+							if(Monopoly.getInstance().getPlayers().size() > 3 && i == 2) { winner = 3; }
+							else { winner = i; }
+						}
+						else { winner = i; }
+					}
+					else { winner = i; }
 				}
 			}
 			if(trade) { GUI.getInstance().printToDialogBox(String.format("%s traded %s to %s for $%d.\n", deed.getOwner().getToken(), deed.getName(), Monopoly.getInstance().getPlayers().get(winner).getToken(), max)); }
