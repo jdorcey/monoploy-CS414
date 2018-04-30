@@ -893,8 +893,9 @@ public class GUI implements Observer {
 					player2BidButton.setVisible(false);
 					player3BidButton.setVisible(false);
 					player4BidButton.setVisible(false);
-					if(players.size() == 2) 
-						Banker.auctionProperty(game.getBoard().getDeed(index), bids, trade);
+					Banker.auctionProperty(game.getBoard().getDeed(index), bids, trade);
+					playersOwnedPropertiesBox();
+					updateMoney();
 					//playerTurn.doneBuying();
 				}
 			}
@@ -920,7 +921,8 @@ public class GUI implements Observer {
 						player3BidButton.setVisible(false);
 						player4BidButton.setVisible(false);
 						Banker.auctionProperty(game.getBoard().getDeed(index), bids, trade);
-						//playerTurn.doneBuying();
+						playersOwnedPropertiesBox();
+						updateMoney();
 					}
 				}
 			});
@@ -940,7 +942,8 @@ public class GUI implements Observer {
 					player3BidButton.setVisible(false);
 					player4BidButton.setVisible(false);
 					Banker.auctionProperty(game.getBoard().getDeed(index), bids, trade);
-					//playerTurn.doneBuying();
+					playersOwnedPropertiesBox();
+					updateMoney();
 				}
 			});
 		}
@@ -1113,13 +1116,16 @@ public class GUI implements Observer {
 			endGame();
 			return;
 		} 
-		updateMoney(playerTurn.getToken());
+		updateMoney();
 		if(playerTurn.inBuyState()) {
 			Deed deed = (Deed) game.getBoard().getDeed(playerTurn.getCurrentIndex());
 			gameDialog.append(String.format("- %s may buy %s for $%d or start an auction.\n", playerTurn.getToken(), deed.getName(), deed.getPurchasePrice()));
 		}
 		auctionButton.setEnabled(playerTurn.inBuyState());
-		buyButton.setEnabled(playerTurn.inBuyState());
+		if(game.getBoard().getSquares()[playerTurn.getCurrentIndex()] instanceof Deed) {
+			Deed deed = (Deed) game.getBoard().getSquares()[playerTurn.getCurrentIndex()];
+			if(playerTurn.getPlayer().getMoney() >= deed.getPurchasePrice()) { buyButton.setEnabled(playerTurn.inBuyState()); }			
+		}
 		String argument = (String) arg;
 		if(argument.contains("turn")) {	
 			finishTurnButton.setVisible(true); 
@@ -1153,9 +1159,6 @@ public class GUI implements Observer {
 		for (GuiHelper h: tiles) {
 			h.updateCounts();
 		}
-		//System.out.printf("canRoll = %b\n", playerTurn.canRoll());
-		//System.out.printf("isTurnOver = %b\n", playerTurn.isTurnOver());
-		//System.out.printf("inBuyState = %b\n", playerTurn.inBuyState());
 	}
 
 	private void endGame() {
@@ -1180,7 +1183,7 @@ public class GUI implements Observer {
 	/**
 	 * moves the players token on the board
 	 */
-	private void updateMoney(String token) {
+	private void updateMoney() {
 		for(int i = 0; i < game.getPlayers().size(); i++) {
 			switch(i) {
 			case 0: player1Money.setText("Money: $" + game.getPlayers().get(0).getMoney()); break;
