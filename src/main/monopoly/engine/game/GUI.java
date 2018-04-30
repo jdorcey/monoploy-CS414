@@ -1155,6 +1155,13 @@ public class GUI implements Observer {
 		for (GuiHelper h: tiles) {
 			h.updateCounts();
 		}
+		ArrayList<Player> players = game.getPlayers(); //get players... guaranteed to have at least 2
+		player1GOFJ.setText("Jail Cards: " + players.get(0).getNumGetOutOfJailFreeCards());
+		player2GOFJ.setText("Jail Cards: " + players.get(1).getNumGetOutOfJailFreeCards());
+		if(players.size() > 2)
+			player3GOFJ.setText("Jail Cards: " + players.get(2).getNumGetOutOfJailFreeCards());
+		if(players.size() > 3)
+			player4GOFJ.setText("Jail Cards: " + players.get(3).getNumGetOutOfJailFreeCards());
 		//System.out.printf("canRoll = %b\n", playerTurn.canRoll());
 		//System.out.printf("isTurnOver = %b\n", playerTurn.isTurnOver());
 		//System.out.printf("inBuyState = %b\n", playerTurn.inBuyState());
