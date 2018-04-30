@@ -19,7 +19,7 @@ public class Banker {
 		player.deduct(deed.getPurchasePrice());
 	}
 	
-	public static void auctionProperty(Square square, ArrayList<Integer> bids) {
+	public static void auctionProperty(Square square, ArrayList<Integer> bids, boolean trade) {
 		if(square instanceof Deed) {
 			Deed deed = (Deed) square;
 			int max = Integer.MIN_VALUE;
@@ -30,7 +30,8 @@ public class Banker {
 					max = bids.get(i);
 				}
 			}
-			GUI.getInstance().printToDialogBox(String.format("%s won the auction of %s with a bid of $%d.\n", Monopoly.getInstance().getPlayers().get(winner).getToken(), deed.getName(), max));
+			if(trade) { GUI.getInstance().printToDialogBox(String.format("%s traded %s to %s for $%d.\n", deed.getOwner().getToken(), deed.getName(), Monopoly.getInstance().getPlayers().get(winner).getToken(), max)); }
+			else { GUI.getInstance().printToDialogBox(String.format("%s won the auction of %s with a bid of $%d.\n", Monopoly.getInstance().getPlayers().get(winner).getToken(), deed.getName(), max)); }
 			if(deed.getOwner() != null) { //this means the auction is a trade
 				deed.getOwner().deposit(max); //pay the player for the deed
 				deed.getOwner().removeDeed(deed); //remove the deed from the owner
