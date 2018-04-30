@@ -3,6 +3,7 @@
 package monopoly.engine.square;
 
 import monopoly.engine.game.Banker;
+import monopoly.engine.game.GUI;
 import monopoly.engine.game.Monopoly;
 import monopoly.engine.player.Player;
 
@@ -36,7 +37,7 @@ public class NonDeed extends Square {
         case JUST_VISITING_JAIL:    							break; //do nothing
 		case GO_TO_JAIL: 	  		player.setJailed(true);
 									player.setCurrentIndex(10); 
-									Monopoly.getInstance().printToDialog(String.format("Moving %s to Jail.\n", player.getToken()));
+									GUI.getInstance().printToDialogBox(String.format("Moving %s to Jail.\n", player.getToken()));
 									break;
         case FREE_PARKING: 										break; //do nothing
 		case COMMUNITY_CHEST:

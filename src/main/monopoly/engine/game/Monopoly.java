@@ -164,11 +164,6 @@ public class Monopoly implements Observer {
 	public void commChest(Player player) {
 		commChest.useCard(commChest.getCard(), player);
 	}
-
-	public void printToDialog(String out) {
-		GUI.getInstance().printToDialogBox(out);
-		System.out.println(out);
-	}
 	
 	public int getHouses(int index) {
 		Square s = board.getDeed(index);

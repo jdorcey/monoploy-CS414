@@ -864,7 +864,8 @@ public class GUI implements Observer {
 					player2BidButton.setVisible(false);
 					player3BidButton.setVisible(false);
 					player4BidButton.setVisible(false);
-					Banker.auctionProperty(game.getBoard().getDeed(playerTurn.getCurrentIndex()), bids);
+					if(players.size() == 2) 
+						Banker.auctionProperty(game.getBoard().getDeed(index), bids);
 					//playerTurn.doneBuying();
 				}
 			}
@@ -889,7 +890,8 @@ public class GUI implements Observer {
 						player2BidButton.setVisible(false);
 						player3BidButton.setVisible(false);
 						player4BidButton.setVisible(false);
-						Banker.auctionProperty(game.getBoard().getDeed(playerTurn.getCurrentIndex()), bids);
+						if(players.size() == 3) 
+							Banker.auctionProperty(game.getBoard().getDeed(index), bids);
 						//playerTurn.doneBuying();
 					}
 				}
@@ -909,7 +911,8 @@ public class GUI implements Observer {
 					player2BidButton.setVisible(false);
 					player3BidButton.setVisible(false);
 					player4BidButton.setVisible(false);
-					Banker.auctionProperty(game.getBoard().getDeed(playerTurn.getCurrentIndex()), bids);
+					if(players.size() == 4) 
+						Banker.auctionProperty(game.getBoard().getDeed(index), bids);
 					//playerTurn.doneBuying();
 				}
 			});

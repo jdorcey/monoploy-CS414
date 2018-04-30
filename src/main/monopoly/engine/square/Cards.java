@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import monopoly.engine.game.GUI;
 import monopoly.engine.game.Monopoly;
 import monopoly.engine.game.Turn;
 import monopoly.engine.player.Player;
@@ -94,7 +95,7 @@ public class Cards {
 		public void performAction(Player player) {
 			Turn turn = Monopoly.getInstance().getTurn();
 			String out = player.getToken() + " drew a card! \n" + "- Card Text: " + text + "\n";
-			Monopoly.getInstance().printToDialog(out);
+			GUI.getInstance().printToDialogBox(out);
 			if (money != 0) {
 				player.deposit(money);
 			}else if(moveWith != 0) {

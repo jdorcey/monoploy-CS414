@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
 
+import monopoly.engine.game.GUI;
 import monopoly.engine.game.Monopoly;
 import monopoly.engine.square.Deed;
 
@@ -85,7 +86,7 @@ public class Assets extends Observable {
 	public boolean deduct(int amount) {
 		if (money - amount < 0) {
 			//bankrupt?
-			Monopoly.getInstance().printToDialog(String.format("%s does not have enough money & must sell assets.\n- Select one or more of %s's properties.\n", owner.getToken(), owner.getToken()));
+			GUI.getInstance().printToDialogBox(String.format("%s does not have enough money & must sell assets.\n- Select one or more of %s's properties.\n", owner.getToken(), owner.getToken()));
 			boolean bankrupt = true;
 			for (Deed current: deeds)
 				if(!current.isMortgaged())

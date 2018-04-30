@@ -30,7 +30,7 @@ public class Banker {
 					max = bids.get(i);
 				}
 			}
-			Monopoly.getInstance().printToDialog(String.format("%s won the auction of %s with a bid of $%d.\n", Monopoly.getInstance().getPlayers().get(winner).getToken(), deed.getName(), max));
+			GUI.getInstance().printToDialogBox(String.format("%s won the auction of %s with a bid of $%d.\n", Monopoly.getInstance().getPlayers().get(winner).getToken(), deed.getName(), max));
 			if(deed.getOwner() != null) { //this means the auction is a trade
 				deed.getOwner().deposit(max); //pay the player for the deed
 				deed.getOwner().removeDeed(deed); //remove the deed from the owner
@@ -42,12 +42,12 @@ public class Banker {
 	}
 	
 	public static void go(Player player) {
-		Monopoly.getInstance().printToDialog(String.format("%s received $200 for passing Go\n", player.getToken()));
+		GUI.getInstance().printToDialogBox(String.format("%s received $200 for passing Go\n", player.getToken()));
 		player.deposit(200);
 	}
 	
 	public static void luxuryTax(Player player) {
-		Monopoly.getInstance().printToDialog(String.format("%s paid $100 in luxury tax.\n", player.getToken()));
+		GUI.getInstance().printToDialogBox(String.format("%s paid $100 in luxury tax.\n", player.getToken()));
 		player.deduct(100);
 	}
 	
@@ -55,10 +55,10 @@ public class Banker {
 		// deduct $200 or 10% from the player account
 		int money = player.getMoney();
 		if (money/10 < 200) {
-			Monopoly.getInstance().printToDialog(String.format("%s paid $%d in income tax\n", player.getToken(), money/10));
+			GUI.getInstance().printToDialogBox(String.format("%s paid $%d in income tax\n", player.getToken(), money/10));
 			player.deduct(money/10);
 		}else {
-			Monopoly.getInstance().printToDialog(String.format("%s paid $%d in income tax\n", player.getToken(), 200));
+			GUI.getInstance().printToDialogBox(String.format("%s paid $%d in income tax\n", player.getToken(), 200));
 			player.deduct(200);
 		}
 	}
