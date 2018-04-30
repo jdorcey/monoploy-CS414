@@ -30,10 +30,7 @@ public class GuiStateTracker {
 	}
 	
 	public ArrayList<Integer> getSelected(){
-		ArrayList<Integer> ret = new ArrayList<>();
-		for(int i = 0; i < states.length; i++)
-			if (states[i])
-				ret.add(new Integer(i));
+		ArrayList<Integer> ret = getSelectedDR();
 		reset();
 		return ret;
 	}
@@ -46,5 +43,13 @@ public class GuiStateTracker {
 		GUI.getInstance().resetHelpers();
 		for(int i = 0; i < states.length; i++)
 			states[i] = false;
+	}
+
+	public ArrayList<Integer> getSelectedDR() {
+		ArrayList<Integer> ret = new ArrayList<>();
+		for(int i = 0; i < states.length; i++)
+			if (states[i])
+				ret.add(new Integer(i));
+		return ret;
 	}
 }

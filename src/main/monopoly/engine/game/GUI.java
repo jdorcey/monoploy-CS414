@@ -729,7 +729,7 @@ public class GUI implements Observer {
 		//Yeah we need to talk about this one
 		auctionButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				auction(playerTurn.getCurrentIndex());
+				auction(playerTurn.getCurrentIndex(), false);
 				playerTurn.doneBuying();
 			}
 		});
@@ -737,7 +737,7 @@ public class GUI implements Observer {
 		tradeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				for (int i : GuiStateTracker.getInstance().getSelected())
-					auction(i);
+					auction(i, true);
 				playerTurn.doneBuying();
 			}
 		});
@@ -809,10 +809,15 @@ public class GUI implements Observer {
 		});
 	}
 	
-	private void auction(int index) {
-		gameDialog.append(String.format("- An auction has begun for %s\n", game.getBoard().getSquares()[index].getName()));
+	private void auction(int index, boolean trade) {
+		if(trade) { gameDialog.append(String.format("- %s wants to trade %s\n", playerTurn.getPlayer().getToken(), game.getBoard().getSquares()[index].getName())); }
+		else { gameDialog.append(String.format("- An auction has begun for %s\n", game.getBoard().getSquares()[index].getName())); }
 		ArrayList<Integer> bids = new ArrayList<>();
 		//System.out.println("Auction!");
+		player1Bid.setText("");
+		player2Bid.setText("");
+		player3Bid.setText("");
+		player4Bid.setText("");
 		player1Bid.setEditable(true);
 		player2Bid.setEditable(true);
 		player3Bid.setEditable(true);
@@ -825,7 +830,8 @@ public class GUI implements Observer {
 		player2BidBox.setBounds( (int) Math.floor(2610 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 70, 20);
 		player3BidBox.setBounds( (int) Math.floor(3000 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 70, 20);
 		player4BidBox.setBounds( (int) Math.floor(3385 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 70, 20);
-		player1BidBox.setVisible(true);
+		if(game.getPlayers().indexOf(playerTurn.getPlayer()) != 0) { player1BidBox.setVisible(true); }
+		else { player1BidBox.setVisible(false); }
 		player2BidBox.setVisible(false);
 		player3BidBox.setVisible(false);
 		player4BidBox.setVisible(false);
@@ -833,27 +839,50 @@ public class GUI implements Observer {
 		setButton(player2BidButton, 113, 208, 255, (int) Math.floor(2840 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 30, 20);
 		setButton(player3BidButton, 113, 208, 255, (int) Math.floor(3230 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 30, 20);
 		setButton(player4BidButton, 113, 208, 255, (int) Math.floor(3610 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 30, 20);
-		player1BidButton.setVisible(true);
-		player1BidButton.setEnabled(true);
-		player1BidButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				bids.add(Integer.parseInt(player1Bid.getText()));
-				player1BidButton.setEnabled(false);
-				player1Bid.setEditable(false);
-				player2BidBox.setVisible(true);
-				player2BidButton.setVisible(true);
-				player2BidButton.setEnabled(true);
-			}
-		});
+		if(game.getPlayers().indexOf(playerTurn.getPlayer()) != 0) { 
+			player1BidButton.setVisible(true);
+			player1BidButton.setEnabled(true);
+			player1BidButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					bids.add(Integer.parseInt(player1Bid.getText()));
+					player1BidButton.setEnabled(false);
+					player1Bid.setEditable(false);
+					if(game.getPlayers().indexOf(playerTurn.getPlayer()) != 1) {
+						player2BidBox.setVisible(true);
+						player2BidButton.setVisible(true);
+						player2BidButton.setEnabled(true);
+					}
+					else {
+						player3BidBox.setVisible(true); 
+						player3BidButton.setVisible(true);
+						player3BidButton.setEnabled(true);
+					}
+				}
+			});
+		}
+		else { 
+			player1BidButton.setVisible(false);
+			player1BidButton.setEnabled(false);
+			player2BidBox.setVisible(true);
+			player2BidButton.setVisible(true);
+			player2BidButton.setEnabled(true);
+		}
 		player2BidButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				bids.add(Integer.parseInt(player2Bid.getText()));
 				player2BidButton.setEnabled(false);
-				player2Bid.setEditable(false);
+				player2Bid.setEditable(false); 
 				if(players.size() > 2) { 
-					player3BidBox.setVisible(true); 
-					player3BidButton.setVisible(true);
-					player3BidButton.setEnabled(true);					
+					if(game.getPlayers().indexOf(playerTurn.getPlayer()) != 2) {
+						player3BidBox.setVisible(true); 
+						player3BidButton.setVisible(true);
+						player3BidButton.setEnabled(true);					
+					}
+					else {
+						player4BidBox.setVisible(true); 
+						player4BidButton.setVisible(true);
+						player4BidButton.setEnabled(true);		
+					}
 				}
 				else {
 					player1BidBox.setVisible(false);
@@ -876,7 +905,7 @@ public class GUI implements Observer {
 					bids.add(Integer.parseInt(player3Bid.getText()));
 					player3BidButton.setEnabled(false);
 					player3Bid.setEditable(false);
-					if(players.size() > 3) { 
+					if(players.size() > 3 && game.getPlayers().indexOf(playerTurn.getPlayer()) != 3) { 
 						player4BidBox.setVisible(true); 
 						player4BidButton.setVisible(true);
 						player4BidButton.setEnabled(true);					
@@ -1104,10 +1133,19 @@ public class GUI implements Observer {
 		if(argument.contains("jailbuyout")) { jailBuyOutButton.setEnabled(true); }
 		else { jailBuyOutButton.setEnabled(false); }
 		if (GuiStateTracker.getInstance().anySelected()) {
-			tradeButton.setEnabled(true);
-			mortgageButton.setEnabled(true);
-			sellHHButton.setEnabled(true);
-			buyHHButton.setEnabled(true);
+			ArrayList<Integer> selected = GuiStateTracker.getInstance().getSelectedDR();
+			for(Integer i : selected) {
+				Deed deed = (Deed) game.getBoard().getDeed(i);
+				if(deed.getNumHouses() > 0 || deed.getHotels() == 1) { 
+					sellHHButton.setEnabled(true);
+					break;
+				}
+				else { 
+					mortgageButton.setEnabled(true);
+					tradeButton.setEnabled(true);
+				}
+			}
+			if(!playerTurn.getPlayer().inSellState()) { buyHHButton.setEnabled(true); }
 		}else {
 			tradeButton.setEnabled(false);
 			mortgageButton.setEnabled(false);

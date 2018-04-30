@@ -111,6 +111,7 @@ public class Deed extends Square{
 					player.getAssets().setOwes(calculateRent());
 					player.getAssets().setOwedTo(owner);
 				}
+				else { player.setOnNonDeed(true); }
 			}
 			else { player.setOnNonDeed(true); }
 		}
@@ -132,12 +133,14 @@ public class Deed extends Square{
 			numHouses = 0;
 			hasHotel = true;
 			owner.deduct(color.getHouseCost());
-			GUI.getInstance().printToDialogBox(String.format("%s bought a hotel on %s for %d and 4 houses\n", owner, getName(), color.getHouseCost()));
+			GUI.getInstance().printToDialogBox(String.format("%s bought a hotel on %s for $%d and 4 houses\n", owner, getName(), color.getHouseCost()));
 		}
 		else {
-			numHouses++;
-			owner.deduct(color.getHouseCost());
-			GUI.getInstance().printToDialogBox(String.format("%s bought a house on %s for %d\n", owner, getName(), color.getHouseCost()));
+      if(color.eligible(this)) {
+			  numHouses++;
+			  owner.deduct(color.getHouseCost());
+			  GUI.getInstance().printToDialogBox(String.format("%s bought a house on %s for $%d\n", owner, getName(), color.getHouseCost()));
+      }
 		}
 	}
 	
@@ -146,12 +149,12 @@ public class Deed extends Square{
 			hasHotel = false;
 			owner.deposit((color.getHouseCost() / 2));
 			numHouses = 4;
-			GUI.getInstance().printToDialogBox(String.format("%s sold the hotel on %s for %d\n", owner, getName(), (color.getHouseCost() / 2)));
+			GUI.getInstance().printToDialogBox(String.format("%s sold the hotel on %s for $%d\n", owner, getName(), (color.getHouseCost() / 2)));
 		}
 		else {
 			numHouses--;
 			owner.deposit(color.getHouseCost() / 2);
-			GUI.getInstance().printToDialogBox(String.format("%s sold a house on %s for %d\n", owner, getName(), color.getHouseCost() / 2));
+			GUI.getInstance().printToDialogBox(String.format("%s sold a house on %s for $%d\n", owner, getName(), color.getHouseCost() / 2));
 		}
 	}
 	

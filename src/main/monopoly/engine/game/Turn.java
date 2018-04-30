@@ -119,7 +119,7 @@ public class Turn extends Observable {
 		//check if roll dice button needs to be re-enabled
 		if(player.inSellState()) { update(""); }
 		if(player.isOnNonDeed()) {
-			if(isDoubles()) { 
+			if(isDoubles() && !player.isJailed()) { 
 				//call update to enable the roll button
 				update("roll");
 			}

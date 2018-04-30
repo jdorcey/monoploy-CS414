@@ -190,11 +190,11 @@ public class Monopoly implements Observer {
 			if (d.getOwner() == turn.getPlayer()) {
 				if (d.isMortgaged()) {
 					d.unmortgage();
-					GUI.getInstance().printToDialogBox(String.format("- %s unmortgaged %s for $%d\n", turn.getPlayer().getToken(), d.getName(), d.getUnmortgageValue()));
+					GUI.getInstance().printToDialogBox(String.format("%s unmortgaged %s for $%d\n", turn.getPlayer().getToken(), d.getName(), d.getUnmortgageValue()));
 				
 				}else {
 					d.mortgage();
-					GUI.getInstance().printToDialogBox(String.format("- %s mortgaged %s for $%d\n", turn.getPlayer().getToken(), d.getName(), d.getMortgageValue()));
+					GUI.getInstance().printToDialogBox(String.format("%s mortgaged %s for $%d\n", turn.getPlayer().getToken(), d.getName(), d.getMortgageValue()));
 				}
 			}
 		}

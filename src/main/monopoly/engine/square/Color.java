@@ -55,4 +55,13 @@ public class Color {
 		}
 		return count - 1;
 	}
+	
+	public boolean eligible(Deed deed) {
+		for(Deed d : deeds) {
+			if((deed.getNumHouses()+1) - d.getNumHouses() > 1) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

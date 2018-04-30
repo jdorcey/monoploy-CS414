@@ -99,9 +99,9 @@ public class Cards {
 			if (money != 0) {
 				player.deposit(money);
 			}else if(moveWith != 0) {
-				if(moveWith == 10) { player.setJailed(true); }
 				turn.movePlayer(moveWith, true);
 			}else if(moveTo != -1) {
+				if(moveTo == 10) { player.setJailed(true); }
 				turn.movePlayer(moveTo, false);
 			}else if (getOutOfJail) {
 				int jailfree = turn.getPlayer().getNumGetOutOfJailFreeCards();

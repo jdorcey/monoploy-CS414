@@ -26,7 +26,7 @@ public class TestBoard {
 		assertEquals("Square 7 should be Chance", "Chance", board.getSquares()[7].getName());
 		assertEquals("Square 8 should be Vermont Avenue", "Vermont Avenue", board.getDeed(8).getName());
 		assertEquals("Square 9 should be Connecticut Avenue", "Connecticut Avenue", board.getDeed(9).getName());
-		assertEquals("Square 10 should be Just Visiting/Jail", "Just Visiting/Jail", board.getSquares()[10].getName());
+		assertEquals("Square 10 should be Just Visiting/Jail", "Just Visiting", board.getSquares()[10].getName());
 		assertEquals("Square 11 should be St. Charles Place", "St. Charles Place", board.getDeed(11).getName());
 		assertEquals("Square 12 should be Electric Company", "Electric Company", board.getDeed(12).getName());
 		assertEquals("Square 13 should be States Avenue", "States Avenue", board.getDeed(13).getName());
