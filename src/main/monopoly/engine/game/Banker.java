@@ -31,6 +31,10 @@ public class Banker {
 				}
 			}
 			Monopoly.getInstance().printToDialog(String.format("%s won the auction of %s with a bid of $%d.\n", Monopoly.getInstance().getPlayers().get(winner).getToken(), deed.getName(), max));
+			if(deed.getOwner() != null) { //this means the auction is a trade
+				deed.getOwner().deposit(max); //pay the player for the deed
+				deed.getOwner().removeDeed(deed); //remove the deed from the owner
+			}
 			Monopoly.getInstance().getPlayers().get(winner).addDeed(deed);
 			Monopoly.getInstance().getPlayers().get(winner).deduct(max);
 		}

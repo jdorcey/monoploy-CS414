@@ -105,4 +105,9 @@ public class GuiHelper {
 		numHouses.setText("" + Monopoly.getInstance().getHouses(index));
 		numHotels.setText("" + Monopoly.getInstance().getHotels(index));
 	}
+
+	public void resetHighlight() {
+		this.toggleBorder(false);
+		
+	}
 }

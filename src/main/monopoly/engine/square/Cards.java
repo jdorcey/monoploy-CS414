@@ -59,6 +59,7 @@ public class Cards {
 		}else {
 			moveTo = Integer.parseInt(tokens[2]);
 		}
+		getJail = Integer.parseInt(tokens[3]) == 1; 
 		cards.add(new Card(tokens[0], Integer.parseInt(tokens[1]), moveTo, moveWith, getJail));
 	}
 	

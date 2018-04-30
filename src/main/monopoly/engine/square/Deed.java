@@ -77,6 +77,10 @@ public class Deed extends Square{
 		return mortgageValue;
 	}
 	
+	public int getUnmortgageValue() {
+		return mortgageValue + (mortgageValue / 10);
+	}
+	
 	public Color getColor() {
 		return color;
 	}

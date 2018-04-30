@@ -25,7 +25,6 @@ public class Monopoly implements Observer {
 	private long gameLength;
 	private Cards chance;
 	private Cards commChest;
-	private JTextArea gameDialog;
 	//system test variables
 	private boolean doubles;
 	private boolean monopolies;
@@ -165,13 +164,10 @@ public class Monopoly implements Observer {
 	public void commChest(Player player) {
 		commChest.useCard(commChest.getCard(), player);
 	}
-	
-	public void setgameDialog(JTextArea pane) {
-		this.gameDialog = pane;
-	}
 
 	public void printToDialog(String out) {
-		gameDialog.append("- " + out);
+		GUI.getInstance().printToDialogBox(out);
+		System.out.println(out);
 	}
 	
 	public int getHouses(int index) {
@@ -197,10 +193,14 @@ public class Monopoly implements Observer {
 		if (s instanceof Deed) {
 			Deed d = (Deed) s;
 			if (d.getOwner() == turn.getPlayer()) {
-				if (d.isMortgaged())
+				if (d.isMortgaged()) {
 					d.unmortgage();
-				else
+					GUI.getInstance().printToDialogBox(String.format("- %s unmortgaged %s for $%d\n", turn.getPlayer().getToken(), d.getName(), d.getUnmortgageValue()));
+				
+				}else {
 					d.mortgage();
+					GUI.getInstance().printToDialogBox(String.format("- %s mortgaged %s for $%d\n", turn.getPlayer().getToken(), d.getName(), d.getMortgageValue()));
+				}
 			}
 		}
 	}

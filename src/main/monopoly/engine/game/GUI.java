@@ -29,6 +29,7 @@ import monopoly.engine.square.Deed;
 
 public class GUI implements Observer {
 	public static JFrame frame;
+	public static GUI INSTANCE = null;
 	private ArrayList<GuiHelper> tiles;
 	private JLayeredPane p1 = new JLayeredPane();
 	private JLayeredPane p2 = new JLayeredPane();
@@ -110,7 +111,7 @@ public class GUI implements Observer {
 	/**
 	 * GUI constructor to create the main frame
 	 */
-	public GUI() {
+	private GUI() {
 		boardPanels = new ArrayList<JLayeredPane>();	
 		playersPanels = new ArrayList<JLayeredPane>();
 		players = new ArrayList<Player>();
@@ -118,7 +119,14 @@ public class GUI implements Observer {
 		for (int i = 0; i < 40 ; i++)
 			tiles.add(null);
 		initialize();
-		Monopoly.getInstance().setgameDialog(gameDialog);
+		INSTANCE = this;
+	}
+	
+	public static GUI getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new GUI();
+		}
+		return INSTANCE;
 	}
 
 	/**
@@ -767,113 +775,18 @@ public class GUI implements Observer {
 		//Yeah we need to talk about this one
 		auctionButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				gameDialog.append(String.format("- An auction has begun for %s\n", game.getBoard().getSquares()[playerTurn.getCurrentIndex()].getName()));
-				ArrayList<Integer> bids = new ArrayList<>();
-				//System.out.println("Auction!");
-				player1Bid.setEditable(true);
-				player2Bid.setEditable(true);
-				player3Bid.setEditable(true);
-				player4Bid.setEditable(true);
-				player1BidBox.setFont(new Font("Arial", Font.BOLD, 12));
-				player2BidBox.setFont(new Font("Arial", Font.BOLD, 12));
-				player3BidBox.setFont(new Font("Arial", Font.BOLD, 12));
-				player4BidBox.setFont(new Font("Arial", Font.BOLD, 12));
-				player1BidBox.setBounds( (int) Math.floor(2220 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 70, 20);
-				player2BidBox.setBounds( (int) Math.floor(2610 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 70, 20);
-				player3BidBox.setBounds( (int) Math.floor(3000 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 70, 20);
-				player4BidBox.setBounds( (int) Math.floor(3385 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 70, 20);
-				player1BidBox.setVisible(true);
-				player2BidBox.setVisible(false);
-				player3BidBox.setVisible(false);
-				player4BidBox.setVisible(false);
-				setButton(player1BidButton, 113, 208, 255, (int) Math.floor(2450 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 30, 20);
-				setButton(player2BidButton, 113, 208, 255, (int) Math.floor(2840 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 30, 20);
-				setButton(player3BidButton, 113, 208, 255, (int) Math.floor(3230 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 30, 20);
-				setButton(player4BidButton, 113, 208, 255, (int) Math.floor(3610 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 30, 20);
-				player1BidButton.setVisible(true);
-				player1BidButton.setEnabled(true);
-				player1BidButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						bids.add(Integer.parseInt(player1Bid.getText()));
-						player1BidButton.setEnabled(false);
-						player1Bid.setEditable(false);
-						player2BidBox.setVisible(true);
-						player2BidButton.setVisible(true);
-						player2BidButton.setEnabled(true);
-					}
-				});
-				player2BidButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						bids.add(Integer.parseInt(player2Bid.getText()));
-						player2BidButton.setEnabled(false);
-						player2Bid.setEditable(false);
-						if(players.size() > 2) { 
-							player3BidBox.setVisible(true); 
-							player3BidButton.setVisible(true);
-							player3BidButton.setEnabled(true);					
-						}
-						else {
-							player1BidBox.setVisible(false);
-							player2BidBox.setVisible(false);
-							player3BidBox.setVisible(false);
-							player4BidBox.setVisible(false);
-							player1BidButton.setVisible(false);
-							player2BidButton.setVisible(false);
-							player3BidButton.setVisible(false);
-							player4BidButton.setVisible(false);
-							Banker.auctionProperty(game.getBoard().getDeed(playerTurn.getCurrentIndex()), bids);
-							playerTurn.doneBuying();
-						}
-					}
-				});
-				if(players.size() > 2) {
-					player3BidButton.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent arg0) {
-							bids.add(Integer.parseInt(player3Bid.getText()));
-							player3BidButton.setEnabled(false);
-							player3Bid.setEditable(false);
-							if(players.size() > 3) { 
-								player4BidBox.setVisible(true); 
-								player4BidButton.setVisible(true);
-								player4BidButton.setEnabled(true);					
-							}
-							else {
-								player1BidBox.setVisible(false);
-								player2BidBox.setVisible(false);
-								player3BidBox.setVisible(false);
-								player4BidBox.setVisible(false);
-								player1BidButton.setVisible(false);
-								player2BidButton.setVisible(false);
-								player3BidButton.setVisible(false);
-								player4BidButton.setVisible(false);
-								Banker.auctionProperty(game.getBoard().getDeed(playerTurn.getCurrentIndex()), bids);
-								playerTurn.doneBuying();
-							}
-						}
-					});
-				}
-				if(players.size() > 3) {
-					player4BidButton.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent arg0) {
-							bids.add(Integer.parseInt(player4Bid.getText()));
-							player4BidButton.setEnabled(false);
-							player4Bid.setEditable(false);
-							player1BidBox.setVisible(false);
-							player2BidBox.setVisible(false);
-							player3BidBox.setVisible(false);
-							player4BidBox.setVisible(false);
-							player1BidButton.setVisible(false);
-							player2BidButton.setVisible(false);
-							player3BidButton.setVisible(false);
-							player4BidButton.setVisible(false);
-							Banker.auctionProperty(game.getBoard().getDeed(playerTurn.getCurrentIndex()), bids);
-							playerTurn.doneBuying();
-						}
-					});
-				}
+				auction(playerTurn.getCurrentIndex());
+				playerTurn.doneBuying();
 			}
 		});
-
+		
+		tradeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				for (int i : GuiStateTracker.getInstance().getSelected())
+					auction(i);
+				playerTurn.doneBuying();
+			}
+		});
 		//need money check on this
 		buyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -901,8 +814,7 @@ public class GUI implements Observer {
 				ArrayList<Integer> indexes = t.getSelected();
 				for (Integer i : indexes) {
 					game.mortgageProperty(i);
-					Deed deed = (Deed) game.getBoard().getDeed(i);
-					gameDialog.append(String.format("- %s mortgaged %s for $%d\n", playerTurn.getPlayer().getToken(), deed.getName(), deed.getMortgageValue()));
+					//Deed deed = (Deed) game.getBoard().getDeed(i);
 				}
 				if(playerTurn.getPlayer().getAssets().getOwes() > 0) {
 					playerTurn.getPlayer().getAssets().getOwedTo().transfer(playerTurn.getPlayer(), playerTurn.getPlayer().getAssets().getOwes());
@@ -916,7 +828,7 @@ public class GUI implements Observer {
 					finishTurnButton.setVisible(true);
 					finishTurnButton.setEnabled(true);
 				}
-				playerTurn.getPlayer().setBuyState(false);
+				playerTurn.doneBuying();
 			}
 		});
 		
@@ -927,6 +839,7 @@ public class GUI implements Observer {
 				for (Integer i : indexes) {
 					game.buyHH(i);
 				}
+				playerTurn.doneBuying();
 			}
 		});
 		
@@ -937,8 +850,116 @@ public class GUI implements Observer {
 				for (Integer i : indexes) {
 					game.sellHH(i);
 				}
+				playerTurn.doneBuying();
 			}
 		});
+	}
+	
+	private void auction(int index) {
+		gameDialog.append(String.format("- An auction has begun for %s\n", game.getBoard().getSquares()[index].getName()));
+		ArrayList<Integer> bids = new ArrayList<>();
+		//System.out.println("Auction!");
+		player1Bid.setEditable(true);
+		player2Bid.setEditable(true);
+		player3Bid.setEditable(true);
+		player4Bid.setEditable(true);
+		player1BidBox.setFont(new Font("Arial", Font.BOLD, 12));
+		player2BidBox.setFont(new Font("Arial", Font.BOLD, 12));
+		player3BidBox.setFont(new Font("Arial", Font.BOLD, 12));
+		player4BidBox.setFont(new Font("Arial", Font.BOLD, 12));
+		player1BidBox.setBounds( (int) Math.floor(2220 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 70, 20);
+		player2BidBox.setBounds( (int) Math.floor(2610 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 70, 20);
+		player3BidBox.setBounds( (int) Math.floor(3000 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 70, 20);
+		player4BidBox.setBounds( (int) Math.floor(3385 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 70, 20);
+		player1BidBox.setVisible(true);
+		player2BidBox.setVisible(false);
+		player3BidBox.setVisible(false);
+		player4BidBox.setVisible(false);
+		setButton(player1BidButton, 113, 208, 255, (int) Math.floor(2450 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 30, 20);
+		setButton(player2BidButton, 113, 208, 255, (int) Math.floor(2840 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 30, 20);
+		setButton(player3BidButton, 113, 208, 255, (int) Math.floor(3230 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 30, 20);
+		setButton(player4BidButton, 113, 208, 255, (int) Math.floor(3610 * (1280.0/3840)), (int) Math.floor( 1950 * (720.0/2160)), 30, 20);
+		player1BidButton.setVisible(true);
+		player1BidButton.setEnabled(true);
+		player1BidButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				bids.add(Integer.parseInt(player1Bid.getText()));
+				player1BidButton.setEnabled(false);
+				player1Bid.setEditable(false);
+				player2BidBox.setVisible(true);
+				player2BidButton.setVisible(true);
+				player2BidButton.setEnabled(true);
+			}
+		});
+		player2BidButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				bids.add(Integer.parseInt(player2Bid.getText()));
+				player2BidButton.setEnabled(false);
+				player2Bid.setEditable(false);
+				if(players.size() > 2) { 
+					player3BidBox.setVisible(true); 
+					player3BidButton.setVisible(true);
+					player3BidButton.setEnabled(true);					
+				}
+				else {
+					player1BidBox.setVisible(false);
+					player2BidBox.setVisible(false);
+					player3BidBox.setVisible(false);
+					player4BidBox.setVisible(false);
+					player1BidButton.setVisible(false);
+					player2BidButton.setVisible(false);
+					player3BidButton.setVisible(false);
+					player4BidButton.setVisible(false);
+					Banker.auctionProperty(game.getBoard().getDeed(playerTurn.getCurrentIndex()), bids);
+					//playerTurn.doneBuying();
+				}
+			}
+		});
+		if(players.size() > 2) {
+			player3BidButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					bids.add(Integer.parseInt(player3Bid.getText()));
+					player3BidButton.setEnabled(false);
+					player3Bid.setEditable(false);
+					if(players.size() > 3) { 
+						player4BidBox.setVisible(true); 
+						player4BidButton.setVisible(true);
+						player4BidButton.setEnabled(true);					
+					}
+					else {
+						player1BidBox.setVisible(false);
+						player2BidBox.setVisible(false);
+						player3BidBox.setVisible(false);
+						player4BidBox.setVisible(false);
+						player1BidButton.setVisible(false);
+						player2BidButton.setVisible(false);
+						player3BidButton.setVisible(false);
+						player4BidButton.setVisible(false);
+						Banker.auctionProperty(game.getBoard().getDeed(playerTurn.getCurrentIndex()), bids);
+						//playerTurn.doneBuying();
+					}
+				}
+			});
+		}
+		if(players.size() > 3) {
+			player4BidButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					bids.add(Integer.parseInt(player4Bid.getText()));
+					player4BidButton.setEnabled(false);
+					player4Bid.setEditable(false);
+					player1BidBox.setVisible(false);
+					player2BidBox.setVisible(false);
+					player3BidBox.setVisible(false);
+					player4BidBox.setVisible(false);
+					player1BidButton.setVisible(false);
+					player2BidButton.setVisible(false);
+					player3BidButton.setVisible(false);
+					player4BidButton.setVisible(false);
+					Banker.auctionProperty(game.getBoard().getDeed(playerTurn.getCurrentIndex()), bids);
+					//playerTurn.doneBuying();
+				}
+			});
+		}
 	}
 
 	/**
@@ -1089,7 +1110,12 @@ public class GUI implements Observer {
 			playerToken.setBounds( (int) Math.floor(3595 * (1280.0/3840)), (int) Math.floor( 1360 * (720.0/2160)), 50, 50);
 			break;
 		}		
-		frame.setComponentZOrder(playerToken, new Integer(0));
+		//frame.setComponentZOrder(playerToken, new Integer(0));
+	}
+	
+	public void resetHelpers() {
+		for (GuiHelper h: tiles)
+			h.resetHighlight();
 	}
 
 	/**
@@ -1121,10 +1147,12 @@ public class GUI implements Observer {
 		if(argument.contains("jailbuyout")) { jailBuyOutButton.setEnabled(true); }
 		else { jailBuyOutButton.setEnabled(false); }
 		if (GuiStateTracker.getInstance().anySelected()) {
+			tradeButton.setEnabled(true);
 			mortgageButton.setEnabled(true);
 			sellHHButton.setEnabled(true);
 			buyHHButton.setEnabled(true);
 		}else {
+			tradeButton.setEnabled(false);
 			mortgageButton.setEnabled(false);
 			sellHHButton.setEnabled(false);
 			buyHHButton.setEnabled(false);
@@ -1169,12 +1197,16 @@ public class GUI implements Observer {
 			}
 		}
 	}
+	
+	public void printToDialogBox(String out) {
+		gameDialog.append("- " + out);
+	}
 
 	/**
 	 * Launch application.
 	 */
 	public static void main(String[] args) {
-		GUI window = new GUI();
+		GUI window = GUI.getInstance();
 		window.frame.setVisible(true);
 		Pattern p = Pattern.compile("[0-9]{2,}");
 		ArrayList<String> arguments = new ArrayList<>(Arrays.asList(args));

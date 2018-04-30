@@ -43,6 +43,7 @@ public class GuiStateTracker {
 	}
 	
 	public void reset() {
+		GUI.getInstance().resetHelpers();
 		for(int i = 0; i < states.length; i++)
 			states[i] = false;
 	}
