@@ -49,10 +49,6 @@ public class GUI implements Observer {
 	private JLabel player2GOFJ = new JLabel();
 	private JLabel player3GOFJ = new JLabel();
 	private JLabel player4GOFJ = new JLabel();
-	private JLabel player1Monops = new JLabel();
-	private JLabel player2Monops = new JLabel();
-	private JLabel player3Monops = new JLabel();
-	private JLabel player4Monops = new JLabel();
 	private JLabel player1 = new JLabel();
 	private JLabel player2 = new JLabel();
 	private JLabel player3 = new JLabel();
@@ -268,21 +264,6 @@ public class GUI implements Observer {
 	}
 
 	/**
-	 * sets the green and red boxes for the number of houses and hotels for each square
-	 */
-	private void setHousesHotels(JLabel numHH, JLayeredPane hh, int x, int y, int height, int width, String color) {
-		hh.setBounds(x, y, height, width);
-		if(color == "green") {
-			hh.setBorder(BorderFactory.createLineBorder(Color.green, 2));
-		} else {
-			hh.setBorder(BorderFactory.createLineBorder(Color.red, 2));
-		}
-		numHH.setText("0");
-		numHH.setFont(new Font("Arial", Font.BOLD, 12));
-		numHH.setBounds( x + 7, y + 4, height - 10, width - 10);
-	}
-
-	/**
 	 * Set player area on board
 	 */
 	private void setPlayerArea() {
@@ -307,7 +288,6 @@ public class GUI implements Observer {
 		playersPanels.add(p2);
 		playersPanels.add(p3);
 		playersPanels.add(p4);
-		
 	}
 
 	/**
@@ -327,15 +307,6 @@ public class GUI implements Observer {
 		pGOFJ.setFont(new Font("Arial", Font.BOLD, 12));
 		pGOFJ.setBounds(x, y, height, width);
 
-	}
-
-	/**
-	 * Set players monopolies on board, need to fix this
-	 */
-	private void setPlayersMonopolies(JLabel pMonops, ArrayList<Color> monopolies, int x, int y, int height, int width) {
-		pMonops.setText("Monopolies: " + monopolies);
-		pMonops.setFont(new Font("Arial", Font.BOLD, 12));
-		pMonops.setBounds(x, y, height, width);
 	}
 	
 	/**
@@ -483,10 +454,6 @@ public class GUI implements Observer {
 				setLabel(player1, "dogToken", (int) Math.floor(2340 * (1280.0/3840)), (int) Math.floor( 1625 * (720.0/2160)), 50, 50);
 				setPlayersMoney(player1Money,  players.get(0).getMoney(), (int) Math.floor(2255 * (1280.0/3840)), (int) Math.floor( 1750 * (720.0/2160)), 100, 20);
 				setPlayersJailCards(player1GOFJ, players.get(0).getNumGetOutOfJailFreeCards(), (int) Math.floor(2255 * (1280.0/3840)), (int) Math.floor( 1810 * (720.0/2160)), 100, 20);
-				//setPlayersMonopolies(player1Monops, players.get(0).getMonopolies(), (int) Math.floor(2255 * (1280.0/3840)), (int) Math.floor( 1865 * (720.0/2160)), 100, 20);
-				player1Monops.setText("Monopolies: " + players.get(0).getMonopolies());
-				player1Monops.setFont(new Font("Arial", Font.BOLD, 12));
-				player1Monops.setBounds( (int) Math.floor(2255 * (1280.0/3840)), (int) Math.floor( 1865 * (720.0/2160)), 100, 20);
 				frame.setComponentZOrder(player1Token, new Integer(0));
 				//button to add player2
 				setButton(addPlayer2Button, 113, 208, 255, (int) Math.floor(2620 * (1280.0/3840)), (int) Math.floor( 1825 * (720.0/2160)), 100, 25);
@@ -509,9 +476,6 @@ public class GUI implements Observer {
 				setLabel(player2, "battleShipToken", (int) Math.floor(2735 * (1280.0/3840)), (int) Math.floor(1625 * (720.0/2160)), 50, 50);
 				setPlayersMoney(player2Money, players.get(1).getMoney(), (int) Math.floor(2640 * (1280.0/3840)), (int) Math.floor( 1750 * (720.0/2160)), 100, 20);
 				setPlayersJailCards(player2GOFJ, players.get(1).getNumGetOutOfJailFreeCards(), (int) Math.floor(2640 * (1280.0/3840)), (int) Math.floor( 1810 * (720.0/2160)), 100, 20);
-				player2Monops.setText("Monopolies: " + players.get(1).getMonopolies());
-				player2Monops.setFont(new Font("Arial", Font.BOLD, 12));
-				player2Monops.setBounds( (int) Math.floor(2640 * (1280.0/3840)), (int) Math.floor( 1860 * (720.0/2160)), 100, 20);
 				frame.setComponentZOrder(player2Token, new Integer(0));
 				//button to add player3
 				setButton(addPlayer3Button, 113, 208, 255, (int) Math.floor(3005 * (1280.0/3840)), (int) Math.floor( 1825 * (720.0/2160)), 100, 25);
@@ -537,9 +501,6 @@ public class GUI implements Observer {
 				setLabel(player3, "carToken", (int) Math.floor(3120 * (1280.0/3840)), (int) Math.floor( 1625 * (720.0/2160)), 50, 50);
 				setPlayersMoney(player3Money, players.get(2).getMoney(), (int) Math.floor(3030 * (1280.0/3840)), (int) Math.floor( 1750 * (720.0/2160)), 100, 25);
 				setPlayersJailCards(player3GOFJ, players.get(2).getNumGetOutOfJailFreeCards(), (int) Math.floor(3030 * (1280.0/3840)), (int) Math.floor( 1810 * (720.0/2160)), 100, 20);
-				player3Monops.setText("Monopolies: " + players.get(2).getMonopolies());
-				player3Monops.setFont(new Font("Arial", Font.BOLD, 12));
-				player3Monops.setBounds( (int) Math.floor(3030 * (1280.0/3840)), (int) Math.floor( 1860 * (720.0/2160)), 100, 20);
 				frame.setComponentZOrder(player3Token, new Integer(0));
 				//button to add player3
 				setButton(addPlayer4Button, 113, 208, 255, (int) Math.floor(3390 * (1280.0/3840)), (int) Math.floor( 1825 * (720.0/2160)), 100, 25);
@@ -562,9 +523,6 @@ public class GUI implements Observer {
 				setLabel(player4, "hatToken", (int) Math.floor(3500 * (1280.0/3840)), (int) Math.floor( 1625 * (720.0/2160)), 50, 50);
 				setPlayersMoney(player4Money, players.get(3).getMoney(), (int) Math.floor(3420 * (1280.0/3840)), (int) Math.floor( 1750 * (720.0/2160)), 100, 25);
 				setPlayersJailCards(player4GOFJ, players.get(3).getNumGetOutOfJailFreeCards(), (int) Math.floor(3420 * (1280.0/3840)), (int) Math.floor( 1810 * (720.0/2160)), 100, 20);
-				player4Monops.setText("Monopolies: " + players.get(3).getMonopolies());
-				player4Monops.setFont(new Font("Arial", Font.BOLD, 12));
-				player4Monops.setBounds( (int) Math.floor(3420 * (1280.0/3840)), (int) Math.floor( 1860 * (720.0/2160)), 100, 20);
 				frame.setComponentZOrder(player4Token, new Integer(0));			
 			}
 		});
@@ -588,22 +546,18 @@ public class GUI implements Observer {
 		frame.getContentPane().add(player1Money);
 		frame.getContentPane().add(player1Token);
 		frame.getContentPane().add(player1GOFJ);
-		frame.getContentPane().add(player1Monops);
 		frame.getContentPane().add(player2);
 		frame.getContentPane().add(player2Money);
 		frame.getContentPane().add(player2Token);
 		frame.getContentPane().add(player2GOFJ);
-		frame.getContentPane().add(player2Monops);
 		frame.getContentPane().add(player3);
 		frame.getContentPane().add(player3Money);
 		frame.getContentPane().add(player3Token);
 		frame.getContentPane().add(player3GOFJ);
-		frame.getContentPane().add(player3Monops);
 		frame.getContentPane().add(player4);
 		frame.getContentPane().add(player4Money);
 		frame.getContentPane().add(player4Token);
 		frame.getContentPane().add(player4GOFJ);
-		frame.getContentPane().add(player4Monops);
 		frame.getContentPane().add(timer);
 		frame.getContentPane().add(propertiesBox);
 		frame.getContentPane().add(propertiesLabel);
