@@ -136,11 +136,11 @@ public class Deed extends Square{
 			GUI.getInstance().printToDialogBox(String.format("%s bought a hotel on %s for $%d and 4 houses\n", owner.getToken(), getName(), color.getHouseCost()));
 		}
 		else {
-      if(color.eligible(this)) {
-			  numHouses++;
-			  owner.deduct(color.getHouseCost());
-			  GUI.getInstance().printToDialogBox(String.format("%s bought a house on %s for $%d\n", owner.getToken(), getName(), color.getHouseCost()));
-      }
+		    if(color.eligible(this)) {
+		    	numHouses++;
+				owner.deduct(color.getHouseCost());
+				GUI.getInstance().printToDialogBox(String.format("%s bought a house on %s for $%d\n", owner.getToken(), getName(), color.getHouseCost()));
+		    }
 		}
 	}
 	
