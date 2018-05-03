@@ -946,10 +946,30 @@ public class GUI implements Observer {
 					bids.add(Integer.parseInt(player3Bid.getText()));
 					player3BidButton.setEnabled(false);
 					player3Bid.setEditable(false);
-					if(players.size() > 3 && game.getPlayers().indexOf(playerTurn.getPlayer()) != 3) { 
+					if(trade) {
+						if(players.size() > 3 && game.getPlayers().indexOf(playerTurn.getPlayer()) != 3) { 
+							player4BidBox.setVisible(true); 
+							player4BidButton.setVisible(true);
+							player4BidButton.setEnabled(true);											
+						}
+						else {
+							player1BidBox.setVisible(false);
+							player2BidBox.setVisible(false);
+							player3BidBox.setVisible(false);
+							player4BidBox.setVisible(false);
+							player1BidButton.setVisible(false);
+							player2BidButton.setVisible(false);
+							player3BidButton.setVisible(false);
+							player4BidButton.setVisible(false);
+							Banker.auctionProperty(game.getBoard().getDeed(index), bids, trade);
+							playersOwnedPropertiesBox();
+							updateMoney();
+						}
+					}
+					else if(game.getPlayers().size() > 3) {
 						player4BidBox.setVisible(true); 
 						player4BidButton.setVisible(true);
-						player4BidButton.setEnabled(true);					
+						player4BidButton.setEnabled(true);	
 					}
 					else {
 						player1BidBox.setVisible(false);
